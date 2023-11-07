@@ -82,9 +82,6 @@ if (isset($_SESSION['id'])) {
                     </div>
                 </div>
 
-
-
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -103,7 +100,6 @@ if (isset($_SESSION['id'])) {
                         }
                         ?>
 
-
                         <?php
                         if ($_SESSION['role'] != 2) {
                             echo '           <li class="nav-item">
@@ -117,7 +113,6 @@ if (isset($_SESSION['id'])) {
                         }
                         ?>
 
-
                         <li class="nav-item">
                             <a href="../solicitudes-tecnicas.html" class="nav-link">
                                 <i class="nav-icon fas fa-tools"></i>
@@ -126,7 +121,6 @@ if (isset($_SESSION['id'])) {
                                 </p>
                             </a>
                         </li>
-
 
                         <?php
                         if ($_SESSION['role'] == 1) {
@@ -142,7 +136,6 @@ if (isset($_SESSION['id'])) {
                         }
                         ?>
 
-
                         <?php
                         if ($_SESSION['role'] == 1) {
                             echo '
@@ -156,7 +149,6 @@ if (isset($_SESSION['id'])) {
               </li>';
                         }
                         ?>
-
 
                     </ul>
                 </nav>
@@ -172,9 +164,11 @@ if (isset($_SESSION['id'])) {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <div class="card mx">
-                                <div class="card-header">
-                                    <h3 class="card-title">Clientes</h3>
+                            <div class="card">
+                                <h3 class="p-3">Clientes</h3>
+                                <div class="card-header"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregarCliente">
+                                        <i class="nav-icon fas fa-plus"></i>
+                                    </button>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -248,13 +242,46 @@ if (isset($_SESSION['id'])) {
     </div>
     <!-- ./wrapper -->
 
+    <!-- Modal para agregar cliente -->
+    <div class="modal fade" id="modalAgregarCliente">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar Cliente</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Aquí puedes agregar el formulario para agregar un nuevo cliente -->
+                    <!-- Por ejemplo: -->
+                    <!-- <form>
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del cliente">
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido del cliente">
+                        </div>
+                        <!-- Agrega más campos aquí -->
+                    </form> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- jQuery -->
     <script src="../plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../dist/js/adminlte.min.js"></script>
-    <!-- DataTables  & Plugins -->
+    <!-- DataTables & Plugins -->
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
