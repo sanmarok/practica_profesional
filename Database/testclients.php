@@ -28,7 +28,7 @@ for ($i = 1; $i <= 50; $i++) {
         'document' => 'Documento' . $i,
         'phone' => '123456789' . $i,
         'email' => 'cliente' . $i . '@example.com',
-        'state' => rand(0, 3) // Genera un valor aleatorio entre 0 y 9 para el estado
+        'state' => rand(0, 1) // Genera un valor aleatorio entre 0 y 9 para el estado
     ];
 }
 
