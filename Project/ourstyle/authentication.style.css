@@ -1,0 +1,13 @@
+.hold-transition login-page {
+  background-color: #343a40;
+}
+
+.login-box {
+  position: relative;
+  z-index: 1;
+  background-color: #ffffff;
+}
+
+.swal2-container {
+  z-index: 9999; /* Un valor alto para que esté por delante del formulario */
+}
