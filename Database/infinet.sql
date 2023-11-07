@@ -1,6 +1,103 @@
-CREATE DATABASE infinet;
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 07-11-2023 a las 23:08:23
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
-USE infinet;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `infinet`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `clients`
+--
+
+CREATE TABLE `clients` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `document` varchar(20) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `state` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `clients`
+--
+
+INSERT INTO `clients` (`id`, `first_name`, `last_name`, `document`, `phone`, `email`, `state`) VALUES
+(1, 'Nombre1', 'Apellido1', 'Documento1', '1234567891', 'cliente1@example.com', 1),
+(2, 'Nombre2', 'Apellido2', 'Documento2', '1234567892', 'cliente2@example.com', 0),
+(3, 'Nombre3', 'Apellido3', 'Documento3', '1234567893', 'cliente3@example.com', 1),
+(4, 'Nombre4', 'Apellido4', 'Documento4', '1234567894', 'cliente4@example.com', 1),
+(5, 'Nombre5', 'Apellido5', 'Documento5', '1234567895', 'cliente5@example.com', 0),
+(6, 'Nombre6', 'Apellido6', 'Documento6', '1234567896', 'cliente6@example.com', 1),
+(7, 'Nombre7', 'Apellido7', 'Documento7', '1234567897', 'cliente7@example.com', 0),
+(8, 'Nombre8', 'Apellido8', 'Documento8', '1234567898', 'cliente8@example.com', 1),
+(9, 'Nombre9', 'Apellido9', 'Documento9', '1234567899', 'cliente9@example.com', 1),
+(10, 'Nombre10', 'Apellido10', 'Documento10', '12345678910', 'cliente10@example.com', 0),
+(11, 'Nombre11', 'Apellido11', 'Documento11', '12345678911', 'cliente11@example.com', 0),
+(12, 'Nombre12', 'Apellido12', 'Documento12', '12345678912', 'cliente12@example.com', 1),
+(13, 'Nombre13', 'Apellido13', 'Documento13', '12345678913', 'cliente13@example.com', 0),
+(14, 'Nombre14', 'Apellido14', 'Documento14', '12345678914', 'cliente14@example.com', 0),
+(15, 'Nombre15', 'Apellido15', 'Documento15', '12345678915', 'cliente15@example.com', 1),
+(16, 'Nombre16', 'Apellido16', 'Documento16', '12345678916', 'cliente16@example.com', 0),
+(17, 'Nombre17', 'Apellido17', 'Documento17', '12345678917', 'cliente17@example.com', 0),
+(18, 'Nombre18', 'Apellido18', 'Documento18', '12345678918', 'cliente18@example.com', 1),
+(19, 'Nombre19', 'Apellido19', 'Documento19', '12345678919', 'cliente19@example.com', 1),
+(20, 'Nombre20', 'Apellido20', 'Documento20', '12345678920', 'cliente20@example.com', 0),
+(21, 'Nombre21', 'Apellido21', 'Documento21', '12345678921', 'cliente21@example.com', 1),
+(22, 'Nombre22', 'Apellido22', 'Documento22', '12345678922', 'cliente22@example.com', 0),
+(23, 'Nombre23', 'Apellido23', 'Documento23', '12345678923', 'cliente23@example.com', 1),
+(24, 'Nombre24', 'Apellido24', 'Documento24', '12345678924', 'cliente24@example.com', 0),
+(25, 'Nombre25', 'Apellido25', 'Documento25', '12345678925', 'cliente25@example.com', 0),
+(26, 'Nombre26', 'Apellido26', 'Documento26', '12345678926', 'cliente26@example.com', 0),
+(27, 'Nombre27', 'Apellido27', 'Documento27', '12345678927', 'cliente27@example.com', 0),
+(28, 'Nombre28', 'Apellido28', 'Documento28', '12345678928', 'cliente28@example.com', 0),
+(29, 'Nombre29', 'Apellido29', 'Documento29', '12345678929', 'cliente29@example.com', 0),
+(30, 'Nombre30', 'Apellido30', 'Documento30', '12345678930', 'cliente30@example.com', 1),
+(31, 'Nombre31', 'Apellido31', 'Documento31', '12345678931', 'cliente31@example.com', 1),
+(32, 'Nombre32', 'Apellido32', 'Documento32', '12345678932', 'cliente32@example.com', 1),
+(33, 'Nombre33', 'Apellido33', 'Documento33', '12345678933', 'cliente33@example.com', 1),
+(34, 'Nombre34', 'Apellido34', 'Documento34', '12345678934', 'cliente34@example.com', 1),
+(35, 'Nombre35', 'Apellido35', 'Documento35', '12345678935', 'cliente35@example.com', 0),
+(36, 'Nombre36', 'Apellido36', 'Documento36', '12345678936', 'cliente36@example.com', 0),
+(37, 'Nombre37', 'Apellido37', 'Documento37', '12345678937', 'cliente37@example.com', 1),
+(38, 'Nombre38', 'Apellido38', 'Documento38', '12345678938', 'cliente38@example.com', 0),
+(39, 'Nombre39', 'Apellido39', 'Documento39', '12345678939', 'cliente39@example.com', 0),
+(40, 'Nombre40', 'Apellido40', 'Documento40', '12345678940', 'cliente40@example.com', 0),
+(41, 'Nombre41', 'Apellido41', 'Documento41', '12345678941', 'cliente41@example.com', 0),
+(42, 'Nombre42', 'Apellido42', 'Documento42', '12345678942', 'cliente42@example.com', 0),
+(43, 'Nombre43', 'Apellido43', 'Documento43', '12345678943', 'cliente43@example.com', 1),
+(44, 'Nombre44', 'Apellido44', 'Documento44', '12345678944', 'cliente44@example.com', 0),
+(45, 'Nombre45', 'Apellido45', 'Documento45', '12345678945', 'cliente45@example.com', 0),
+(46, 'Nombre46', 'Apellido46', 'Documento46', '12345678946', 'cliente46@example.com', 1),
+(47, 'Nombre47', 'Apellido47', 'Documento47', '12345678947', 'cliente47@example.com', 1),
+(48, 'Nombre48', 'Apellido48', 'Documento48', '12345678948', 'cliente48@example.com', 1),
+(49, 'Nombre49', 'Apellido49', 'Documento49', '12345678949', 'cliente49@example.com', 1),
+(50, 'Nombre50', 'Apellido50', 'Documento50', '12345678950', 'cliente50@example.com', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users`
+--
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
@@ -30,6 +127,12 @@ INSERT INTO `users` (`id`, `employee_number`, `employee_password`, `first_name`,
 --
 
 --
+-- Indices de la tabla `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -38,6 +141,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
