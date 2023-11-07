@@ -253,23 +253,12 @@ if (isset($_SESSION['id'])) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Aquí puedes agregar el formulario para agregar un nuevo cliente -->
-                    <!-- Por ejemplo: -->
-                    <!-- <form>
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del cliente">
-                        </div>
-                        <div class="form-group">
-                            <label for="apellido">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido del cliente">
-                        </div>
-                        <!-- Agrega más campos aquí -->
-                    </form> -->
+                    <form>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success">Guardar</button>
                 </div>
             </div>
         </div>
