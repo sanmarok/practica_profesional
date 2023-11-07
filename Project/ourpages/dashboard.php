@@ -87,23 +87,33 @@ if (isset($_SESSION['id'])) {
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item">
+            <?php
+            if ($_SESSION['role'] != 2) {
+              echo '            <li class="nav-item">
               <a href="../clientes.html" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   Clientes
                 </p>
               </a>
-            </li>
+            </li>';
+            }
+            ?>
 
-            <li class="nav-item">
+
+            <?php
+            if ($_SESSION['role'] != 2) {
+              echo '           <li class="nav-item">
               <a href="../servicios.html" class="nav-link">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                   Servicios
                 </p>
               </a>
-            </li>
+            </li>';
+            }
+            ?>
+
 
             <li class="nav-item">
               <a href="../solicitudes-tecnicas.html" class="nav-link">
@@ -114,23 +124,35 @@ if (isset($_SESSION['id'])) {
               </a>
             </li>
 
-            <li class="nav-item">
-              <a href="../pedidos-compra.html" class="nav-link">
-                <i class="nav-icon fas fa-shopping-cart"></i>
-                <p>
-                  Pedidos de Compra
-                </p>
-              </a>
-            </li>
 
-            <li class="nav-item">
-              <a href="../productos.html" class="nav-link">
-                <i class="nav-icon fas fa-box-open"></i>
-                <p>
-                  Productos
-                </p>
-              </a>
-            </li>
+            <?php
+            if ($_SESSION['role'] == 1) {
+              echo '
+              <li class="nav-item">
+                <a href="../pedidos-compra.html" class="nav-link">
+                  <i class="nav-icon fas fa-shopping-cart"></i>
+                  <p>
+                    Pedidos de Compra
+                  </p>
+                </a>
+              </li>';
+            }
+            ?>
+
+
+            <?php
+            if ($_SESSION['role'] == 1) {
+              echo '
+              <li class="nav-item">
+                <a href="../productos.html" class="nav-link">
+                  <i class="nav-icon fas fa-box-open"></i>
+                  <p>
+                    Productos
+                  </p>
+                </a>
+              </li>';
+            }
+            ?>
 
 
           </ul>
