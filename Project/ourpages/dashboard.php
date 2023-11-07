@@ -6,7 +6,7 @@ if (isset($_SESSION['id'])) {
   exit();
 }
 ?>
-
+Tuki
 <!DOCTYPE html>
 <html lang="es">
 
