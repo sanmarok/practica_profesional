@@ -24,6 +24,17 @@ if (isset($_SESSION['id'])) {
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <style>
+        /* Regla de estilo personalizada para el mensaje de error */
+        .swal2-popup .swal2-title {
+            color: white;
+            /* Cambia el color del texto a blanco */
+        }
+    </style>
+
+
 </head>
 
 <body class="layout-navbar-fixed control-sidebar-slide-open dark-mode">
@@ -214,7 +225,18 @@ if (isset($_SESSION['id'])) {
                                                     echo "<td>" . $row['document'] . "</td>";
                                                     echo "<td>" . $row['phone'] . "</td>";
                                                     echo "<td>" . $row['email'] . "</td>";
-                                                    echo "<td>" . $row['state'] . "</td>";
+                                                    switch ($row['state']) {
+                                                        case 0:
+                                                            echo '<td><span class="badge bg-danger">Inactivo</span></td>';
+                                                            break;
+                                                        case 1:
+                                                            echo '<td><span class="badge bg-success">Activo</span></td>';
+                                                            break;
+                                                        default:
+                                                            # code...
+                                                            break;
+                                                    }
+                                                    // echo "<td>" . $row['state'] . "</td>";
                                                     echo '<td class="text-center"><div><a href="ver_cliente.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a><a href="editar_cliente.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-edit text-danger"></i></a></div></td>';
                                                     echo "</tr>";
                                                 }
@@ -253,27 +275,40 @@ if (isset($_SESSION['id'])) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Aquí puedes agregar el formulario para agregar un nuevo cliente -->
-                    <!-- Por ejemplo: -->
-                    <!-- <form>
+                    <form id="formAgregarCliente" method="post" action="../functions/add_client.php">
+
+
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del cliente">
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Nombre del cliente" required>
                         </div>
                         <div class="form-group">
                             <label for="apellido">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido del cliente">
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellido del cliente" required>
                         </div>
-                        <!-- Agrega más campos aquí -->
-                    </form> -->
+                        <div class="form-group">
+                            <label for="documento">Documento</label>
+                            <input type="text" class="form-control" id="documento" name="document" placeholder="Documento del cliente" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Teléfono del cliente" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico del cliente" required>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="addClient()">Guardar</button>
                 </div>
+
             </div>
         </div>
     </div>
+
 
     <!-- jQuery -->
     <script src="../plugins/jquery/jquery.min.js"></script>
@@ -313,6 +348,59 @@ if (isset($_SESSION['id'])) {
             });
         });
     </script>
+    <script>
+        function addClient() {
+            // Obtén los valores del formulario
+            var first_name = document.getElementById("first_name").value;
+            var last_name = document.getElementById("last_name").value;
+            var documento = document.getElementById("documento").value;
+            var phone = document.getElementById("phone").value;
+            var email = document.getElementById("email").value;
+            var state = 1;
+
+            // Crea un objeto con los datos que deseas enviar
+            var clientData = {
+                first_name: first_name,
+                last_name: last_name,
+                document: documento,
+                phone: phone,
+                email: email,
+                state: state
+            };
+
+            // Realiza una llamada AJAX para enviar los datos al servidor
+            fetch("../functions/add_client.php", {
+                    method: "POST",
+                    body: JSON.stringify(clientData),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Aquí puedes manejar la respuesta del servidor
+                    if (data.success) {
+                        // La operación se completó exitosamente, puedes cerrar el modal o hacer otras acciones
+                        $("#modalAgregarCliente").modal("hide");
+                        // Recarga la página o realiza otras acciones necesarias
+                        window.location.reload();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al agregar el cliente.',
+                            showConfirmButton: false,
+                            timer: 1500 // Cierra automáticamente el SweetAlert después de 1.5 segundos
+                        });
+                    }
+                })
+                .catch(error => {
+                    // Manejo de errores
+                    console.error("Error en la llamada AJAX: " + error);
+                });
+        }
+    </script>
+
 </body>
 
 </html>
