@@ -52,25 +52,35 @@ if (isset($_SESSION['id'])) {
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="info">
-            <a href="#" class="d-block"><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></a>
+            <a href="#" class="d-block m-2"><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></a>
+
             <?php
             switch ($_SESSION['role']) {
               case 1:
-                echo '<i class="nav-icon fas fa-user-tie"></i><span class= px-3>Adminstrador<span>';
+                echo '<i class="nav-icon fas fa-user-tie m-2"></i><span class="px-1">Adminstrador<span>';
                 break;
               case 2:
-                echo '<i class="nav-icon fas fa-user-gear"></i><span class= px-3>Tecnico<span>';
+                echo '<i class="nav-icon fas fa-users-gears m-2"></i><span class= px-1>Tecnico<span>';
                 break;
               case 3:
-                echo '<i class="nav-icon fas fa-user"></i><span class= px-3>Secretario<span>';
+                echo '<i class="nav-icon fas fa-user m-2"></i><span class= px-1>Secretario<span>';
                 break;
               default:
                 # code...
                 break;
             }
             ?>
+
+            <div class="mt-3"> <!-- Este div envuelve el botón de cierre de sesión -->
+              <a href="../functions/logout.php" class="btn btn-danger btn-sm">
+                <i class="fas fa-sign-out-alt"></i><span class="text-white m-2">Cerrar Sesión</span>
+              </a>
+            </div>
           </div>
         </div>
+
+
+
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">

@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (isset($_SESSION['id'])) {
-    header('Location: dashboard.php');
-    exit();
+  header('Location: dashboard.php');
+  exit();
 }
 ?>
 
@@ -18,35 +18,33 @@ $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 // Verifica si la conexión se realizó correctamente
 if ($mysqli->connect_error) {
-    die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+  die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $employee_number = $_POST['employee_number'];
-    $password = $_POST['password'];
+  $employee_number = $_POST['employee_number'];
+  $password = $_POST['password'];
 
-    $sql = "SELECT id, first_name, last_name, role, employee_password FROM users WHERE employee_number = ?";
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param('s', $employee_number);
-    $stmt->execute();
-    $stmt->bind_result($id, $first_name, $last_name, $role, $employee_password);
+  $sql = "SELECT id, first_name, last_name, role, employee_password FROM users WHERE employee_number = ?";
+  $stmt = $mysqli->prepare($sql);
+  $stmt->bind_param('s', $employee_number);
+  $stmt->execute();
+  $stmt->bind_result($id, $first_name, $last_name, $role, $employee_password);
 
-    if ($stmt->fetch() && password_verify($password, $employee_password)) {
-        // Las credenciales son correctas, crea una sesión
-        session_start();
-        $_SESSION['id'] = $id;
-        $_SESSION['first_name'] = $first_name;
-        $_SESSION['last_name'] = $last_name;
-        $_SESSION['role'] = $role;
+  if ($stmt->fetch() && password_verify($password, $employee_password)) {
+    $_SESSION['id'] = $id;
+    $_SESSION['first_name'] = $first_name;
+    $_SESSION['last_name'] = $last_name;
+    $_SESSION['role'] = $role;
 
-        // Redirige al usuario a la página deseada
-        echo json_encode(['success' => true, 'redirect' => 'dashboard.php']);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Credenciales incorrectas. Por favor, inténtalo de nuevo.']);
-    }
+    // Redirige al usuario a la página deseada
+    echo json_encode(['success' => true, 'redirect' => 'dashboard.php']);
+  } else {
+    echo json_encode(['success' => false, 'message' => 'Credenciales incorrectas. Por favor, inténtalo de nuevo.']);
+  }
 
-    $stmt->close();
-    exit; // Detener la ejecución del script PHP después de la respuesta AJAX
+  $stmt->close();
+  exit; // Detener la ejecución del script PHP después de la respuesta AJAX
 }
 
 // Cierra la conexión a la base de datos
