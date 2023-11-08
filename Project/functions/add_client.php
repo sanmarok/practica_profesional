@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+if (isset($_SESSION['id']) && $_SESSION['role'] == 1 || $_SESSION['role'] == 3 ) {
+} else {
+    header('Location: ../ourpages/dashboard.php');
+    exit();
+}
+
 // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
 $db_host = 'localhost';
 $db_user = 'root';

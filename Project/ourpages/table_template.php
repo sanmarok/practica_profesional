@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['id'])) {
+if (isset($_SESSION['id']) && $_SESSION['role'] == 1 || $_SESSION['role'] == 3 ) {
 } else {
     header('Location: authentication.php');
     exit();
