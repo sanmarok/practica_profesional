@@ -24,6 +24,20 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <style>
+        /* Regla de estilo personalizada para el mensaje de error */
+        .swal2-popup .swal2-title {
+            color: white;
+            /* Cambia el color del texto a blanco */
+        }
+
+        .swal2-html-container {
+            color: white;
+        }
+    </style>
 </head>
 
 <body class="layout-navbar-fixed control-sidebar-slide-open dark-mode">
@@ -401,7 +415,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
 
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalAgregarServicio">
+                                    <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalAgregarSolicitud">
                                         <i class="nav-icon fas fa-plus"><span class="mx-1">Solicitud</span></i>
                                     </button>
                                     <table id="example3" class="table table-bordered table-striped">
@@ -492,6 +506,124 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     </div>
     <!-- ./wrapper -->
 
+    <!-- Start modal addServiceClient -->
+    <div class="modal fade" id="modalAgregarServicio">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Contratar servicio</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formContratarServicio" method="post" action="../functions/add_services_client.php">
+                        <div class="form-group">
+                            <label for="exampleSelectBorder">Servicio</label>
+                            <select class="custom-select rounded-0 my-1" id="exampleSelectBorder">
+                                <?php
+                                // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+                                $db_host = 'localhost';
+                                $db_user = 'root';
+                                $db_pass = '';
+                                $db_name = 'infinet';
+
+                                // Establece una conexión a la base de datos
+                                $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+                                // Verifica si la conexión se realizó correctamente
+                                if ($mysqli->connect_error) {
+                                    die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                                }
+                                $sql = "SELECT * FROM `services`";
+                                $result = $mysqli->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<option value=" . $row['service_id'] . '">' . $row['name'] . '</option>';
+                                    }
+                                } else {
+                                }
+
+                                // Cierra la conexión a la base de datos
+                                $mysqli->close();
+                                ?>
+                            </select>
+                            <div class="form-group">
+                                <label for="nombre">Direccion</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Direccion" required autocomplete="off">
+                            </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="addClient()">Guardar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End modal addServiceClient -->
+
+    <!-- Start modal addServiceClient -->
+    <div class="modal fade" id="modalAgregarSolicitud">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Solicitud</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formContratarServicio" method="post" action="../functions/add_services_client.php">
+                        <div class="form-group">
+                            <label for="exampleSelectBorder">Servicio</label>
+                            <select class="custom-select rounded-0 my-1" id="exampleSelectBorder">
+                                <?php
+                                // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+                                $db_host = 'localhost';
+                                $db_user = 'root';
+                                $db_pass = '';
+                                $db_name = 'infinet';
+
+                                // Establece una conexión a la base de datos
+                                $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+                                // Verifica si la conexión se realizó correctamente
+                                if ($mysqli->connect_error) {
+                                    die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                                }
+                                $sql = "SELECT * FROM `services`";
+                                $result = $mysqli->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<option value=" . $row['service_id'] . '">' . $row['name'] . '</option>';
+                                    }
+                                } else {
+                                }
+
+                                // Cierra la conexión a la base de datos
+                                $mysqli->close();
+                                ?>
+                            </select>
+                            <div class="form-group">
+                                <label for="nombre">Direccion</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Direccion" required autocomplete="off">
+                            </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="addClient()">Guardar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End modal addServiceClient -->
+    </div>
     <!-- jQuery -->
     <script src="../plugins/jquery/jquery.min.js"></script>
     <script src="../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
@@ -512,8 +644,35 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Table script -->
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $("#example3").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
     <!-- Bootstrap Switch -->
     <script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <!-- Control save form -->
     <script>
         $(document).ready(function() {
             // Función para habilitar la edición de un campo
@@ -591,31 +750,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             disableSaveButton();
         });
     </script>
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $("#example3").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
-    </script>
+    <!-- Save button -->
     <script>
         // Evento para el botón "Guardar"
         $("#btnGuardar").click(function() {
@@ -628,6 +763,23 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                 text: 'El cliente ha sido actualizado correctamente.',
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
+
+            });
+        });
+    </script>
+    <script>
+        // Evento para el botón "Guardar"
+        $("#btnGuardar").click(function() {
+            // Simula una actualización exitosa
+            // Aquí deberías agregar tu lógica de actualización del cliente
+
+            // Luego, muestra la alerta de SweetAlert2
+            Swal.fire({
+                title: 'Error',
+                text: 'El cliente no se ha sido actualizado.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+
             });
         });
     </script>

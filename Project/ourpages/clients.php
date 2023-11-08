@@ -24,6 +24,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+    <!-- SweetAlert -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
     <style>
@@ -31,6 +32,10 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
         .swal2-popup .swal2-title {
             color: white;
             /* Cambia el color del texto a blanco */
+        }
+
+        .swal2-html-container {
+            color: white;
         }
     </style>
 
@@ -279,23 +284,23 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
 
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Nombre del cliente" required>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Nombre del cliente" required autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="apellido">Apellido</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellido del cliente" required>
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellido del cliente" required autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="documento">Documento</label>
-                            <input type="text" class="form-control" id="documento" name="document" placeholder="Documento del cliente" required>
+                            <input type="text" class="form-control" id="documento" name="document" placeholder="Documento del cliente" required autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="telefono">Teléfono</label>
-                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Teléfono del cliente" required>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Teléfono del cliente" required autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="email">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico del cliente" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico del cliente" required autocomplete="off">
                         </div>
                     </form>
                 </div>
@@ -328,6 +333,8 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Bootstrap Switch -->
+    <script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <script>
         $(function() {
             $("#example1").DataTable({
