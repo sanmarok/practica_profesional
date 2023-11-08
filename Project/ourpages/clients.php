@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['id'])) {
+if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '3') {
 } else {
     header('Location: authentication.php');
     exit();
@@ -13,7 +13,7 @@ if (isset($_SESSION['id'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Modelo de tabla</title>
+    <title>Clientes</title>
     <!-- DataTables -->
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -101,7 +101,7 @@ if (isset($_SESSION['id'])) {
                         <?php
                         if ($_SESSION['role'] != 2) {
                             echo '            <li class="nav-item">
-              <a href="../clientes.html" class="nav-link">
+              <a href="clients.php" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   Clientes
@@ -237,7 +237,7 @@ if (isset($_SESSION['id'])) {
                                                             break;
                                                     }
                                                     // echo "<td>" . $row['state'] . "</td>";
-                                                    echo '<td class="text-center"><div><a href="ver_cliente.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a><a href="editar_cliente.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-edit text-danger"></i></a></div></td>';
+                                                    echo '<td class="text-center"><div><a href="ver_cliente.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a><a href="edit_client.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-edit text-danger"></i></a></div></td>';
                                                     echo "</tr>";
                                                 }
                                             } else {

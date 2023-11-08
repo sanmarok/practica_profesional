@@ -8,6 +8,7 @@ if (isset($_SESSION['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,7 +54,7 @@ if (isset($_SESSION['id'])) {
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="info">
-            <a href="#" class="d-block m-2"><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></a>
+            <span class="d-block m-2"><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></span>
 
             <?php
             switch ($_SESSION['role']) {
@@ -91,7 +92,7 @@ if (isset($_SESSION['id'])) {
             <?php
             if ($_SESSION['role'] != 2) {
               echo '            <li class="nav-item">
-              <a href="../clientes.html" class="nav-link">
+              <a href="clients.php" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   Clientes
