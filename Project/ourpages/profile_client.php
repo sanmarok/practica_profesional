@@ -13,7 +13,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inicio</title>
+    <title>Cliente</title>
     <!-- DataTables -->
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -225,7 +225,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-border" id="inputFirstName" value="<?php echo $first_name; ?>" disabled>
                                                             <span class="input-group-append">
-                                                                <button class="btn btn-outline-danger" type="button" id="editFirstName"><i class="fas fa-pencil-alt"></i></button>
+                                                                <button class="btn btn-outline-danger mx-2" type="button" id="editFirstName"><i class="fas fa-pencil-alt"></i></button>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -237,7 +237,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-border" id="inputLastName" value="<?php echo $last_name; ?>" disabled>
                                                             <span class="input-group-append">
-                                                                <button class="btn btn-outline-danger" type="button" id="editLastName"><i class="fas fa-pencil-alt"></i></button>
+                                                                <button class="btn btn-outline-danger mx-2" type="button" id="editLastName"><i class="fas fa-pencil-alt"></i></button>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -252,7 +252,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-border" id="inputPhone" value="<?php echo $phone; ?>" disabled>
                                                             <span class="input-group-append">
-                                                                <button class="btn btn-outline-danger" type="button" id="editPhone"><i class="fas fa-pencil-alt"></i></button>
+                                                                <button class="btn btn-outline-danger mx-2" type="button" id="editPhone"><i class="fas fa-pencil-alt"></i></button>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -264,7 +264,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                                                         <div class="input-group">
                                                             <input type="email" class="form-control form-control-border" id="inputEmail" value="<?php echo $email; ?>" disabled>
                                                             <span class="input-group-append">
-                                                                <button class="btn btn-outline-danger" type="button" id="editEmail"><i class="fas fa-pencil-alt"></i></button>
+                                                                <button class="btn btn-outline-danger mx-2" type="button" id="editEmail"><i class="fas fa-pencil-alt"></i></button>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -278,7 +278,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                                                         <div class="input-group">
                                                             <input type="text" class="form-control form-control-border" id="inputDocumento" value="<?php echo $document; ?>" disabled>
                                                             <span class="input-group-append">
-                                                                <button class="btn btn-outline-danger" type="button" id="editDocumento"><i class="fas fa-pencil-alt"></i></button>
+                                                                <button class="btn btn-outline-danger mx-2" type="button" id="editDocumento"><i class="fas fa-pencil-alt"></i></button>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -300,6 +300,184 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                                 </div>
                                 <div class="card-footer">
                                     <button id="btnGuardar" class="btn btn-success float-right" disabled>Guardar</button>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card card-primary m-2">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h3 class="card-title">Servicios</h3>
+                                </div>
+
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalAgregarServicio">
+                                        <i class="nav-icon fas fa-plus"><span class="mx-1">Contratar</span></i>
+                                    </button>
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Tipo</th>
+                                                <th>Velocidad de Carga (Mbps)</th>
+                                                <th>Velocidad de Descarga (Mbps)</th>
+                                                <th>Tarifa Mensual</th>
+                                                <th>Tarifa de Instalación</th>
+                                                <th>Dirección</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+                                            $db_host = 'localhost';
+                                            $db_user = 'root';
+                                            $db_pass = '';
+                                            $db_name = 'infinet';
+
+                                            // Establece una conexión a la base de datos
+                                            $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+                                            // Verifica si la conexión se realizó correctamente
+                                            if ($mysqli->connect_error) {
+                                                die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                                            }
+
+
+
+                                            $sql = "SELECT cs.id ,s.name, s.type, s.upload_speed, s.download_speed, s.monthly_fee, s.installation_fee, s.service_id ,cs.address, cs.state
+                                            FROM client_services cs
+                                            INNER JOIN services s ON cs.service_id = s.service_id
+                                            WHERE cs.client_id = " . $_GET["id"];
+
+
+
+
+                                            $result = $mysqli->query($sql);
+
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $row['name'] . "</td>";
+                                                    echo "<td>" . $row['type'] . "</td>";
+                                                    echo "<td>" . $row['upload_speed'] . "</td>";
+                                                    echo "<td>" . $row['download_speed'] . "</td>";
+                                                    echo "<td>$" . $row['monthly_fee'] . "</td>";
+                                                    echo "<td>$" . $row['installation_fee'] . "</td>";
+                                                    echo "<td>" . $row['address'] . "</td>";
+                                                    switch ($row['state']) {
+                                                        case 0:
+                                                            echo '<td><span class="badge bg-danger">Inactivo</span></td>';
+                                                            break;
+                                                        case 1:
+                                                            echo '<td><span class="badge bg-success">Activo</span></td>';
+                                                            break;
+                                                        default:
+                                                            # code...
+                                                            break;
+                                                    }
+                                                    echo '<td class="text-center"><div><a href="service_client.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a></td>';
+                                                    echo "</tr>";
+                                                }
+                                            } else {
+                                            }
+
+                                            // Cierra la conexión a la base de datos
+                                            $mysqli->close();
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card card-primary m-2">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h3 class="card-title">Solicitudes tecnicas</h3>
+                                </div>
+
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalAgregarServicio">
+                                        <i class="nav-icon fas fa-plus"><span class="mx-1">Solicitud</span></i>
+                                    </button>
+                                    <table id="example3" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Tipo</th>
+                                                <th>Velocidad de Carga (Mbps)</th>
+                                                <th>Velocidad de Descarga (Mbps)</th>
+                                                <th>Tarifa Mensual</th>
+                                                <th>Tarifa de Instalación</th>
+                                                <th>Dirección</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+                                            $db_host = 'localhost';
+                                            $db_user = 'root';
+                                            $db_pass = '';
+                                            $db_name = 'infinet';
+
+                                            // Establece una conexión a la base de datos
+                                            $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+                                            // Verifica si la conexión se realizó correctamente
+                                            if ($mysqli->connect_error) {
+                                                die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                                            }
+
+
+
+                                            $sql = "SELECT cs.id ,s.name, s.type, s.upload_speed, s.download_speed, s.monthly_fee, s.installation_fee, s.service_id ,cs.address, cs.state
+                                            FROM client_services cs
+                                            INNER JOIN services s ON cs.service_id = s.service_id
+                                            WHERE cs.client_id = " . $_GET["id"];
+
+
+
+
+                                            $result = $mysqli->query($sql);
+
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $row['name'] . "</td>";
+                                                    echo "<td>" . $row['type'] . "</td>";
+                                                    echo "<td>" . $row['upload_speed'] . "</td>";
+                                                    echo "<td>" . $row['download_speed'] . "</td>";
+                                                    echo "<td>$" . $row['monthly_fee'] . "</td>";
+                                                    echo "<td>$" . $row['installation_fee'] . "</td>";
+                                                    echo "<td>" . $row['address'] . "</td>";
+                                                    switch ($row['state']) {
+                                                        case 0:
+                                                            echo '<td><span class="badge bg-danger">Inactivo</span></td>';
+                                                            break;
+                                                        case 1:
+                                                            echo '<td><span class="badge bg-success">Activo</span></td>';
+                                                            break;
+                                                        default:
+                                                            # code...
+                                                            break;
+                                                    }
+                                                    echo '<td class="text-center"><div><a href="service_client.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a></td>';
+                                                    echo "</tr>";
+                                                }
+                                            } else {
+                                            }
+
+                                            // Cierra la conexión a la base de datos
+                                            $mysqli->close();
+                                            ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -411,6 +589,46 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
 
             // Inicialmente, deshabilitar el botón de "Guardar"
             disableSaveButton();
+        });
+    </script>
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $("#example3").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+    <script>
+        // Evento para el botón "Guardar"
+        $("#btnGuardar").click(function() {
+            // Simula una actualización exitosa
+            // Aquí deberías agregar tu lógica de actualización del cliente
+
+            // Luego, muestra la alerta de SweetAlert2
+            Swal.fire({
+                title: 'Actualización Exitosa',
+                text: 'El cliente ha sido actualizado correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
         });
     </script>
 </body>

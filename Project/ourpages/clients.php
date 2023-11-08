@@ -237,8 +237,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                                                             break;
                                                     }
                                                     // echo "<td>" . $row['state'] . "</td>";
-                                                    echo '<td class="text-center"><div><a href="ver_cliente.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a><a href="edit_client.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-edit text-danger"></i></a></div></td>';
-                                                    echo "</tr>";
+                                                    echo '<td class="text-center"><div><a href="profile_client.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a>';
                                                 }
                                             } else {
                                                 echo "No se encontraron clientes.";

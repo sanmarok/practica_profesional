@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2023 a las 23:08:23
+-- Tiempo de generación: 08-11-2023 a las 08:01:07
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -96,6 +96,61 @@ INSERT INTO `clients` (`id`, `first_name`, `last_name`, `document`, `phone`, `em
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `client_services`
+--
+
+CREATE TABLE `client_services` (
+  `client_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `state` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `client_services`
+--
+
+INSERT INTO `client_services` (`client_id`, `service_id`, `address`, `state`) VALUES
+(1, 1, 'Dirección del Servicio 1', 1),
+(1, 2, 'Dirección del Servicio 2', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `services`
+--
+
+CREATE TABLE `services` (
+  `service_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `upload_speed` int(11) DEFAULT NULL,
+  `download_speed` int(11) DEFAULT NULL,
+  `monthly_fee` decimal(10,2) DEFAULT NULL,
+  `installation_fee` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `services`
+--
+
+INSERT INTO `services` (`service_id`, `name`, `type`, `upload_speed`, `download_speed`, `monthly_fee`, `installation_fee`) VALUES
+(1, 'Plan Residencial', 'Fibra Óptica', 100, 500, '4999.99', '2490.99'),
+(2, 'Plan Básico', 'Cable', 50, 250, '2990.95', '1990.95'),
+(3, 'Plan Satelital', 'Satélite', 20, 100, '3990.50', '1990.50'),
+(4, 'Plan Premium', 'Fibra Óptica', 500, 1000, '6990.99', '2990.99'),
+(5, 'Plan Empresarial', 'Fibra Óptica', 1000, 2000, '8990.95', '3990.95'),
+(6, 'Plan Estándar', 'Cable', 100, 500, '3490.50', '2490.50'),
+(7, 'Plan Telefónico', 'Teléfono', 10, 20, '1990.99', '990.99'),
+(8, 'Plan Velocidad Extrema', 'Fibra Óptica', 1000, 3000, '9990.95', '4990.95'),
+(9, 'Plan Esencial', 'Cable', 25, 100, '1990.50', '1490.50'),
+(10, 'Plan de Oficina', 'Fibra Óptica', 500, 1000, '7990.99', '3490.99'),
+(11, 'Plan Avanzado', 'Fibra Óptica', 750, 1500, '5990.95', '2990.95'),
+(12, 'Plan de Negocios', 'Cable', 200, 800, '4490.50', '1990.50');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -133,6 +188,19 @@ ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `client_services`
+--
+ALTER TABLE `client_services`
+  ADD KEY `client_id` (`client_id`),
+  ADD KEY `service_id` (`service_id`);
+
+--
+-- Indices de la tabla `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`service_id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -149,10 +217,27 @@ ALTER TABLE `clients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
+-- AUTO_INCREMENT de la tabla `services`
+--
+ALTER TABLE `services`
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `client_services`
+--
+ALTER TABLE `client_services`
+  ADD CONSTRAINT `client_services_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
+  ADD CONSTRAINT `client_services_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `services` (`service_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
