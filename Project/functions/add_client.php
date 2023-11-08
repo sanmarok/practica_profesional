@@ -1,4 +1,11 @@
 <?php
+
+session_start();
+if (isset($_SESSION['id']) && $_SESSION['role'] != 2) {
+    header('Location: dashboard.php');
+    exit();
+}
+
 // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
 $db_host = 'localhost';
 $db_user = 'root';
@@ -21,10 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Inserta los datos del cliente en la base de datos
     $query = "INSERT INTO clients (first_name, last_name, document, phone, email, state) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $mysqli->prepare($query);
-    
+
     if ($stmt) {
         $stmt->bind_param("sssssi", $clientData->first_name, $clientData->last_name, $clientData->document, $clientData->phone, $clientData->email, $clientData->state);
-        
+
         if ($stmt->execute()) {
             // La inserción se realizó con éxito
             $response = array('success' => true);
@@ -32,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Hubo un error al insertar en la base de datos
             $response = array('success' => false);
         }
-        
+
         $stmt->close();
     } else {
         // Hubo un error en la preparación de la consulta
