@@ -37,6 +37,11 @@ $mysqli->close();
 <div class="card card-primary m-2">
     <div class="card-header">
         <h3 class="card-title">Editar cliente</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -133,5 +138,3 @@ $mysqli->close();
     </div>
     <!-- /.card-body -->
 </div>
-
-

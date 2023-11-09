@@ -65,8 +65,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                             <!-- End datatable services -->
 
                             <!-- Start datatable request -->
-                            <?php //include '../ourwidgets/profile_client/datatable_request_client.php'; 
-                            ?>
+                            <?php include '../ourwidgets/profile_client/datatable_request_client.php'; ?>
                             <!-- End datatable request -->
 
                         </div>
@@ -113,15 +112,6 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                 "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
         });
     </script>
     <!-- Bootstrap Switch -->

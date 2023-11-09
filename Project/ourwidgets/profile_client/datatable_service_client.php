@@ -1,6 +1,11 @@
 <div class="card card-primary m-2">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h3 class="card-title">Servicios</h3>
+    <div class="card-header">
+        <h3 class="card-title">Registro de servicios</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div> 
     </div>
 
     <!-- /.card-header -->
@@ -11,10 +16,11 @@
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Servicio ID</th>
                     <th>Nombre</th>
                     <th>Tipo</th>
-                    <th>Velocidad de Carga (Mbps)</th>
-                    <th>Velocidad de Descarga (Mbps)</th>
+                    <th>Carga (Mbps)</th>
+                    <th>Descarga (Mbps)</th>
                     <th>Tarifa Mensual</th>
                     <th>Tarifa de Instalación</th>
                     <th>Dirección</th>
@@ -45,14 +51,12 @@
                                             INNER JOIN services s ON cs.service_id = s.service_id
                                             WHERE cs.client_id = " . $_GET["id"];
 
-
-
-
                 $result = $mysqli->query($sql);
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>";
                         echo "<td>" . $row['name'] . "</td>";
                         echo "<td>" . $row['type'] . "</td>";
                         echo "<td>" . $row['upload_speed'] . "</td>";
@@ -67,14 +71,33 @@
                             case 1:
                                 echo '<td><span class="badge bg-success">Activo</span></td>';
                                 break;
+                            case 2:
+                                echo '<td><span class="badge bg-secondary">Pendiente</span></td>';
+                                break;
+                            case 3:
+                                echo '<td><span class="badge bg-warning">Riesgoso</span></td>';
+                                break;
                             default:
                                 # code...
                                 break;
                         }
-                        echo '<td class="text-center"><div><a href="profile_client_service.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a></td>';
-                        echo "</tr>";
+                        echo '<td class="text-center"><div><a href="profile_client_service.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a>';
+                        $subquery = "SELECT id, status FROM technical_requests WHERE client_service_id =" . $row['id'] . "";
+                        $subresult = $mysqli->query($subquery);
+
+                        if ($subresult->num_rows > 0) {
+                            while ($row = $subresult->fetch_assoc()) {
+                                if ($row['status'] != 0 && $row['status'] != 1) {
+                                    echo '<a href="profile_technical_request.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-plug text-danger"></i></a>';
+                                } else {
+                                    echo '<a href="add_request.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-plus text-warning"></i></a>';
+                                }
+                            }
+                        } else {
+                            echo '<a href="add_request.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-plus text-warning"></i></a>';
+                        }
+                        echo "</td></tr>";
                     }
-                } else {
                 }
 
                 // Cierra la conexión a la base de datos
