@@ -49,7 +49,9 @@
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+
                         echo "<tr>";
+                        echo "<td>" . $row['client_service_id'] . "</td>";
                         switch ($row['type']) {
                             case 0:
                                 echo '<td>Instalación</td>';
@@ -69,7 +71,6 @@
                             echo '<td>' . $subrow['first_name'] . " " . $subrow['last_name'] . '</td>';
                         }
                         echo "<td>" . $row['date_created'] . "</td>";
-                        echo "<td>" . $row['client_service_id'] . "</td>";
                         switch ($row['status']) {
                             case 0:
                                 echo '<td><span class="badge bg-danger">Cancelada</span></td>';
