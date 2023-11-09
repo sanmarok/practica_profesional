@@ -13,7 +13,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Modelo de tabla</title>
+    <title>Pedidos de Compra</title>
     <!-- DataTables -->
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -156,7 +156,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                         if ($_SESSION['role'] == 1) {
                             echo '
               <li class="nav-item">
-                <a href="../productos.html" class="nav-link">
+                <a href="products.php" class="nav-link">
                   <i class="nav-icon fas fa-box-open"></i>
                   <p>
                     Productos
@@ -275,7 +275,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Agregar Cliente</h4>
+                    <h4 class="modal-title">Agregar Pedido</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
