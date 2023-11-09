@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['id'])) {
+if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
 } else {
     header('Location: authentication.php');
     exit();
@@ -101,7 +101,7 @@ if (isset($_SESSION['id'])) {
                         <?php
                         if ($_SESSION['role'] != 2) {
                             echo '            <li class="nav-item">
-              <a href="../clientes.html" class="nav-link">
+              <a href="table_template.php" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   Clientes
@@ -176,7 +176,7 @@ if (isset($_SESSION['id'])) {
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <h3 class="p-3">Clientes</h3>
+                                <h3 class="p-3">Pedidos de Compra</h3>
                                 <div class="card-header"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregarCliente">
                                         <i class="nav-icon fas fa-plus"></i>
                                     </button>

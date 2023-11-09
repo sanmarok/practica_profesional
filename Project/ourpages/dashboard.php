@@ -130,7 +130,7 @@ if (isset($_SESSION['id'])) {
             if ($_SESSION['role'] == 1) {
               echo '
               <li class="nav-item">
-                <a href="../pedidos-compra.html" class="nav-link">
+                <a href="pedidos-compra.php" class="nav-link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
                     Pedidos de Compra
