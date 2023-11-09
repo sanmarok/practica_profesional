@@ -184,15 +184,21 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <!--Start form_edit_client -->
-                        <?php include '../ourwidgets/client/form_edit_client.php'; ?>
-                        <!--End form_edit_client-->
-                        <!--Start datatable services -->
-                        <?php include '../ourwidgets/client/datatable_service_client.php'; ?>
-                        <!-- End datatable services -->
-                        <!-- Start datatable request -->
-                        <?php include '../ourwidgets/client/datatable_request_client.php'; ?>
-                        <!-- End datatable request -->
+                        <div class="col-12">
+
+                            <!--Start form_edit_client -->
+                            <?php include '../ourwidgets/client/form_edit_client.php'; ?>
+                            <!--End form_edit_client-->
+
+                            <!--Start datatable services -->
+                            <?php include '../ourwidgets/client/datatable_service_client.php'; ?>
+                            <!-- End datatable services -->
+
+                            <!-- Start datatable request -->
+                            <?php include '../ourwidgets/client/datatable_request_client.php'; ?>
+                            <!-- End datatable request -->
+
+                        </div>
                     </div>
                 </div>
             </section>
@@ -201,7 +207,6 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
         <!-- /.content-wrapper -->
     </div>
     <!-- ./wrapper -->
-    </div>
     <!-- jQuery -->
     <script src="../plugins/jquery/jquery.min.js"></script>
     <script src="../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
