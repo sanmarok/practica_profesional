@@ -183,7 +183,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                             <div class="card">
                                 <h3 class="p-3">Productos</h3>
                                 <div class="card-header"><button type="button" class="btn btn-success"
-                                        data-toggle="modal" data-target="#modalAgregarCliente">
+                                        data-toggle="modal" data-target="#modalAgregarProducto">
                                         <i class="nav-icon fas fa-plus"></i>
                                     </button>
                                 </div>
