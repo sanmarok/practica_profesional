@@ -183,7 +183,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                             <div class="card">
                                 <h3 class="p-3">Pedidos de Compra</h3>
                                 <div class="card-header"><button type="button" class="btn btn-success"
-                                        data-toggle="modal" data-target="#modalAgregarCliente">
+                                        data-toggle="modal" data-target="#modalAgregarPedido">
                                         <i class="nav-icon fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -269,9 +269,19 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
 
     </div>
     <!-- ./wrapper -->
+    <?php
+    $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+    // Verifica si la conexión se realizó correctamente
+    if ($mysqli->connect_error) {
+        die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+    }
+    $sql = "SELECT id, name FROM products";
+    $result = $mysqli->query($sql);
+    ?>
 
     <!-- Modal para agregar cliente -->
-    <div class="modal fade" id="modalAgregarCliente">
+    <div class="modal fade" id="modalAgregarPedido">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -281,39 +291,55 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formAgregarCliente" method="post" action="../functions/add_client.php">
-
-
+                    <form id="formAgregarPedido" method="post" action="../functions/add_client.php">
                         <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name"
-                                placeholder="Nombre del cliente" required>
+                            <label for="description">Descripcion</label>
+                            <input type="text" class="form-control" id="description" name="description"
+                                placeholder="Descripcion del pedido" required>
                         </div>
                         <div class="form-group">
-                            <label for="apellido">Apellido</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name"
-                                placeholder="Apellido del cliente" required>
+                            <label for="productSelect">Productos:</label>
+                            <select name="productSelect" id="productSelect" class="form-control">
+                                <?php
+                                if ($result->num_rows > 0) {
+                                    echo '<option value="" disabled selected>Seleccione un producto</option>';
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                    }
+                                } else {
+                                    echo '<option value="" disabled selected>No se encotraron productos</option>';
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="documento">Documento</label>
-                            <input type="text" class="form-control" id="documento" name="document"
-                                placeholder="Documento del cliente" required>
+                            <label for="stock">Cantidad:</label>
+                            <input type="number" step="0.01" class="form-control" id="stock" name="stock" placeholder=""
+                                required>
                         </div>
                         <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input type="text" class="form-control" id="phone" name="phone"
-                                placeholder="Teléfono del cliente" required>
+                            <button type="button" class="btn btn-success btn-sm" onclick="addProduct()">Agregar
+                                Producto</button>
+                            <hr>
                         </div>
                         <div class="form-group">
-                            <label for="email">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                placeholder="Correo Electrónico del cliente" required>
+                            <h5>Productos Selecionados:</h5>
+                            <ul id="selectedProductsList" class=""></ul>
                         </div>
+                        <!-- <div class="form-group">
+                            <label for="status">Estado</label>
+                            <select name="status" id="status" class="form-control">
+                                <option value="" disabled selected>Seleccione un estado</option>
+                                <option value="0">Cancelado</option>
+                                <option value="1">Entregado</option>
+                                <option value="2">Pendiente</option>
+                            </select>
+                        </div> -->
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success" onclick="addClient()">Guardar</button>
+                    <button type="button" class="btn btn-success" onclick="addPurchase()">Guardar</button>
                 </div>
 
             </div>
@@ -360,29 +386,47 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
         });
     </script>
     <script>
-        function addClient() {
+        var products_list = [];
+        function addProduct() {
+            var selectElement = document.getElementById("productSelect");
+            var product_id = selectElement.selectedIndex;
+            var product_name = selectElement.options[product_id].text;
+            var product_stock = parseFloat(document.getElementById("stock").value);
+            var selectedProductsList = document.getElementById("selectedProductsList");
+
+            if (product_id && !isNaN(product_stock) && product_stock > 0) {
+                // Agregar producto a la lista de productos seleccionados
+                var product_li = document.createElement("li");
+                product_li.textContent = product_name + ' - Cantidad: ' + product_stock;
+                selectedProductsList.append(product_li);
+
+                var data_product = {
+                    product_id: product_id,
+                    product_stock: product_stock
+                };
+                products_list.push(data_product);
+
+            } else {
+                alert('Por favor, seleccione un producto y una cantidad válida.');
+            }
+            console.log(products_list);
+        }
+        function addPurchase() {
             // Obtén los valores del formulario
-            var first_name = document.getElementById("first_name").value;
-            var last_name = document.getElementById("last_name").value;
-            var documento = document.getElementById("documento").value;
-            var phone = document.getElementById("phone").value;
-            var email = document.getElementById("email").value;
-            var state = 1;
+            var description = document.getElementById("description").value;
+            var status = 2;
 
             // Crea un objeto con los datos que deseas enviar
-            var clientData = {
-                first_name: first_name,
-                last_name: last_name,
-                document: documento,
-                phone: phone,
-                email: email,
-                state: state
+            var purchaseData = {
+                description: description,
+                status: status,
+                products_list: products_list
             };
 
             // Realiza una llamada AJAX para enviar los datos al servidor
-            fetch("../functions/add_client.php", {
+            fetch("../functions/add_purchase.php", {
                 method: "POST",
-                body: JSON.stringify(clientData),
+                body: JSON.stringify(purchaseData),
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -392,14 +436,14 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                     // Aquí puedes manejar la respuesta del servidor
                     if (data.success) {
                         // La operación se completó exitosamente, puedes cerrar el modal o hacer otras acciones
-                        $("#modalAgregarCliente").modal("hide");
+                        $("#modalAgregarPedido").modal("hide");
                         // Recarga la página o realiza otras acciones necesarias
                         window.location.reload();
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Error al agregar el cliente.',
+                            text: 'Error al agregar el pedido.',
                             showConfirmButton: false,
                             timer: 1500 // Cierra automáticamente el SweetAlert después de 1.5 segundos
                         });
