@@ -1,6 +1,6 @@
 <div class="card card-primary m-2">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h3 class="card-title">Servicios</h3>
+        <h3 class="card-title">Solicitudes</h3>
     </div>
 
     <!-- /.card-header -->
