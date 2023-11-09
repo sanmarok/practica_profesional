@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2023 a las 23:08:23
+-- Tiempo de generación: 09-11-2023 a las 07:54:14
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -91,7 +91,162 @@ INSERT INTO `clients` (`id`, `first_name`, `last_name`, `document`, `phone`, `em
 (47, 'Nombre47', 'Apellido47', 'Documento47', '12345678947', 'cliente47@example.com', 1),
 (48, 'Nombre48', 'Apellido48', 'Documento48', '12345678948', 'cliente48@example.com', 1),
 (49, 'Nombre49', 'Apellido49', 'Documento49', '12345678949', 'cliente49@example.com', 1),
-(50, 'Nombre50', 'Apellido50', 'Documento50', '12345678950', 'cliente50@example.com', 1);
+(50, 'Nombre50', 'Apellido50', 'Documento50', '12345678950', 'cliente50@example.com', 1),
+(56, 'Santiago', 'Martinez', '4040404040', '+54 9 3456 26-8262', 'san.martinezok@gmail.com', 1),
+(57, 'Santiago', 'Martinez', '4040404040', '+54 9 3456 26-8262', 'san.martinezok@gmail.com', 1),
+(58, 'sadas', 'dasda', 'dasdas', 'dasdas', 'dasdas', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `client_services`
+--
+
+CREATE TABLE `client_services` (
+  `id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `state` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `client_services`
+--
+
+INSERT INTO `client_services` (`id`, `client_id`, `service_id`, `address`, `state`) VALUES
+(1, 1, 1, 'Dirección del Servicio 1', 1),
+(2, 1, 2, 'Dirección del Servicio 2', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `invoices`
+--
+
+CREATE TABLE `invoices` (
+  `id` int(11) NOT NULL,
+  `issue_date` date NOT NULL,
+  `due_date` date NOT NULL,
+  `client_service_id` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
+  `price_service` decimal(10,2) NOT NULL,
+  `price_installation` decimal(10,2) DEFAULT NULL,
+  `surcharge` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `invoices`
+--
+
+INSERT INTO `invoices` (`id`, `issue_date`, `due_date`, `client_service_id`, `type`, `price_service`, `price_installation`, `surcharge`) VALUES
+(3, '2023-11-07', '2023-12-07', 1, 1, '4999.99', '2490.99', '5.00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `order_details`
+--
+
+CREATE TABLE `order_details` (
+  `id` int(11) NOT NULL,
+  `purchase_order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `quantity` decimal(11,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `unit` varchar(50) DEFAULT NULL,
+  `stock` decimal(10,2) DEFAULT NULL,
+  `cost` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `purchase_orders`
+--
+
+CREATE TABLE `purchase_orders` (
+  `id` int(11) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `description` text DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `services`
+--
+
+CREATE TABLE `services` (
+  `service_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `upload_speed` int(11) DEFAULT NULL,
+  `download_speed` int(11) DEFAULT NULL,
+  `monthly_fee` decimal(10,2) DEFAULT NULL,
+  `installation_fee` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `services`
+--
+
+INSERT INTO `services` (`service_id`, `name`, `type`, `upload_speed`, `download_speed`, `monthly_fee`, `installation_fee`) VALUES
+(1, 'Plan Residencial', 'Fibra Óptica', 100, 500, '4999.99', '2490.99'),
+(2, 'Plan Básico', 'Cable', 50, 250, '2990.95', '1990.95'),
+(3, 'Plan Satelital', 'Satélite', 20, 100, '3990.50', '1990.50'),
+(4, 'Plan Premium', 'Fibra Óptica', 500, 1000, '6990.99', '2990.99'),
+(5, 'Plan Empresarial', 'Fibra Óptica', 1000, 2000, '8990.95', '3990.95'),
+(6, 'Plan Estándar', 'Cable', 100, 500, '3490.50', '2490.50'),
+(7, 'Plan Telefónico', 'Teléfono', 10, 20, '1990.99', '990.99'),
+(8, 'Plan Velocidad Extrema', 'Fibra Óptica', 1000, 3000, '9990.95', '4990.95'),
+(9, 'Plan Esencial', 'Cable', 25, 100, '1990.50', '1490.50'),
+(10, 'Plan de Oficina', 'Fibra Óptica', 500, 1000, '7990.99', '3490.99'),
+(11, 'Plan Avanzado', 'Fibra Óptica', 750, 1500, '5990.95', '2990.95'),
+(12, 'Plan de Negocios', 'Cable', 200, 800, '4490.50', '1990.50');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `technical_requests`
+--
+
+CREATE TABLE `technical_requests` (
+  `id` int(11) NOT NULL,
+  `description` text DEFAULT NULL,
+  `problem` text DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
+  `type` int(11) DEFAULT NULL,
+  `client_service_id` int(11) DEFAULT NULL,
+  `technician_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `technical_request_details`
+--
+
+CREATE TABLE `technical_request_details` (
+  `id` int(11) NOT NULL,
+  `technical_request_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `quantity_used` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -133,6 +288,64 @@ ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `client_services`
+--
+ALTER TABLE `client_services`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `client_id` (`client_id`),
+  ADD KEY `service_id` (`service_id`);
+
+--
+-- Indices de la tabla `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_service_price` (`client_service_id`);
+
+--
+-- Indices de la tabla `order_details`
+--
+ALTER TABLE `order_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchase_order_id` (`purchase_order_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Indices de la tabla `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `purchase_orders`
+--
+ALTER TABLE `purchase_orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_purchase_orders_users` (`user_id`);
+
+--
+-- Indices de la tabla `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`service_id`);
+
+--
+-- Indices de la tabla `technical_requests`
+--
+ALTER TABLE `technical_requests`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `client_service_id` (`client_service_id`),
+  ADD KEY `technician_id` (`technician_id`);
+
+--
+-- Indices de la tabla `technical_request_details`
+--
+ALTER TABLE `technical_request_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `technical_request_id` (`technical_request_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -146,13 +359,106 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+
+--
+-- AUTO_INCREMENT de la tabla `client_services`
+--
+ALTER TABLE `client_services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `order_details`
+--
+ALTER TABLE `order_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `purchase_orders`
+--
+ALTER TABLE `purchase_orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `services`
+--
+ALTER TABLE `services`
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `technical_requests`
+--
+ALTER TABLE `technical_requests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `technical_request_details`
+--
+ALTER TABLE `technical_request_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `client_services`
+--
+ALTER TABLE `client_services`
+  ADD CONSTRAINT `client_services_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
+  ADD CONSTRAINT `client_services_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `services` (`service_id`);
+
+--
+-- Filtros para la tabla `invoices`
+--
+ALTER TABLE `invoices`
+  ADD CONSTRAINT `fk_service_price` FOREIGN KEY (`client_service_id`) REFERENCES `client_services` (`id`),
+  ADD CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`client_service_id`) REFERENCES `client_services` (`id`);
+
+--
+-- Filtros para la tabla `order_details`
+--
+ALTER TABLE `order_details`
+  ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`purchase_order_id`) REFERENCES `purchase_orders` (`id`),
+  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+
+--
+-- Filtros para la tabla `purchase_orders`
+--
+ALTER TABLE `purchase_orders`
+  ADD CONSTRAINT `fk_purchase_orders_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Filtros para la tabla `technical_requests`
+--
+ALTER TABLE `technical_requests`
+  ADD CONSTRAINT `technical_requests_ibfk_1` FOREIGN KEY (`client_service_id`) REFERENCES `client_services` (`id`),
+  ADD CONSTRAINT `technical_requests_ibfk_2` FOREIGN KEY (`technician_id`) REFERENCES `users` (`id`);
+
+--
+-- Filtros para la tabla `technical_request_details`
+--
+ALTER TABLE `technical_request_details`
+  ADD CONSTRAINT `technical_request_details_ibfk_1` FOREIGN KEY (`technical_request_id`) REFERENCES `technical_requests` (`id`),
+  ADD CONSTRAINT `technical_request_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
