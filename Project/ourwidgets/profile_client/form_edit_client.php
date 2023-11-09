@@ -114,10 +114,15 @@ $mysqli->close();
                             <div class="input-group">
                                 <label for="inputState">Estado</label>
                             </div>
-                            <div class="bootstrap-switch bootstrap-switch-wrapper m-1">
-                                <input type="checkbox" name="my-checkbox" id="inputState" data-off-color="danger" <?php echo $state == 1 ? 'checked' : ''; ?> data-bootstrap-switch>
-                            </div>
+                            <select class="custom-select form-control-border" id="inputState" disabled>
+                                <option value="1" <?php echo $state == 1 ? 'selected' : ''; ?>>Activo</option>
+                                <option value="0" <?php echo $state == 0 ? 'selected' : ''; ?>>Inactivo</option>
+                            </select>
+                            <span class="input-group-append">
+                                <button class="btn btn-outline-danger mx-2" type="button" id="editState"><i class="fas fa-pencil-alt"></i></button>
+                            </span>
                         </div>
+
                     </div>
                 </div>
             </form>
@@ -128,3 +133,5 @@ $mysqli->close();
     </div>
     <!-- /.card-body -->
 </div>
+
+

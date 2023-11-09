@@ -71,7 +71,7 @@
                                 # code...
                                 break;
                         }
-                        echo '<td class="text-center"><div><a href="service_client.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a></td>';
+                        echo '<td class="text-center"><div><a href="profile_client_service.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a></td>';
                         echo "</tr>";
                     }
                 } else {
@@ -139,11 +139,30 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success" onclick="addClient()">Guardar</button>
+                    <button type="button" class="btn btn-success" onclick="addServiceClient()">Guardar</button>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 <!-- End modal addServiceClient -->
+
+<script>
+    function addServiceClient() {
+        // Realiza alguna validación o acción aquí antes de mostrar SweetAlert
+
+        // Muestra SweetAlert
+        Swal.fire({
+            icon: 'success',
+            title: 'Servicio contratado correctamente',
+            showConfirmButton: false,
+            timer: 1000, // Tiempo en milisegundos (opcional)
+            didClose: () => {
+                // Cierra la ventana modal después de mostrar SweetAlert
+                $('#modalAgregarServicio').modal('hide');
+            }
+        });
+
+        // Puedes agregar aquí el código adicional para enviar el formulario o realizar otras acciones
+    }
+</script>

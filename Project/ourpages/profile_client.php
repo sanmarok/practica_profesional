@@ -6,6 +6,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -42,144 +43,13 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
 <body class="layout-navbar-fixed control-sidebar-slide-open dark-mode">
     <!-- Site wrapper -->
     <div class="wrapper">
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-light bg-dark">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-white" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="dashboard.php" class="nav-link text-white">Inicio</a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.navbar -->
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="dashboard.php" class="brand-link elevation-4">
-                <span class="brand-text font-weight-light mx-auto">Infinet</span>
-            </a>
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="info">
-                        <span class="d-block m-2"><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></span>
-
-                        <?php
-                        switch ($_SESSION['role']) {
-                            case 1:
-                                echo '<i class="nav-icon fas fa-user-tie m-2"></i><span class="px-1">Adminstrador<span>';
-                                break;
-                            case 2:
-                                echo '<i class="nav-icon fas fa-users-gears m-2"></i><span class= px-1>Tecnico<span>';
-                                break;
-                            case 3:
-                                echo '<i class="nav-icon fas fa-user m-2"></i><span class= px-1>Secretario<span>';
-                                break;
-                            default:
-                                # code...
-                                break;
-                        }
-                        ?>
-
-                        <div class="mt-3"> <!-- Este div envuelve el botón de cierre de sesión -->
-                            <a href="../functions/logout.php" class="btn btn-danger btn-sm">
-                                <i class="fas fa-sign-out-alt"></i><span class="text-white m-2">Cerrar Sesión</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        <?php
-                        if ($_SESSION['role'] != 2) {
-                            echo '            <li class="nav-item">
-              <a href="clients.php" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>
-                  Clientes
-                </p>
-              </a>
-            </li>';
-                        }
-                        ?>
-
-
-                        <?php
-                        if ($_SESSION['role'] != 2) {
-                            echo '           <li class="nav-item">
-              <a href="../servicios.html" class="nav-link">
-                <i class="nav-icon fas fa-cogs"></i>
-                <p>
-                  Servicios
-                </p>
-              </a>
-            </li>';
-                        }
-                        ?>
-
-
-                        <li class="nav-item">
-                            <a href="../solicitudes-tecnicas.html" class="nav-link">
-                                <i class="nav-icon fas fa-tools"></i>
-                                <p>
-                                    Solicitudes Técnicas
-                                </p>
-                            </a>
-                        </li>
-
-
-                        <?php
-                        if ($_SESSION['role'] == 1) {
-                            echo '
-              <li class="nav-item">
-                <a href="../pedidos-compra.html" class="nav-link">
-                  <i class="nav-icon fas fa-shopping-cart"></i>
-                  <p>
-                    Pedidos de Compra
-                  </p>
-                </a>
-              </li>';
-                        }
-                        ?>
-
-
-                        <?php
-                        if ($_SESSION['role'] == 1) {
-                            echo '
-              <li class="nav-item">
-                <a href="../productos.html" class="nav-link">
-                  <i class="nav-icon fas fa-box-open"></i>
-                  <p>
-                    Productos
-                  </p>
-                </a>
-              </li>';
-                        }
-                        ?>
-
-
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
+        <!--Start dashboard parts-->
+        <?php include '../ourwidgets/profile_client/dashboard_parts.php' ?>
+        <!--End dashboard parts-->
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
@@ -187,15 +57,16 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                         <div class="col-12">
 
                             <!--Start form_edit_client -->
-                            <?php include '../ourwidgets/client/form_edit_client.php'; ?>
+                            <?php include '../ourwidgets/profile_client/form_edit_client.php'; ?>
                             <!--End form_edit_client-->
 
                             <!--Start datatable services -->
-                            <?php include '../ourwidgets/client/datatable_service_client.php'; ?>
+                            <?php include '../ourwidgets/profile_client/datatable_service_client.php'; ?>
                             <!-- End datatable services -->
 
                             <!-- Start datatable request -->
-                            <?php include '../ourwidgets/client/datatable_request_client.php'; ?>
+                            <?php //include '../ourwidgets/profile_client/datatable_request_client.php'; 
+                            ?>
                             <!-- End datatable request -->
 
                         </div>
@@ -296,14 +167,9 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             });
 
             $("#editState").click(function() {
-                // Habilitar o deshabilitar el interruptor de estado
-                const stateSwitch = document.querySelector('input[name="my-checkbox"]');
-                if (stateSwitch.getAttribute("disabled")) {
-                    toggleStateSwitch(false);
-                } else {
-                    toggleStateSwitch(true);
-                }
+                enableEdit("inputState");
             });
+
         });
     </script>
     <script>
@@ -319,15 +185,9 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             }
 
             // Agregar eventos de cambio a los campos del formulario
-            $("#inputFirstName, #inputLastName, #inputPhone, #inputEmail, #inputDocumento").on("change", function() {
+            $("#inputFirstName, #inputLastName, #inputPhone, #inputEmail, #inputDocumento, #inputState").on("change", function() {
                 enableSaveButton(); // Habilitar el botón cuando se realizan cambios en los campos de texto
             });
-
-            // Evento para el cambio en el interruptor
-            $("#inputState").on("switchChange.bootstrapSwitch", function() {
-                enableSaveButton(); // Habilitar el botón cuando se cambia el interruptor
-            });
-
 
             // Inicialmente, deshabilitar el botón de "Guardar"
             disableSaveButton();
