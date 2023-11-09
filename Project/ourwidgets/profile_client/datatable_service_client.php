@@ -5,7 +5,7 @@
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
             </button>
-        </div> 
+        </div>
     </div>
 
     <!-- /.card-header -->
@@ -75,7 +75,7 @@
                                 echo '<td><span class="badge bg-secondary">Pendiente</span></td>';
                                 break;
                             case 3:
-                                echo '<td><span class="badge bg-warning">Riesgoso</span></td>';
+                                echo '<td><span class="badge bg-warning">Suspendido</span></td>';
                                 break;
                             default:
                                 # code...

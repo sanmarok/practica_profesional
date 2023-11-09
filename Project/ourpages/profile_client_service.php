@@ -147,7 +147,9 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             $("#editServiceAddress").click(function() {
                 enableEdit("inputServiceAddress");
             });
-
+            $("#editServiceState").click(function() {
+                enableEdit("inputServiceState");
+            });
         });
     </script>
     <script>
@@ -163,7 +165,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             }
 
             // Agregar eventos de cambio a los campos del formulario
-            $("#inputFirstName, #inputLastName, #inputPhone, #inputEmail, #inputService, #inputServiceAddress").on("change", function() {
+            $("#inputFirstName, #inputLastName, #inputPhone, #inputEmail, #inputService, #inputServiceAddress, #inputServiceState").on("change", function() {
                 enableSaveButton(); // Habilitar el botón cuando se realizan cambios en los campos de texto
             });
 
