@@ -19,7 +19,8 @@ if (isset($_SESSION['id'])) {
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
@@ -45,7 +46,8 @@ if (isset($_SESSION['id'])) {
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link text-white" data-widget="pushmenu" href="#" role="button"><i
+                            class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="dashboard.php" class="nav-link text-white">Inicio</a>
@@ -66,7 +68,9 @@ if (isset($_SESSION['id'])) {
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="info">
-                        <a href="#" class="d-block m-2"><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></a>
+                        <a href="#" class="d-block m-2">
+                            <?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?>
+                        </a>
 
                         <?php
                         switch ($_SESSION['role']) {
@@ -95,7 +99,8 @@ if (isset($_SESSION['id'])) {
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <?php
@@ -137,7 +142,7 @@ if (isset($_SESSION['id'])) {
                         if ($_SESSION['role'] == 1) {
                             echo '
               <li class="nav-item">
-                <a href="pedidos-compra.php" class="nav-link">
+                <a href="purchase_orders.php" class="nav-link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
                     Pedidos de Compra
@@ -177,7 +182,8 @@ if (isset($_SESSION['id'])) {
                         <div class="col-12">
                             <div class="card">
                                 <h3 class="p-3">Clientes</h3>
-                                <div class="card-header"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregarCliente">
+                                <div class="card-header"><button type="button" class="btn btn-success"
+                                        data-toggle="modal" data-target="#modalAgregarCliente">
                                         <i class="nav-icon fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -280,23 +286,28 @@ if (isset($_SESSION['id'])) {
 
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Nombre del cliente" required>
+                            <input type="text" class="form-control" id="first_name" name="first_name"
+                                placeholder="Nombre del cliente" required>
                         </div>
                         <div class="form-group">
                             <label for="apellido">Apellido</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellido del cliente" required>
+                            <input type="text" class="form-control" id="last_name" name="last_name"
+                                placeholder="Apellido del cliente" required>
                         </div>
                         <div class="form-group">
                             <label for="documento">Documento</label>
-                            <input type="text" class="form-control" id="documento" name="document" placeholder="Documento del cliente" required>
+                            <input type="text" class="form-control" id="documento" name="document"
+                                placeholder="Documento del cliente" required>
                         </div>
                         <div class="form-group">
                             <label for="telefono">Teléfono</label>
-                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Teléfono del cliente" required>
+                            <input type="text" class="form-control" id="phone" name="phone"
+                                placeholder="Teléfono del cliente" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico del cliente" required>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Correo Electrónico del cliente" required>
                         </div>
                     </form>
                 </div>
@@ -330,7 +341,7 @@ if (isset($_SESSION['id'])) {
     <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
-        $(function() {
+        $(function () {
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -370,12 +381,12 @@ if (isset($_SESSION['id'])) {
 
             // Realiza una llamada AJAX para enviar los datos al servidor
             fetch("../functions/add_client.php", {
-                    method: "POST",
-                    body: JSON.stringify(clientData),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
+                method: "POST",
+                body: JSON.stringify(clientData),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
                 .then(response => response.json())
                 .then(data => {
                     // Aquí puedes manejar la respuesta del servidor
