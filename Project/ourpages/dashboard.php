@@ -109,7 +109,7 @@ if (isset($_SESSION['id'])) {
             <?php
             if ($_SESSION['role'] != 2) {
               echo '           <li class="nav-item">
-              <a href="../servicios.html" class="nav-link">
+              <a href="../services.php" class="nav-link">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                   Servicios
@@ -121,7 +121,7 @@ if (isset($_SESSION['id'])) {
 
 
             <li class="nav-item">
-              <a href="../solicitudes-tecnicas.html" class="nav-link">
+              <a href="../technical_requests.php" class="nav-link">
                 <i class="nav-icon fas fa-tools"></i>
                 <p>
                   Solicitudes Técnicas
@@ -134,7 +134,7 @@ if (isset($_SESSION['id'])) {
             if ($_SESSION['role'] == 1) {
               echo '
               <li class="nav-item">
-                <a href="../pedidos-compra.html" class="nav-link">
+                <a href="../purchase_orders.php" class="nav-link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
                     Pedidos de Compra
@@ -149,7 +149,7 @@ if (isset($_SESSION['id'])) {
             if ($_SESSION['role'] == 1) {
               echo '
               <li class="nav-item">
-                <a href="../productos.html" class="nav-link">
+                <a href="../products.php" class="nav-link">
                   <i class="nav-icon fas fa-box-open"></i>
                   <p>
                     Productos
@@ -167,21 +167,24 @@ if (isset($_SESSION['id'])) {
       <!-- /.sidebar -->
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-
+    <div class="content-wrapper d-flex align-items-center justify-content-center">
       <!-- Main content -->
       <section class="content">
-        <div class="container-fluid">
+        <div class="container">
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 text-center">
+              <img src="https://media.tenor.com/RrkSMr0bIJ0AAAAC/jesus-bailando.gif" alt="Gif de Jesús bailando" width="300" height="300">
             </div>
           </div>
         </div>
       </section>
       <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 
   </div>
   <!-- ./wrapper -->

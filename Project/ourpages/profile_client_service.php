@@ -56,6 +56,8 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                     <div class="row">
                         <div class="col-12">
                             <?php include '../ourwidgets/profile_client_service/form_edit_client_service.php'; ?>
+
+                            <?php include '../ourwidgets/profile_client_service/datable_invoices.php'; ?>
                         </div>
                     </div>
                 </div>
@@ -72,6 +74,9 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../dist/js/adminlte.min.js"></script>
+    <!--Print JS -->
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
     <!-- DataTables & Plugins -->
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -205,6 +210,15 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
 
             });
         });
+    </script>
+    <script>
+        function imprimirFactura(facturaId) {
+            // Puedes personalizar la URL según la estructura de tu proyecto
+            var url = '../functions/pdf/invoice.php?id=' + facturaId;
+
+            // Usa print-js para imprimir la factura
+            printJS(url);
+        }
     </script>
 </body>
 
