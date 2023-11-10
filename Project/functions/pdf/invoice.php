@@ -257,28 +257,8 @@ if ($result->num_rows > 0) {
             </div>
         </div>
         <script>
-            //window.print();
+            window.print();
         </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-        <!-- Agrega esto donde quieras que aparezca el botón de guardar como PDF -->
-        <button onclick="guardarComoPDF()">Guardar como PDF</button>
-
-        <!-- ... tu contenido HTML ... -->
-
-        <script>
-            function guardarComoPDF() {
-                // Crea una instancia de jsPDF
-                var pdf = new jsPDF();
-
-                // Agrega el contenido del elemento con el id "contenido-factura" al PDF
-                var contenido = document.getElementById("contenido-factura").innerHTML;
-                pdf.fromHTML(contenido, 15, 15);
-
-                // Guarda el PDF con un nombre de archivo específico
-                pdf.save('factura.pdf');
-            }
-        </script>
-
     </body>
 
 <?php
