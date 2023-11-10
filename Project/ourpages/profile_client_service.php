@@ -188,7 +188,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             // Luego, muestra la alerta de SweetAlert2
             Swal.fire({
                 title: 'Actualización Exitosa',
-                text: 'El cliente ha sido actualizado correctamente.',
+                text: 'El servicio ha sido actualizado correctamente.',
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
 
@@ -204,7 +204,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             // Luego, muestra la alerta de SweetAlert2
             Swal.fire({
                 title: 'Error',
-                text: 'El cliente no se ha sido actualizado.',
+                text: 'El servicio no se ha sido actualizado.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar'
 

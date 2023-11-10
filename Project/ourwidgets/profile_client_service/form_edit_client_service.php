@@ -15,25 +15,24 @@ if ($mysqli->connect_error) {
 
 // Consulta SQL para obtener los datos de los clientes
 $sql = "SELECT 
-clients.id AS client_id,
-clients.first_name,
-clients.last_name,
-clients.document,
-clients.phone,
-clients.email,
-clients.state AS client_state,
-client_services.id AS service_id,
-client_services.client_id AS service_client_id,
-client_services.service_id AS service_service_id,
-client_services.address AS service_address,
-client_services.state AS service_state
-FROM 
-clients
-INNER JOIN 
-client_services ON clients.id = client_services.client_id
-WHERE 
-client_services.service_id ="
-    . $_GET['id'];
+    clients.id AS client_id,
+    clients.first_name,
+    clients.last_name,
+    clients.document,
+    clients.phone,
+    clients.email,
+    clients.state AS client_state,
+    client_services.id AS service_id,
+    client_services.client_id AS service_client_id,
+    client_services.service_id AS service_service_id,
+    client_services.address AS service_address,
+    client_services.state AS service_state
+    FROM 
+    clients
+    INNER JOIN 
+    client_services ON clients.id = client_services.client_id
+    WHERE 
+    client_services.id =" . $_GET['id'];
 $result = $mysqli->query($sql);
 $row = $result->fetch_assoc();
 
