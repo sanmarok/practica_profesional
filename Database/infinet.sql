@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-11-2023 a las 07:54:14
+-- Tiempo de generación: 10-11-2023 a las 08:37:02
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -94,7 +94,8 @@ INSERT INTO `clients` (`id`, `first_name`, `last_name`, `document`, `phone`, `em
 (50, 'Nombre50', 'Apellido50', 'Documento50', '12345678950', 'cliente50@example.com', 1),
 (56, 'Santiago', 'Martinez', '4040404040', '+54 9 3456 26-8262', 'san.martinezok@gmail.com', 1),
 (57, 'Santiago', 'Martinez', '4040404040', '+54 9 3456 26-8262', 'san.martinezok@gmail.com', 1),
-(58, 'sadas', 'dasda', 'dasdas', 'dasdas', 'dasdas', 1);
+(58, 'sadas', 'dasda', 'dasdas', 'dasdas', 'dasdas', 1),
+(59, '', '', '', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -116,7 +117,9 @@ CREATE TABLE `client_services` (
 
 INSERT INTO `client_services` (`id`, `client_id`, `service_id`, `address`, `state`) VALUES
 (1, 1, 1, 'Dirección del Servicio 1', 1),
-(2, 1, 2, 'Dirección del Servicio 2', 1);
+(3, 1, 2, 'Tukiland 234', 0),
+(5, 1, 9, 'Salta 277', 2),
+(6, 1, 4, 'Peronia 789', 3);
 
 -- --------------------------------------------------------
 
@@ -132,15 +135,20 @@ CREATE TABLE `invoices` (
   `type` int(11) NOT NULL,
   `price_service` decimal(10,2) NOT NULL,
   `price_installation` decimal(10,2) DEFAULT NULL,
-  `surcharge` decimal(10,2) DEFAULT NULL
+  `surcharge` decimal(10,2) DEFAULT NULL,
+  `state` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `invoices`
 --
 
-INSERT INTO `invoices` (`id`, `issue_date`, `due_date`, `client_service_id`, `type`, `price_service`, `price_installation`, `surcharge`) VALUES
-(3, '2023-11-07', '2023-12-07', 1, 1, '4999.99', '2490.99', '5.00');
+INSERT INTO `invoices` (`id`, `issue_date`, `due_date`, `client_service_id`, `type`, `price_service`, `price_installation`, `surcharge`, `state`) VALUES
+(3, '2023-07-01', '2023-08-01', 1, 1, '4999.99', '2490.99', '5.00', 0),
+(8, '2023-08-01', '2023-09-01', 1, 1, '4999.99', '0.00', '5.00', 2),
+(9, '2023-09-01', '2023-10-01', 1, 0, '4999.99', '0.00', '3.00', 1),
+(10, '2023-10-01', '2023-11-01', 1, 2, '4999.99', '0.00', '8.00', 0),
+(11, '2023-11-01', '2023-12-01', 1, 1, '4999.99', '0.00', '10.00', 3);
 
 -- --------------------------------------------------------
 
@@ -234,6 +242,13 @@ CREATE TABLE `technical_requests` (
   `client_service_id` int(11) DEFAULT NULL,
   `technician_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `technical_requests`
+--
+
+INSERT INTO `technical_requests` (`id`, `description`, `problem`, `status`, `date_created`, `type`, `client_service_id`, `technician_id`) VALUES
+(1, 'Solicitud tecnica de prueba 1', 'Consultar base de datos', 2, '2023-11-09 08:32:24', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -359,19 +374,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT de la tabla `client_services`
 --
 ALTER TABLE `client_services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `order_details`
@@ -401,7 +416,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT de la tabla `technical_requests`
 --
 ALTER TABLE `technical_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `technical_request_details`

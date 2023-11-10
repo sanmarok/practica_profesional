@@ -8,6 +8,7 @@ if (isset($_SESSION['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +23,9 @@ if (isset($_SESSION['id'])) {
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <!-- SweetAlert -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="layout-navbar-fixed control-sidebar-slide-open dark-mode">
@@ -53,7 +57,7 @@ if (isset($_SESSION['id'])) {
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="info">
-            <a href="#" class="d-block m-2"><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></a>
+            <span class="d-block m-2"><?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?></span>
 
             <?php
             switch ($_SESSION['role']) {
@@ -91,7 +95,7 @@ if (isset($_SESSION['id'])) {
             <?php
             if ($_SESSION['role'] != 2) {
               echo '            <li class="nav-item">
-              <a href="../clientes.html" class="nav-link">
+              <a href="clients.php" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   Clientes
@@ -105,7 +109,7 @@ if (isset($_SESSION['id'])) {
             <?php
             if ($_SESSION['role'] != 2) {
               echo '           <li class="nav-item">
-              <a href="../servicios.html" class="nav-link">
+              <a href="../services.php" class="nav-link">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                   Servicios
@@ -117,7 +121,7 @@ if (isset($_SESSION['id'])) {
 
 
             <li class="nav-item">
-              <a href="../solicitudes-tecnicas.html" class="nav-link">
+              <a href="../technical_requests.php" class="nav-link">
                 <i class="nav-icon fas fa-tools"></i>
                 <p>
                   Solicitudes Técnicas
@@ -130,7 +134,7 @@ if (isset($_SESSION['id'])) {
             if ($_SESSION['role'] == 1) {
               echo '
               <li class="nav-item">
-                <a href="../pedidos-compra.html" class="nav-link">
+                <a href="../purchase_orders.php" class="nav-link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
                     Pedidos de Compra
@@ -145,7 +149,7 @@ if (isset($_SESSION['id'])) {
             if ($_SESSION['role'] == 1) {
               echo '
               <li class="nav-item">
-                <a href="../productos.html" class="nav-link">
+                <a href="../products.php" class="nav-link">
                   <i class="nav-icon fas fa-box-open"></i>
                   <p>
                     Productos
@@ -163,21 +167,24 @@ if (isset($_SESSION['id'])) {
       <!-- /.sidebar -->
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-
+    <div class="content-wrapper d-flex align-items-center justify-content-center">
       <!-- Main content -->
       <section class="content">
-        <div class="container-fluid">
+        <div class="container">
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 text-center">
+              <img src="https://media.tenor.com/RrkSMr0bIJ0AAAAC/jesus-bailando.gif" alt="Gif de Jesús bailando" width="300" height="300">
             </div>
           </div>
         </div>
       </section>
       <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 
   </div>
   <!-- ./wrapper -->
