@@ -94,7 +94,44 @@
                                 }
                             }
                         } else {
-                            echo '<a href="add_request.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-plus text-warning"></i></a>';
+                            echo '<button data-toggle="modal" data-target="#modalSolicitudTecnica' . $row['id'] . '" class=" open-modal-btn"><i class="fas fa-plus text-warning"></i></button>
+    <div class="modal fade" id="modalSolicitudTecnica' . $row['id'] . '">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Nueva Solicitud Técnica</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="formSolicitudTecnica' . $row['id'] . '" action="procesar_solicitud_tecnica.php" method="post">
+                <!-- Puedes agregar aquí los campos y elementos del formulario necesarios -->
+                <input type="hidden" name="clientServiceId" value="' . $row['id'] . '">
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" rows="4" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="problem">Problema:</label>
+                    <textarea id="problem" name="problem" rows="4" class="form-control"></textarea>
+                </div>
+
+                <!-- Puedes agregar más campos y elementos aquí -->
+
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-success" onclick="addRequest()">Guardar</button>
+        </div>
+    </div>
+</div>
+        </div>
+    </div>';
                         }
                         echo "</td></tr>";
                     }
@@ -178,6 +215,26 @@
         Swal.fire({
             icon: 'success',
             title: 'Servicio contratado correctamente',
+            showConfirmButton: false,
+            timer: 1000, // Tiempo en milisegundos (opcional)
+            didClose: () => {
+                // Cierra la ventana modal después de mostrar SweetAlert
+                $('#modalAgregarServicio').modal('hide');
+            }
+        });
+
+        // Puedes agregar aquí el código adicional para enviar el formulario o realizar otras acciones
+    }
+</script>
+
+<script>
+    function addRequest() {
+        // Realiza alguna validación o acción aquí antes de mostrar SweetAlert
+
+        // Muestra SweetAlert
+        Swal.fire({
+            icon: 'success',
+            title: 'Solicitud creada',
             showConfirmButton: false,
             timer: 1000, // Tiempo en milisegundos (opcional)
             didClose: () => {
