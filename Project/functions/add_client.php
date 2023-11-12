@@ -1,8 +1,9 @@
 <?php
 
 session_start();
-if (isset($_SESSION['id']) && $_SESSION['role'] != 2) {
-    header('Location: dashboard.php');
+if (isset($_SESSION['id']) || $_SESSION['role'] != 1 || $_SESSION['role'] != 3) {
+} else {
+    header('Location: ../ourpages/dashboard.php');
     exit();
 }
 

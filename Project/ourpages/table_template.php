@@ -68,9 +68,9 @@ if (isset($_SESSION['id'])) {
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="info">
-                        <a href="#" class="d-block m-2">
+                        <span class="d-block m-2">
                             <?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] ?>
-                        </a>
+                        </span>
 
                         <?php
                         switch ($_SESSION['role']) {
