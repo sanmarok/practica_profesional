@@ -64,8 +64,8 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputDescription">Descripcion</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-border" id="inputDescription"
-                                    value="<?php echo $description; ?>" disabled>
+                                <textarea type="text" class="form-control form-control-border" id="inputDescription"
+                                    value="" disabled><?php echo $description; ?></textarea>
                                 <span class="input-group-append">
                                     <button class="btn btn-outline-danger mx-2" type="button" id="editDescription"><i
                                             class="fas fa-pencil-alt"></i></button>
