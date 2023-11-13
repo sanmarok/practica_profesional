@@ -117,10 +117,10 @@ if (isset($_SESSION['id'])) {
 
 
             <li class="nav-item">
-              <a href="../solicitudes-tecnicas.html" class="nav-link">
+              <a href="solicitudes-tecnicas.php" class="nav-link">
                 <i class="nav-icon fas fa-tools"></i>
                 <p>
-                  Solicitudes Técnicas
+                  Solicitudes Técnicas                                         
                 </p>
               </a>
             </li>
