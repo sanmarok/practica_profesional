@@ -101,7 +101,7 @@ if (isset($_SESSION['id'])) {
                         <?php
                         if ($_SESSION['role'] != 2) {
                             echo '            <li class="nav-item">
-              <a href="../clientes.html" class="nav-link">
+              <a href="clients.php" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   Clientes

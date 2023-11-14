@@ -53,6 +53,12 @@ if ($result->num_rows > 0) {
     echo "No se encontró la solicitud técnica.";
 }
 
+$techs_sql = "SELECT id, first_name, last_name FROM users WHERE role = 2";
+$techs_stmt = $mysqli->prepare($techs_sql);
+$techs_stmt->execute();
+$techs_result = $techs_stmt->get_result();
+$techs_stmt->close();
+
 $stmt->close();
 $mysqli->close();
 ?>
@@ -76,12 +82,19 @@ $mysqli->close();
                     <div class="col-sm-6">
                         <!-- ID serv -->
                         <div class="form-group input-group">
-                            <label for="inputIDservice">ID de Servicio</label>
+                            <label for="inputIDservice">Servicio Contratado</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-border" id="inputIDservice" value="<?php echo $client_service_id; ?>" disabled>
-                                <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button" id="editIDservice"><i class="fas fa-pencil-alt"></i></button>
-                                </span>
+                        <div class="input-group-prepend">
+                            <!-- Ícono de vista que actúa como enlace al perfil del servicio del cliente -->
+                            <a href="profile_client_service.php?id=<?php echo $client_service_id; ?>">
+                                <i class="fas fa-eye text-success"></i>
+                            </a>
+                        </div>
+                        <input type="text" class="form-control form-control-border" id="inputIDservice" value="&nbsp; <?php echo $client_service_id; ?>" disabled>
+                        <span class="input-group-append">
+                            
+                            
+                         </span>
                             </div>
                         </div>
                     </div>
@@ -106,18 +119,16 @@ $mysqli->close();
                     <div class="form-group input-group">
                         <label for="inputTech">Técnico encargado</label>
                         <div class="input-group">
-                            <input type="text" class="form-control form-control-border" id="inputTech" value="<?php echo isset($technician_info) ? $technician_info : 'No disponible'; ?>" disabled>
+                            <select class="custom-select form-control-border" id="inputTech" name="technician_id" disabled>
+                                <option value="">Sin tecnico asignado</option>
+                                <?php while ($tech = $techs_result->fetch_assoc()): ?>
+                                    <option value="<?php echo $tech['id']; ?>" <?php echo $tech['id'] == $technician_id ? 'selected' : ''; ?>>
+                                        <?php echo $tech['first_name'] . ' ' . $tech['last_name']; ?>
+                                    </option>
+                                <?php endwhile; ?>
+                            </select>
                             <span class="input-group-append">
-                                
-                                <?php
-                                if ($technician_id == 0) {
-                                    // Muestra un botón más pequeño si el valor es 0
-                                     echo '<button class="btn btn-outline-danger mx-2" type="button" id="editTech"><i class="fas fa-pencil-alt"></i></button>';
-                                } else {
-                                    // Si no es 0, muestra un botón para editar que podría llevar a otra página o modal
-                                    echo '<button class="btn btn-outline-danger mx-2" type="button" id="editTech"><i class="fas fa-pencil-alt"></i></button>';
-                                }
-                                ?>
+                                <button class="btn btn-outline-danger mx-2" type="button" id="editTech"><i class="fas fa-pencil-alt"></i></button>
                             </span>
                         </div>
                     </div>

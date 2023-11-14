@@ -61,11 +61,11 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                             <!--End form_edit_client-->
 
                             <!--Start datatable services -->
-                            <?php include '../ourwidgets/profile_client/datatable_service_client.php'; ?>
+                            
                             <!-- End datatable services -->
 
                             <!-- Start datatable request -->
-                            <?php include '../ourwidgets/profile_client/datatable_request_client.php'; ?>
+                            
                             <!-- End datatable request -->
 
                         </div>
@@ -136,10 +136,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             $("[name='my-checkbox']").bootstrapSwitch();
 
             // Agregar eventos de clic a los botones de edición
-            $("#editIDservice").click(function() {
-                enableEdit("inputIDservice");
-            });
-
+           
             $("#editProblem").click(function() {
                 enableEdit("inputProblem");
             });
