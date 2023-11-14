@@ -14,7 +14,7 @@ if ($mysqli->connect_error) {
 }
 
 // Consulta SQL para obtener los datos de los clientes
-$sql = "SELECT id, description, status, user_id FROM purchase_orders WHERE id =" . $_GET["id"];
+$sql = "SELECT id, description, status, user_id, creation_date FROM purchase_orders WHERE id =" . $_GET["id"];
 $result = $mysqli->query($sql);
 
 if ($result->num_rows > 0) {
@@ -23,6 +23,7 @@ if ($result->num_rows > 0) {
     $description = $row['description'];
     $status = $row['status'];
     $user_id = $row['user_id'];
+    $creation_date = $row['creation_date'];
 
     $sql = "SELECT od.product_id, p.name,od.quantity FROM order_details AS od 
     INNER JOIN products AS p ON od.product_id = p.id
@@ -31,6 +32,9 @@ if ($result->num_rows > 0) {
 
     $sql = "SELECT id, name FROM products";
     $products = $mysqli->query($sql);
+    $sql = "SELECT first_name,last_name FROM users WHERE id = " . $user_id;
+    $stmt = $mysqli->query($sql);
+    $titular = $stmt->fetch_assoc();
 
 } else {
     echo "No se encontro el pedido.";
@@ -53,6 +57,28 @@ $mysqli->close();
     <div class="card-body">
         <div class="card-body">
             <form>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group input-group">
+                            <label for="input">Titular</label>
+                            <div class="input-group">
+                                <input type="text" rows="1" class="form-control form-control-border" id="input"
+                                    value="<?php echo $titular["first_name"] . " " . $titular["last_name"]; ?>"
+                                    disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- Apellidos -->
+                        <div class="form-group input-group">
+                            <label for="inputCreation">Fecha de Creacion</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-border" id="inputCreation" value="<?php echo $creation_date; ?>"
+                                    disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group input-group">
