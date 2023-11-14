@@ -66,7 +66,8 @@
                             $stmt->bind_result($first_name, $last_name);
                             $stmt->fetch();
                             echo "<td>" . $first_name . " " . $last_name . "</td>";
-                            echo '<td class="text-center"><div><a href="orders_details.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a>';
+                            echo '<td class="text-center"><div><a href="orders_details.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a>
+                            <a href="../functions/pdf/pedido.php?id=' . $row['id'] . '" class="mx-2"><i class="fa fa-print" aria-hidden="true"></i></a></td>';
                             echo "</tr>";
                         }
                     } else {
