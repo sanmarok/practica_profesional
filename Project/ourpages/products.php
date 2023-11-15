@@ -99,13 +99,13 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                         </div>
                         <div class="form-group">
                             <label for="stock">Stock</label>
-                            <input type="number" step="0.01" class="form-control" id="stock" name="stock" placeholder=""
-                                required>
+                            <input type="number" step="0.01" min="0" class="form-control" id="stock" name="stock"
+                                placeholder="" required>
                         </div>
                         <div class="form-group">
                             <label for="cost">Costo</label>
-                            <input type="number" step="0.01" class="form-control" id="cost" name="cost" placeholder=""
-                                required>
+                            <input type="number" step="0.01" min="0" class="form-control" id="cost" name="cost"
+                                placeholder="" required>
                         </div>
                     </form>
                 </div>

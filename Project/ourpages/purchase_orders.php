@@ -72,7 +72,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     if ($mysqli->connect_error) {
         die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
     }
-    $sql = "SELECT id, name FROM products";
+    $sql = "SELECT id, name,unit FROM products";
     $result = $mysqli->query($sql);
     ?>
 
@@ -100,7 +100,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                                 if ($result->num_rows > 0) {
                                     echo '<option value="" disabled selected>Seleccione un producto</option>';
                                     while ($row = $result->fetch_assoc()) {
-                                        echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                        echo '<option value="' . $row['id'] . '">' . $row['name'] . ' - ' . $row['unit'] . '</option>';
                                     }
                                 } else {
                                     echo '<option value="" disabled selected>No se encotraron productos</option>';
@@ -110,8 +110,8 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                         </div>
                         <div class="form-group">
                             <label for="stock">Cantidad:</label>
-                            <input type="number" step="0.01" class="form-control" id="stock" name="stock" placeholder=""
-                                required>
+                            <input type="number" step="0.01" min="0" class="form-control" id="stock" name="stock"
+                                placeholder="" required>
                         </div>
                         <div class="form-group">
                             <button type="button" class="btn btn-success btn-sm" onclick="addProduct()">Agregar
@@ -122,15 +122,6 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                             <h5>Productos Selecionados:</h5>
                             <ul id="selectedProductsList" class=""></ul>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="status">Estado</label>
-                            <select name="status" id="status" class="form-control">
-                                <option value="" disabled selected>Seleccione un estado</option>
-                                <option value="0">Cancelado</option>
-                                <option value="1">Entregado</option>
-                                <option value="2">Pendiente</option>
-                            </select>
-                        </div> -->
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -201,6 +192,8 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                     product_stock: product_stock
                 };
                 products_list.push(data_product);
+                document.getElementById("stock").value = "";
+                selectElement.value = "";
 
             } else {
                 alert('Por favor, seleccione un producto y una cantidad válida.');

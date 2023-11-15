@@ -3,7 +3,7 @@
         <h3 class="p-3">Productos</h3>
         <div class="card-header"><button type="button" class="btn btn-success" data-toggle="modal"
                 data-target="#modalAgregarProducto">
-                <i class="nav-icon fas fa-plus"></i>
+                <i class="nav-icon fas fa-plus"><span class="mx-1">Productos</span></i>
             </button>
         </div>
         <!-- /.card-header -->
@@ -49,21 +49,6 @@
                             echo "<td>" . $row['unit'] . "</td>";
                             echo "<td>" . $row['stock'] . "</td>";
                             echo "<td>" . $row['cost'] . "</td>";
-                            // switch ($row['status']) {
-                            //     case 0:
-                            //         echo '<td><span class="badge bg-danger">Cancelado</span></td>';
-                            //         break;
-                            //     case 1:
-                            //         echo '<td><span class="badge bg-success">Recibido</span></td>';
-                            //         break;
-                            //     case 2:
-                            //         echo '<td><span class="badge bg-warning">Pendiente</span></td>';
-                            //         break;
-                            //     default:
-                            //         # code...
-                            //         break;
-                            // }
-                            // echo "<td>" . $row['state'] . "</td>";
                             echo '<td class="text-center"><div><a href="product_details.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a>';
                             echo "</tr>";
                         }
