@@ -33,7 +33,7 @@ if ($result->num_rows > 0) {
     $type = $row['type'];
     $client_service_id = $row['client_service_id'];
     $technician_id = $row['technician_id'];
-    
+
     // Prepara la consulta para obtener el nombre y apellido del técnico
     $tech_sql = "SELECT id, first_name, last_name FROM users WHERE id = ?";
     $tech_stmt = $mysqli->prepare($tech_sql);
@@ -84,21 +84,21 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputIDservice">Servicio Contratado</label>
                             <div class="input-group">
-                        <div class="input-group-prepend">
-                            <!-- Ícono de vista que actúa como enlace al perfil del servicio del cliente -->
-                            <a href="profile_client_service.php?id=<?php echo $client_service_id; ?>">
-                                <i class="fas fa-eye text-success"></i>
-                            </a>
-                        </div>
-                        <input type="text" class="form-control form-control-border" id="inputIDservice" value="&nbsp; <?php echo $client_service_id; ?>" disabled>
-                        <span class="input-group-append">
-                            
-                            
-                         </span>
+                                <div class="input-group-prepend">
+                                    <!-- Ícono de vista que actúa como enlace al perfil del servicio del cliente -->
+                                    <a href="profile_client_service.php?id=<?php echo $client_service_id; ?>">
+                                        <i class="fas fa-eye text-success"></i>
+                                    </a>
+                                </div>
+                                <input type="text" class="form-control form-control-border" id="inputIDservice" value="&nbsp; <?php echo    "Servicio contratado " . $client_service_id; ?>" disabled>
+                                <span class="input-group-append">
+
+
+                                </span>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-sm-6">
                         <!-- Problema -->
                         <div class="form-group input-group">
@@ -112,27 +112,27 @@ $mysqli->close();
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
-                <div class="col-sm-6">
-                    <!-- Tecnico encargado -->
-                    <div class="form-group input-group">
-                        <label for="inputTech">Técnico encargado</label>
-                        <div class="input-group">
-                            <select class="custom-select form-control-border" id="inputTech" name="technician_id" disabled>
-                                <option value="">Sin tecnico asignado</option>
-                                <?php while ($tech = $techs_result->fetch_assoc()): ?>
-                                    <option value="<?php echo $tech['id']; ?>" <?php echo $tech['id'] == $technician_id ? 'selected' : ''; ?>>
-                                        <?php echo $tech['first_name'] . ' ' . $tech['last_name']; ?>
-                                    </option>
-                                <?php endwhile; ?>
-                            </select>
-                            <span class="input-group-append">
-                                <button class="btn btn-outline-danger mx-2" type="button" id="editTech"><i class="fas fa-pencil-alt"></i></button>
-                            </span>
+                    <div class="col-sm-6">
+                        <!-- Tecnico encargado -->
+                        <div class="form-group input-group">
+                            <label for="inputTech">Técnico encargado</label>
+                            <div class="input-group">
+                                <select class="custom-select form-control-border" id="inputTech" name="technician_id" disabled>
+                                    <option value="">Sin tecnico asignado</option>
+                                    <?php while ($tech = $techs_result->fetch_assoc()) : ?>
+                                        <option value="<?php echo $tech['id']; ?>" <?php echo $tech['id'] == $technician_id ? 'selected' : ''; ?>>
+                                            <?php echo $tech['first_name'] . ' ' . $tech['last_name']; ?>
+                                        </option>
+                                    <?php endwhile; ?>
+                                </select>
+                                <span class="input-group-append">
+                                    <button class="btn btn-outline-danger mx-2" type="button" id="editTech"><i class="fas fa-pencil-alt"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
 
                     <div class="col-sm-6">
@@ -142,48 +142,48 @@ $mysqli->close();
                             <div class="input-group">
                                 <input type="email" class="form-control form-control-border" id="inputEmail" value="<?php echo $date_created; ?>" disabled>
                                 <span class="input-group-append">
-                                    
+
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                <div class="col-sm-6">
-                    <!-- Tipo de caso -->
-                    <div class="form-group input-group">
-                        <div class="input-group">
-                            <label for="inputCaseType">Tipo de Caso</label>
+                    <div class="col-sm-6">
+                        <!-- Tipo de caso -->
+                        <div class="form-group input-group">
+                            <div class="input-group">
+                                <label for="inputCaseType">Tipo de Caso</label>
+                            </div>
+                            <select class="custom-select form-control-border" id="inputCaseType" disabled>
+                                <option value="2" <?php echo $type == 2 ? 'selected' : ''; ?>>Infraestructura</option>
+                                <option value="1" <?php echo $type == 1 ? 'selected' : ''; ?>>Mantenimiento</option>
+                                <option value="0" <?php echo $type == 0 ? 'selected' : ''; ?>>Instalacion</option>
+                            </select>
+                            <span class="input-group-append">
+                                <button class="btn btn-outline-danger mx-2" type="button" id="editCaseType"><i class="fas fa-pencil-alt"></i></button>
+                            </span>
                         </div>
-                        <select class="custom-select form-control-border" id="inputCaseType" disabled>
-                            <option value="2" <?php echo $type == 2 ? 'selected' : ''; ?>>Infraestructura</option>
-                            <option value="1" <?php echo $type == 1 ? 'selected' : ''; ?>>Mantenimiento</option>
-                            <option value="0" <?php echo $type == 0 ? 'selected' : ''; ?>>Instalacion</option>
-                        </select>
-                        <span class="input-group-append">
-                            <button class="btn btn-outline-danger mx-2" type="button" id="editCaseType"><i class="fas fa-pencil-alt"></i></button>
-                        </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- Estado Tecnico -->
+                        <div class="form-group input-group">
+                            <div class="input-group">
+                                <label for="inputTechStatus">Estado Tecnico</label>
+                            </div>
+                            <select class="custom-select form-control-border" id="inputTechStatus" disabled>
+                                <option value="4" <?php echo $status == 4 ? 'selected' : ''; ?>>En proceso</option>
+                                <option value="3" <?php echo $status == 3 ? 'selected' : ''; ?>>Pendiente</option>
+                                <option value="2" <?php echo $status == 2 ? 'selected' : ''; ?>>Asignada</option>
+                                <option value="1" <?php echo $status == 1 ? 'selected' : ''; ?>>Completada</option>
+                                <option value="0" <?php echo $status == 0 ? 'selected' : ''; ?>>Cancelada</option>
+                            </select>
+                            <span class="input-group-append">
+                                <button class="btn btn-outline-danger mx-2" type="button" id="editTechStatus"><i class="fas fa-pencil-alt"></i></button>
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <!-- Estado Tecnico -->
-                    <div class="form-group input-group">
-                        <div class="input-group">
-                            <label for="inputTechStatus">Estado Tecnico</label>
-                        </div>
-                        <select class="custom-select form-control-border" id="inputTechStatus" disabled>
-                            <option value="4" <?php echo $status == 4 ? 'selected' : ''; ?>>En proceso</option>
-                            <option value="3" <?php echo $status == 3 ? 'selected' : ''; ?>>Pendiente</option>
-                            <option value="2" <?php echo $status == 2 ? 'selected' : ''; ?>>Asignada</option>
-                            <option value="1" <?php echo $status == 1 ? 'selected' : ''; ?>>Completada</option>
-                            <option value="0" <?php echo $status == 0 ? 'selected' : ''; ?>>Cancelada</option>
-                        </select>
-                        <span class="input-group-append">
-                            <button class="btn btn-outline-danger mx-2" type="button" id="editTechStatus"><i class="fas fa-pencil-alt"></i></button>
-                        </span>
-                    </div>
-                </div>
-            </div>
             </form>
         </div>
     </div>
@@ -225,5 +225,3 @@ $mysqli->close();
             color: white;
         }
     </style>
-
-

@@ -125,7 +125,7 @@ if (isset($_SESSION['id'])) {
                         ?>
 
                         <li class="nav-item">
-                            <a href="technical_requests.php" class="nav-link">  
+                            <a href="technical_requests.php" class="nav-link">
                                 <i class="nav-icon fas fa-tools"></i>
                                 <p>
                                     Solicitudes Técnicas
@@ -175,14 +175,17 @@ if (isset($_SESSION['id'])) {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
-                                <h3 class="p-3">Solicitudes Tecnicas</h3>
-                                <div class="card-header"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAgregarCT">
-                                        <i class="nav-icon fas fa-plus"></i>
-                                    </button>
+                            <div class="card card-primary m-2">
+
+                                <div class="card-header">
+                                    <h3 class="card-title">Solicitudes tecnicas</h3>
+
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
+                                    <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalAgregarCT">
+                                        <i class="nav-icon fas fa-plus"><span class="mx-1">Solicitud tecnica</span></i>
+                                    </button>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
@@ -276,7 +279,7 @@ if (isset($_SESSION['id'])) {
                                             } else {
                                                 echo "No se encontraron casos.";
                                             }
-                                                                                                
+
                                             // Cierra la conexión a la base de datos
                                             $mysqli->close();
                                             ?>
@@ -336,7 +339,7 @@ if (isset($_SESSION['id'])) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-success" onclick="addCasoCliente()">Ingresar Caso</button>
-                    
+
                 </div>
 
             </div>
@@ -391,7 +394,7 @@ if (isset($_SESSION['id'])) {
             var type = document.getElementById("type").value;
             var technician_id = document.getElementById("technician_id").value;
             var status = 3;
-            
+
 
             // Crea un objeto con los datos que deseas enviar
             var clientData = {
@@ -417,38 +420,38 @@ if (isset($_SESSION['id'])) {
                     if (data.success) {
                         // La operación se completó exitosamente, puedes cerrar el modal o hacer otras acciones
                         Swal.fire({
-                icon: 'success',
-                title: '¡Éxito!',
-                text: 'El caso técnico ha sido agregado exitosamente.',
-                showConfirmButton: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Cierra el modal y recarga la página o actualiza la tabla de datos para reflejar los cambios
-                    $("#modalAgregarCT").modal("hide");
-                    window.location.reload();
-                }
-            });
-        } else {
-            // Si no es exitoso, muestra un SweetAlert de error
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Hubo un error al agregar el caso. ' + data.error,
-                showConfirmButton: true
-            });
+                            icon: 'success',
+                            title: '¡Éxito!',
+                            text: 'El caso técnico ha sido agregado exitosamente.',
+                            showConfirmButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Cierra el modal y recarga la página o actualiza la tabla de datos para reflejar los cambios
+                                $("#modalAgregarCT").modal("hide");
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        // Si no es exitoso, muestra un SweetAlert de error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Hubo un error al agregar el caso. ' + data.error,
+                            showConfirmButton: true
+                        });
+                    }
+                })
+                .catch(error => {
+                    // Manejo de errores
+                    console.error("Error en la llamada AJAX: " + error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo ingresar un nuevo caso tecnico.',
+                        showConfirmButton: true
+                    });
+                });
         }
-    })
-    .catch(error => {
-        // Manejo de errores
-        console.error("Error en la llamada AJAX: " + error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo ingresar un nuevo caso tecnico.',
-            showConfirmButton: true
-        });
-    });
-}
     </script>
 
 </body>
