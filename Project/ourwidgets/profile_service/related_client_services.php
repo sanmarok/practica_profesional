@@ -39,7 +39,7 @@ if ($resultRelatedServices->num_rows >= 0) {
         $relatedServiceName = $rowRelatedService['name'];
 
         // Muestra los servicios relacionados como enlaces
-        echo "<li><h5><a>$relatedServiceName</a></h5></li>";
+        echo "<li><h5><a href='profile_service.php?id=$relatedServiceId'>$relatedServiceName</a></h5></li>";
     }
 
     echo '</ul>';
