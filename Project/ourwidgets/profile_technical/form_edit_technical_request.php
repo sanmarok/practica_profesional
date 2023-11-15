@@ -90,7 +90,11 @@ $mysqli->close();
                                         <i class="fas fa-eye text-success"></i>
                                     </a>
                                 </div>
-                                <input type="text" class="form-control form-control-border" id="inputIDservice" value="&nbsp; <?php echo    "Servicio contratado " . $client_service_id; ?>" disabled>
+                                <?php 
+                                 echo '<span>&nbsp&nbsp;Servicio contratado ' . $row['client_service_id'] . '</span>';
+                                 ?>
+
+                                
                                 <span class="input-group-append">
 
 
@@ -136,12 +140,23 @@ $mysqli->close();
 
 
                     <div class="col-sm-6">
-                        <!-- Fecha -->
+                        <!-- ID serv -->
                         <div class="form-group input-group">
-                            <label for="inputEmail">Fecha iniciado</label>
+                            <label for="inputIDservice">Fecha iniciada</label>
                             <div class="input-group">
-                                <input type="email" class="form-control form-control-border" id="inputEmail" value="<?php echo $date_created; ?>" disabled>
+                                <div class="input-group-prepend">
+                                    <!-- Ícono de vista que actúa como enlace al perfil del servicio del cliente -->
+                                    <a href="profile_client_service.php?id=<?php echo $date_created; ?>">
+                                    
+                                    </a>
+                                </div>
+                                <?php 
+                                 echo '<span>&nbsp&nbsp; ' . $row['date_created'] . '</span>';
+                                 ?>
+
+                                
                                 <span class="input-group-append">
+
 
                                 </span>
                             </div>
