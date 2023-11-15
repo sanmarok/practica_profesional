@@ -126,6 +126,10 @@ $mysqli->close();
                         </div>
                     </div>
                 </div>
+                     <!-- Botón para eliminar servicio -->
+            <button type="button" class="btn btn-danger" onclick="deleteService(<?php echo $service_id; ?>)" style="position: absolute; top: 400px; left: 20px;">
+            <i class="fas fa-times"></i> Eliminar Servicio
+            </button>
             </form>
         </div>
     </div>
@@ -134,3 +138,42 @@ $mysqli->close();
     </div>
     <!-- /.card-body -->
 </div>
+
+<script>
+function deleteService(serviceId) {
+    // Pregunta al usuario para confirmar el borrado
+    Swal.fire({
+        title: '¿Está seguro?',
+        text: '¡No podrá revertir esto!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, borrar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Realiza una llamada AJAX para borrar el servicio
+            fetch("../functions/delete_service.php?id=" + serviceId, {
+                method: "GET"
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Maneja la respuesta del servidor
+                if (data.success) {
+                    // Borrado exitoso, redirige a la página de servicios
+                    window.location.href = "services.php";
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al borrar el servicio.',
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error en la llamada AJAX: " + error);
+            });
+        }
+    });
+}
+</script>
