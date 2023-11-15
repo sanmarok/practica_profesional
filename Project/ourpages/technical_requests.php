@@ -315,7 +315,35 @@ if (isset($_SESSION['id'])) {
 
                         <div class="form-group">
                             <label for="ID Cliente">ID Cliente</label>
-                            <input type="text" class="form-control" id="client_service_id" name="client_service_id" placeholder="Ingresar ID del cliente" required>
+                            <select class="form-control" id="client_service_id" name="client_service_id" required>
+                                <option value="">Selecciona una ID de cliente</option>
+                                <?php
+                                // Establece una conexión a la base de datos
+                                // (Asegúrate de que esta conexión se realiza de manera segura y reutiliza el código de conexión si ya existe)
+                                $mysqli = new mysqli('localhost', 'root', '', 'infinet');
+                                
+                                // Verifica si la conexión se realizó correctamente
+                                if ($mysqli->connect_error) {
+                                    die('Error de conexión: ' . $mysqli->connect_error);
+                                }
+                                
+                                // Consulta SQL para obtener los IDs de los clientes
+                                $sql = "SELECT id, first_name, last_name FROM clients";
+                                $result = $mysqli->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    // Genera las opciones del select con los datos obtenidos
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<option value='" . $row['id'] . "'>" . $row['id'] . " - " . $row['first_name'] . " " . $row['last_name'] . "</option>";
+                                    }
+                                } else {
+                                    echo "<option value=''>No hay clientes disponibles</option>";
+                                }
+
+                                // Cierra la conexión a la base de datos
+                                $mysqli->close();
+                                ?>
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -328,11 +356,20 @@ if (isset($_SESSION['id'])) {
                         </div>
                         <div class="form-group">
                             <label for="Tipo">Tipo</label>
-                            <input type="text" class="form-control" id="type" name="type" placeholder="Tipo" required>
+                            <select class="form-control" id="type" name="type" required>
+                                <!-- son 0 para Instalación, 1 para Mantenimiento y 2 para Infraestructura -->
+                                <option value="0">Instalación</option>
+                                <option value="1">Mantenimiento</option>
+                                <option value="2">Infraestructura</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="ID Tecnico">ID Tecnico</label>
-                            <input type="email" class="form-control" id="technician_id" name="technician_id" placeholder="ID Tecnico (Opcional)" required>
+                            <select class="form-control" id="technician_id" name="technician_id" placeholder="ID Tecnico (Opcional)" required>
+                                <option value="0">Caso sin asignar</option>
+                                <option value="2">Nombre2 Apellido2</option>
+                                <option value="5">Nombre5 Apellido5</option>
+                            </select>
                         </div>
                     </form>
                 </div>
