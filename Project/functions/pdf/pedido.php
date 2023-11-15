@@ -19,13 +19,29 @@ if ($conn->connect_error) {
 
 // Obtener el ID de la factura desde el parámetro GET
 $order_id = $_GET['id'];
+$sql = "SELECT p.name,od.quantity,p.cost
+        FROM `order_details` AS od 
+        INNER JOIN products AS p ON od.product_id = p.id 
+        WHERE od.purchase_order_id =" . $order_id;
+$products = $conn->query($sql);
+$sql = "SELECT first_name,last_name,email,phone FROM users WHERE id = (SELECT user_id FROM purchase_orders WHERE id=" . $order_id . ");";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$stmt->bind_result($first_name, $last_name, $email, $phone);
+$stmt->fetch();
+$stmt->close();
+$conn->close();
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Pedido N°
+        <?php echo $order_id; ?>
+    </title>
     <link href="css/bootstrap.css" rel="stylesheet" />
     <style>
         @import url(http://fonts.googleapis.com/css?family=Bree+Serif);
@@ -39,24 +55,31 @@ $order_id = $_GET['id'];
         h6 {
             font-family: 'Bree Serif', serif;
         }
+
+        @media print {
+
+            /* Oculta el encabezado */
+            @page {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+
+            /* Oculta el pie de página */
+            body::after {
+                content: "";
+                display: none;
+            }
+        }
     </style>
+</head>
+
+<body id="contenido-factura">
     <div class="container">
         <div class="row">
 
-            <div class="col-xs-1">
+            <div class="col-xs-6">
                 <h6><a href=" "><img alt="" src="image/logo.png" /> </a>
                 </h6>
-
-            </div>
-            <div class="col-xs-5">
-                <h5><a href=" "><img alt="" />
-                        <p>[NOMBRE]</p>
-                        <p>[COMPAÑIA]</p>
-                        <p>[DIRECCI&Oacute;N]</p>
-                        <p>[CIUDAD, COD POSTAL]</p>
-                        <p>[TELEF&Oacute;NO]</p>
-                    </a>
-                </h5>
 
             </div>
             <div class="col-xs-6 text-right">
@@ -65,11 +88,19 @@ $order_id = $_GET['id'];
                         <h1>PEDIDO
                             <a href="#"></a>
                         </h1>
+                        <h4>CUIT :
+                            <span>Infinet CUIT</span>
+                        </h4>
+                        <h4>R.S:
+                            <span>Infinet R.S</span>
+                        </h4>
 
                     </div>
                     <div class="panel-body">
                         <h4>PEDIDO Nº :
-                            <a href="#">N&uacute;mero de PEDIDO</a>
+                            <span>
+                                <?php echo $order_id; ?>
+                            </span>
                         </h4>
                     </div>
                 </div>
@@ -84,7 +115,12 @@ $order_id = $_GET['id'];
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>La Paz, <a href="#">30</a> de <a href="#">abril</a> de 201<a href="#">4</a>
+                            <h4><a href="#">
+                                    <?php echo date("d") ?>
+                                </a> de <a href="#">
+                                    <?php echo date("M") ?>
+                                </a> de
+                                <?php echo date("Y") ?></a>
 
                             </h4>
                         </div>
@@ -92,10 +128,9 @@ $order_id = $_GET['id'];
 
 
                             <h4>Comprador :
-                                <a href="#">Nombres y apellidos</a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                NIT/CI :
-                                <a href="#">NIT/CI</a>
+                                <a href="#">
+                                    <?php echo $first_name . " " . $last_name; ?>
+                                </a>
                             </h4>
 
                         </div>
@@ -103,47 +138,6 @@ $order_id = $_GET['id'];
                 </div>
 
             </div>
-
-            <pre></pre>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">
-                            <h4>COBRAR A:</h4>
-                        </th>
-                        <th style="text-align: center;">
-                            <h4>ENVIAR A:</h4>
-                        </th>
-
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td rowspan="3" style="text-align: center;">
-                            <p>[NOMBRE]</p>
-                            <p>[COMPAÑIA]</p>
-                            <p>[DIRECCI&Oacute;N]</p>
-                            <p>[CIUDAD, COD POSTAL]</p>
-                            <p>[TELEF&Oacute;NO]</p>
-                        </td>
-
-                        <td rowspan="3" style="text-align: center;"><a href="#">
-                                <p>[NOMBRE]</p>
-                                <p>[COMPAÑIA]</p>
-                                <p>[DIRECCI&Oacute;N]</p>
-                                <p>[CIUDAD, COD POSTAL]</p>
-                                <p>[TELEF&Oacute;NO]</p>
-                            </a>
-                        </td>
-
-
-                    </tr>
-
-
-
-                </tbody>
-            </table>
             <pre></pre>
             <table class="table table-bordered">
                 <thead>
@@ -164,77 +158,34 @@ $order_id = $_GET['id'];
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                    if ($products->num_rows > 0) {
+                        $total = 0;
+                        while ($product = $products->fetch_assoc()) {
+                            $subtotal = $product['quantity'] * $product['cost'];
+                            $total += $subtotal;
+                            echo '<tr>';
+                            echo '<td style="text-align: center;">' . $product['quantity'] . '</td>';
+                            echo '<td style="text-align: center;"><a href="#">' . $product['name'] . '</a></td>';
+                            echo '<td class=" text-right ">' . $product['cost'] . '</td>';
+                            echo '<td class=" text-right ">' . $subtotal . '</td>';
+                            echo '</tr>';
+                        }
+                    } else {
+                        echo "No hay productos";
+                    }
+                    ?>
                     <tr>
-                        <td style="text-align: center;">1</td>
-                        <td><a href="#"> Asesoramiento de inseminaci&oacute;n vacuna </a></td>
-                        <td class=" text-right ">28500</td>
-                        <td class=" text-right ">28500</td>
+                        <td colspan="3" style="text-align: right;">Total Ars.</td>
+                        <td style="text-align: right;"><a href="#">
+                                <?php echo $total ?>
+                            </a></td>
 
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><a href="#"> &nbsp; </a></td>
-                        <td class="text-right">&nbsp;</td>
-                        <td class="text-right ">&nbsp;</td>
-
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><a href="#"> &nbsp; </a></td>
-                        <td class="text-right">&nbsp;</td>
-                        <td class="text-right ">&nbsp;</td>
-
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><a href="#"> &nbsp; </a></td>
-                        <td class="text-right">&nbsp;</td>
-                        <td class="text-right ">&nbsp;</td>
-
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><a href="#"> &nbsp; </a></td>
-                        <td class="text-right">&nbsp;</td>
-                        <td class="text-right ">&nbsp;</td>
-
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><a href="#"> &nbsp; </a></td>
-                        <td class="text-right">&nbsp;</td>
-                        <td class="text-right ">&nbsp;</td>
-
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><a href="#"> &nbsp; </a></td>
-                        <td class="text-right">&nbsp;</td>
-                        <td class="text-right ">&nbsp;</td>
-
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><a href="#"> &nbsp; </a></td>
-                        <td class="text-right">&nbsp;</td>
-                        <td class="text-right ">&nbsp;</td>
-
-                    </tr>
-                    <tr>
-                        <td colspan="3" style="text-align: right;">Total Bs.</td>
-                        <td style="text-align: right;"><a href="#"> 28500 </a></td>
-
-
-                    </tr>
-                    <tr>
-                        <td colspan="4" style="text-align: right;">Son: <a href="#"> Veintiocho mil quinientos </a>
-                            00/100 bolivianos</td>
 
                     </tr>
                 </tbody>
             </table>
             <pre></pre>
-
 
             <div class="row">
                 <div class="col-xs-4">
@@ -252,11 +203,9 @@ $order_id = $_GET['id'];
 
         </div>
     </div>
-
-</head>
-
-<body>
-
+    <script>
+        window.print();
+    </script>
 </body>
 
 </html>
