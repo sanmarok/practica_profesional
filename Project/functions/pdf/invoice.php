@@ -24,7 +24,8 @@ if ($conn->connect_error) {
 }
 
 // Obtener el ID de la factura desde el parámetro GET
-$invoice_id = $_GET['id'];
+// $invoice_id = $_GET['id'];
+$invoice_id = 3;
 
 // Consulta SQL para obtener los datos de la factura, cliente y servicio asociado
 $sql = "SELECT 
@@ -35,7 +36,6 @@ $sql = "SELECT
             inv.price_service,
             inv.price_installation,
             inv.surcharge,
-            inv.state AS invoice_state,
             cs.id AS client_service_id,
             cs.address,
             c.id AS client_id,
@@ -51,10 +51,10 @@ $sql = "SELECT
             s.download_speed,
             s.monthly_fee,
             s.installation_fee
-        FROM invoices inv
-        INNER JOIN client_services cs ON inv.client_service_id = cs.id
-        INNER JOIN clients c ON cs.client_id = c.id
-        INNER JOIN services s ON cs.service_id = s.service_id
+        FROM invoices AS inv
+        INNER JOIN client_services AS cs ON inv.client_service_id = cs.id
+        INNER JOIN clients AS c ON cs.client_id = c.id
+        INNER JOIN services AS s ON cs.service_id = s.service_id
         WHERE inv.id = $invoice_id";
 
 $result = $conn->query($sql);
@@ -66,13 +66,15 @@ if ($result->num_rows > 0) {
     // Cerrar la conexión después de obtener los datos
     $conn->close();
 
-?>
+    ?>
     <!DOCTYPE html>
     <html lang="en">
 
     <head>
         <meta charset="UTF-8">
-        <title>Factura N° <?php echo $invoice_data['invoice_id']; ?></title>
+        <title>Factura N°
+            <?php echo $invoice_data['invoice_id']; ?>
+        </title>
         <link href="css/bootstrap.css" rel="stylesheet" />
         <style>
             @import url(http://fonts.googleapis.com/css?family=Bree+Serif);
@@ -126,7 +128,9 @@ if ($result->num_rows > 0) {
                         </div>
                         <div class="panel-body">
                             <h4>NUMERO DE FACTURA :
-                                <span><?php echo $invoice_data['invoice_id']; ?></span>
+                                <span>
+                                    <?php echo $invoice_data['invoice_id']; ?>
+                                </span>
                             </h4>
                         </div>
                     </div>
@@ -135,35 +139,41 @@ if ($result->num_rows > 0) {
                 <hr />
 
 
-                <h1 style="text-align: center;"> <?php
-                                                    switch ($invoice_data['invoice_type']) {
-                                                        case 0:
-                                                            echo '<td>Factura A</td>';
-                                                            break;
-                                                        case 1:
-                                                            echo '<td>Factura B</td>';
-                                                            break;
-                                                        case 2:
-                                                            echo '<td>Factura C</td>';
-                                                            break;
-                                                        case 3:
-                                                            echo '<td>Factura E</td>';
-                                                            break;
-                                                        case 4:
-                                                            echo '<td>Factura M</td>';
-                                                            break;
-                                                        default:
+                <h1 style="text-align: center;">
+                    <?php
+                    switch ($invoice_data['invoice_type']) {
+                        case 0:
+                            echo '<td>Factura A</td>';
+                            break;
+                        case 1:
+                            echo '<td>Factura B</td>';
+                            break;
+                        case 2:
+                            echo '<td>Factura C</td>';
+                            break;
+                        case 3:
+                            echo '<td>Factura E</td>';
+                            break;
+                        case 4:
+                            echo '<td>Factura M</td>';
+                            break;
+                        default:
 
-                                                            break;
-                                                    }
-                                                    ?></h1>
+                            break;
+                    }
+                    ?>
+                </h1>
 
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4>FECHA DE EMISIÓN: <?php echo $invoice_data['issue_date'] ?></h4>
-                                <h4>FECHA DE VENCIMIENTO: <?php echo $invoice_data['due_date'] ?></h4>
+                                <h4>FECHA DE EMISIÓN:
+                                    <?php echo $invoice_data['issue_date'] ?>
+                                </h4>
+                                <h4>FECHA DE VENCIMIENTO:
+                                    <?php echo $invoice_data['due_date'] ?>
+                                </h4>
                             </div>
                             <div class="panel-body">
 
@@ -187,7 +197,9 @@ if ($result->num_rows > 0) {
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-body">
-                                <h5>SERVICIO :<?php echo $invoice_data['service_name'] ?> </h5>
+                                <h5>SERVICIO :
+                                    <?php echo $invoice_data['service_name'] ?>
+                                </h5>
                             </div>
                         </div>
                     </div>
@@ -207,10 +219,14 @@ if ($result->num_rows > 0) {
                     <tbody>
                         <tr>
                             <td style="text-align: left">
-                                <h5><?php echo $invoice_data['service_name'] ?> </h5>
+                                <h5>
+                                    <?php echo $invoice_data['service_name'] ?>
+                                </h5>
                             </td>
                             <td style="text-align: center">
-                                <h5>$ <?php echo $invoice_data['price_service'] ?> </h5>
+                                <h5>$
+                                    <?php echo $invoice_data['price_service'] ?>
+                                </h5>
                             </td>
                         </tr>
                         <tr>
@@ -218,7 +234,9 @@ if ($result->num_rows > 0) {
                                 <h5>Costo de instalación</h5>
                             </td>
                             <td style="text-align: center">
-                                <h5>$ <?php echo $invoice_data['price_installation'] ?> </h5>
+                                <h5>$
+                                    <?php echo $invoice_data['price_installation'] ?>
+                                </h5>
                             </td>
                         </tr>
                         <tr>
@@ -226,14 +244,18 @@ if ($result->num_rows > 0) {
                                 <h5>Recargos</h5>
                             </td>
                             <td style="text-align: center">
-                                <h5>$ <?php echo $invoice_data['surcharge'] ?> </h5>
+                                <h5>$
+                                    <?php echo $invoice_data['surcharge'] ?>
+                                </h5>
                             </td>
                         </tr>
                         <tr>
                         </tr>
                         <tr class="bg-primary">
                             <td style="text-align: left;">TOTAL: </td>
-                            <td style="text-align: center">$ <?php echo $invoice_data['price_service'] + $invoice_data['price_installation'] + $invoice_data['surcharge'] ?></td>
+                            <td style="text-align: center">$
+                                <?php echo $invoice_data['price_service'] + $invoice_data['price_installation'] + $invoice_data['surcharge'] ?>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -252,7 +274,8 @@ if ($result->num_rows > 0) {
 
                 </div>
                 <div class="panel panel-info" style="text-align: center;">
-                    <h6> "LA ALTERACI&Oacute;N, FALSIFICACI&Oacute;N O COMERCIALIZACI&Oacute;N ILEGAL DE ESTE DOCUMENTO ESTA PENADO POR LA LEY"</h6>
+                    <h6> "LA ALTERACI&Oacute;N, FALSIFICACI&Oacute;N O COMERCIALIZACI&Oacute;N ILEGAL DE ESTE DOCUMENTO ESTA
+                        PENADO POR LA LEY"</h6>
                 </div>
             </div>
         </div>
@@ -261,7 +284,7 @@ if ($result->num_rows > 0) {
         </script>
     </body>
 
-<?php
+    <?php
 } else {
     echo "No se encontraron datos para la factura con ID: $invoice_id";
 }

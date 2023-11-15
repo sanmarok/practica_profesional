@@ -61,7 +61,8 @@ $mysqli->close();
   <!-- SweetAlert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
@@ -119,16 +120,16 @@ $mysqli->close();
   <!-- /.login-box -->
 
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       // Manejo del evento de clic en el botón de inicio de sesión
-      $("#loginButton").click(function() {
+      $("#loginButton").click(function () {
         // Realizar una solicitud AJAX para procesar el inicio de sesión
         $.ajax({
           type: "POST",
           url: "authentication.php",
           data: $("#loginForm").serialize(), // Envía los datos del formulario
           dataType: "json",
-          success: function(response) {
+          success: function (response) {
             if (response.success) {
               // Redirige al usuario a la página deseada
               window.location.href = response.redirect;
