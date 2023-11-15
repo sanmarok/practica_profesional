@@ -114,7 +114,7 @@ if (isset($_SESSION['id'])) {
                         <?php
                         if ($_SESSION['role'] != 2) {
                             echo '           <li class="nav-item">
-              <a href="../servicios.html" class="nav-link">
+              <a href="services.php" class="nav-link">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                   Servicios
@@ -137,7 +137,7 @@ if (isset($_SESSION['id'])) {
                         if ($_SESSION['role'] == 1) {
                             echo '
               <li class="nav-item">
-                <a href="../pedidos-compra.html" class="nav-link">
+                <a href="purchase_orders.php" class="nav-link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
                     Pedidos de Compra
@@ -151,7 +151,7 @@ if (isset($_SESSION['id'])) {
                         if ($_SESSION['role'] == 1) {
                             echo '
               <li class="nav-item">
-                <a href="../productos.html" class="nav-link">
+                <a href="products.php" class="nav-link">
                   <i class="nav-icon fas fa-box-open"></i>
                   <p>
                     Productos
