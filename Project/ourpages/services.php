@@ -78,7 +78,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                             <input type="text" class="form-control" id="service_name" name="service_name" placeholder="Nombre del servicio" required autocomplete="off">
                         </div>
                         <div class="form-group">
-                        <label for="service_type">Tipo de Servicio</label>
+                        <label for="service_type">Tipo</label>
                         <select class="form-control" id="service_type" name="service_type" required>
                             <?php
                             // Tipos de servicios proporcionados
