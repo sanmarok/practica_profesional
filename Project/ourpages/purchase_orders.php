@@ -19,8 +19,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
@@ -77,8 +76,8 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     ?>
 
     <!-- Modal para agregar cliente -->
-    <div class="modal fade" id="modalAgregarPedido">
-        <div class="modal-dialog">
+    <div class="modal fade modal-fullscreen" id="modalAgregarPedido">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Agregar Pedido</h4>
@@ -90,8 +89,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                     <form id="formAgregarPedido" method="post" action="../functions/add_client.php">
                         <div class="form-group">
                             <label for="description">Descripcion</label>
-                            <input type="text" class="form-control" id="description" name="description"
-                                placeholder="Descripcion del pedido" required>
+                            <input type="text" class="form-control" id="description" name="description" placeholder="Descripcion del pedido" required>
                         </div>
                         <div class="form-group">
                             <label for="productSelect">Productos:</label>
@@ -110,8 +108,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                         </div>
                         <div class="form-group">
                             <label for="stock">Cantidad:</label>
-                            <input type="number" step="0.01" min="0" class="form-control" id="stock" name="stock"
-                                placeholder="" required>
+                            <input type="number" step="0.01" min="0" class="form-control" id="stock" name="stock" placeholder="" required>
                         </div>
                         <div class="form-group">
                             <button type="button" class="btn btn-success btn-sm" onclick="addProduct()">Agregar
@@ -138,6 +135,13 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     <script src="../plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- CSS de Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbs5VVTdS2FOj3gyzwF3FYppaRjH2tS9s5bLDJ42FjCGpDQ2U7j+xar5fDCM1m9" crossorigin="anonymous">
+
+    <!-- JS de Bootstrap 5 (requiere Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-N4e7EuGe/wsh2YDwBw+JT8pP4sJlH1Y2zV/Nm3bBZuAB1Qj97VwBO1XDK/iU94=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KC1eWZI1f5YXzBYjqK/vHH6U5a+JNEa1E3Z5rUV00" crossorigin="anonymous"></script>
+
     <!-- AdminLTE App -->
     <script src="../dist/js/adminlte.min.js"></script>
     <!-- DataTables & Plugins -->
@@ -153,8 +157,9 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
     <script>
-        $(function () {
+        $(function() {
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -174,6 +179,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     </script>
     <script>
         var products_list = [];
+
         function addProduct() {
             var selectElement = document.getElementById("productSelect");
             var product_id = selectElement.selectedIndex;
@@ -200,6 +206,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
             }
             console.log(products_list);
         }
+
         function addPurchase() {
             // Obtén los valores del formulario
             var description = document.getElementById("description").value;
@@ -214,12 +221,12 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
 
             // Realiza una llamada AJAX para enviar los datos al servidor
             fetch("../functions/add_purchase.php", {
-                method: "POST",
-                body: JSON.stringify(purchaseData),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
+                    method: "POST",
+                    body: JSON.stringify(purchaseData),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
                 .then(response => response.json())
                 .then(data => {
                     // Aquí puedes manejar la respuesta del servidor

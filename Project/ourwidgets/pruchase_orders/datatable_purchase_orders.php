@@ -1,13 +1,17 @@
 <div class="col-12">
-    <div class="card">
-        <h3 class="p-3">Pedidos de Compra</h3>
-        <div class="card-header"><button type="button" class="btn btn-success" data-toggle="modal"
-                data-target="#modalAgregarPedido">
-                <i class="nav-icon fas fa-plus"><span class="mx-1">Pedidos</span></i>
-            </button>
+    <div class="card card-primary m-2">
+
+        <div class="card-header">
+            <h3 class="card-title">Pedidos de Compra</h3>
         </div>
+
+
         <!-- /.card-header -->
         <div class="card-body">
+            <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalAgregarPedido">
+                <i class="nav-icon fas fa-plus"><span class="mx-1">Pedidos</span></i>
+
+            </button>
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -71,7 +75,6 @@
                             echo "</tr>";
                         }
                     } else {
-                        echo "No se encontraron Pedidos.";
                     }
                     $stmt->close();
                     // Cierra la conexión a la base de datos
