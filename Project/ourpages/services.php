@@ -78,8 +78,24 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                             <input type="text" class="form-control" id="service_name" name="service_name" placeholder="Nombre del servicio" required autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <label for="apellido">Tipo</label>
-                            <input type="text" class="form-control" id="service_type" name="service_type" placeholder="Tipo de servicio" required autocomplete="off">
+                        <label for="service_type">Tipo de Servicio</label>
+                        <select class="form-control" id="service_type" name="service_type" required>
+                            <?php
+                            // Tipos de servicios proporcionados
+                            $tiposDeServicio = array(
+                                'Fibra Óptica',
+                                'Cable',
+                                'Satélite',
+                                'Teléfono'
+                                // Agrega otros tipos según sea necesario
+                            );
+
+                            // Itera sobre los tipos de servicio y crea las opciones
+                            foreach ($tiposDeServicio as $tipo) {
+                                echo "<option value=\"$tipo\">$tipo</option>";
+                            }
+                            ?>
+                        </select>
                         </div>
                         <div class="form-group">
                             <label for="documento">Carga(Mbps)</label>
