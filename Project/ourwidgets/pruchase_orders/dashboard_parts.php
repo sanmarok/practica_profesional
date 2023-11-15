@@ -76,7 +76,7 @@
         <?php
         if ($_SESSION['role'] != 2) {
           echo '           <li class="nav-item">
-              <a href="services.php" class="nav-link">
+              <a href="../services.php" class="nav-link">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                   Servicios
@@ -87,14 +87,14 @@
         ?>
 
 
-                        <li class="nav-item">
-                            <a href="technical_requests.php" class="nav-link">
-                                <i class="nav-icon fas fa-tools"></i>
-                                <p>
-                                    Solicitudes Técnicas
-                                </p>
-                            </a>
-                        </li>
+        <li class="nav-item">
+          <a href="../technical_requests.php" class="nav-link">
+            <i class="nav-icon fas fa-tools"></i>
+            <p>
+              Solicitudes Técnicas
+            </p>
+          </a>
+        </li>
 
 
         <?php
