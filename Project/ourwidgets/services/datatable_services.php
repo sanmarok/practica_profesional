@@ -51,10 +51,7 @@
                             echo "<td>" . $row['download_speed'] . "</td>";
                             echo "<td>" . $row['monthly_fee'] . "</td>";
                             echo "<td>" . $row['installation_fee'] . "</td>";
-                            echo '<td class="text-center"><div><a href="profile_service.php?id=' . $row['service_id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a><a href="#" onclick="deleteService(' . $row['service_id'] . ')"><i class="fas fa-times text-danger"></i></a></div></td>';
-
-                           
-
+                            echo '<td class="text-center"><div><a href="profile_service.php?id=' . $row['service_id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a></div></td>';
                         }
                     } else {
                         echo "No se encontraron servicios.";
