@@ -74,7 +74,7 @@
                 <?php
                 if ($_SESSION['role'] != 2) {
                   echo '           <li class="nav-item">
-              <a href="../services.php" class="nav-link">
+              <a href="services.php" class="nav-link">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                   Servicios
