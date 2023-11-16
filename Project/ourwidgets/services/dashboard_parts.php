@@ -86,7 +86,7 @@
 
 
                         <li class="nav-item">
-                            <a href="../technical_requests.php" class="nav-link">
+                            <a href="technical_requests.php" class="nav-link">
                                 <i class="nav-icon fas fa-tools"></i>
                                 <p>
                                     Solicitudes Técnicas
@@ -99,7 +99,7 @@
                         if ($_SESSION['role'] == 1) {
                             echo '
               <li class="nav-item">
-                <a href="../purchase_orders.php" class="nav-link">
+                <a href="purchase_orders.php" class="nav-link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>
                     Pedidos de Compra
@@ -114,7 +114,7 @@
                         if ($_SESSION['role'] == 1) {
                             echo '
               <li class="nav-item">
-                <a href="../products.php" class="nav-link">
+                <a href="products.php" class="nav-link">
                   <i class="nav-icon fas fa-box-open"></i>
                   <p>
                     Productos
