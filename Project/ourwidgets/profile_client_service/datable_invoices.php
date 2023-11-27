@@ -75,7 +75,7 @@
                         echo "<td>" . $row['due_date'] . "</td>";
                         echo "<td>$" . $row['price_service'] + $row['price_installation'] + $row['surcharge'] . "</td>";
                         switch ($row['state']) {
-                            case 0:
+                            case 0: 
                                 echo '<td><span class="badge bg-danger">Cancelada</span></td>';
                                 break;
                             case 1:
@@ -150,7 +150,7 @@ function confirmarGuardar(id) {
             $("#editarModal" + id).modal("hide");
 
             // Muestra un SweetAlert de éxito (puedes ajustarlo según tus necesidades)
-            Swal.fire("¡Guardado!", "La factura ha sido actualizada.", "success");
+            Swal.fire("¡Error!", "La factura no pudo ser actualizada.", "error");
         }
     });
 }
