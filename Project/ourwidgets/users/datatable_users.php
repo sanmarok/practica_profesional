@@ -294,7 +294,7 @@
             title: '¡Error!',
             text: 'El usuario no se ha podido borrar.',
             confirmButtonColor: 'error',
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
             confirmButtonColor: '#dc3545',
         });
     }

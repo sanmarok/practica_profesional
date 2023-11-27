@@ -213,10 +213,9 @@
 
         // Muestra SweetAlert
         Swal.fire({
-            icon: 'success',
-            title: 'Servicio contratado correctamente',
-            showConfirmButton: false,
-            timer: 1000, // Tiempo en milisegundos (opcional)
+            icon: 'error',
+            title: 'El servicio no pudo contratarse',
+            showConfirmButton: true,
             didClose: () => {
                 // Cierra la ventana modal después de mostrar SweetAlert
                 $('#modalAgregarServicio').modal('hide');

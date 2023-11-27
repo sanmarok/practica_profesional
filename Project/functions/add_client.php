@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             // La inserción se realizó con éxito
-            $response = array('success' => true);
+            $response = array('success' => false);
         } else {
             // Hubo un error al insertar en la base de datos
             $response = array('success' => false);

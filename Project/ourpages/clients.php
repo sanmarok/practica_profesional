@@ -130,27 +130,24 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    <!-- Bootstrap Switch -->
-    <script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
+        <script>
+            $(function() {
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
             });
-        });
-    </script>
+        </script>
     <script>
         function addClient() {
             // Obtén los valores del formulario
@@ -192,8 +189,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                             icon: 'error',
                             title: 'Error',
                             text: 'Error al agregar el cliente.',
-                            showConfirmButton: false,
-                            timer: 1500 // Cierra automáticamente el SweetAlert después de 1.5 segundos
+                            showConfirmButton: true,
                         });
                     }
                 })
