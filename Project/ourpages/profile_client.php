@@ -27,6 +27,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <!-- SweetAlert -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script src="../functions/profile_client.functions.js"></script>
     <style>
         /* Regla de estilo personalizada para el mensaje de error */
         .swal2-popup .swal2-title {
@@ -97,25 +98,8 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    <!-- Table script -->
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
 
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $("#example3").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
 
-            }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-        });
-    </script>
-    <!-- Bootstrap Switch -->
-    <script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <!-- Control save form -->
     <script>
         $(document).ready(function() {
@@ -183,39 +167,10 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             disableSaveButton();
         });
     </script>
-    <!-- Save button -->
-    <script>
-        // Evento para el botón "Guardar"
-        $("#btnGuardar").click(function() {
-            // Simula una actualización exitosa
-            // Aquí deberías agregar tu lógica de actualización del cliente
 
-            // Luego, muestra la alerta de SweetAlert2
-            Swal.fire({
-                title: 'Actualización Exitosa',
-                text: 'El cliente ha sido actualizado correctamente.',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-
-            });
-        });
-    </script>
-    <script>
-        // Evento para el botón "Guardar"
-        $("#btnGuardar").click(function() {
-            // Simula una actualización exitosa
-            // Aquí deberías agregar tu lógica de actualización del cliente
-
-            // Luego, muestra la alerta de SweetAlert2
-            Swal.fire({
-                title: 'Error',
-                text: 'El cliente no se ha sido actualizado.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-
-            });
-        });
-    </script>
+    <?php
+    include '../ourwidgets/profile_client/modal_add_client_service.php'
+    ?>
 </body>
 
 </html>

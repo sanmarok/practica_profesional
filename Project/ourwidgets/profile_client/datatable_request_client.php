@@ -91,7 +91,7 @@
                                 # code...
                                 break;
                         }
-                        echo '<td class="text-center"><a href="profile_technical_request.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-plug text-danger"></i></a></td>';
+                        echo '<td class="text-center"><a href="profile_technical_request.php?id=' . $row['id'] . '" class=" btn btn-danger role="button"><i class="fas fa-plug"></i></a></td>';
                         echo "</tr>";
                     }
                 } else {
@@ -105,64 +105,3 @@
     </div>
     <!-- /.card-body -->
 </div>
-
-<!-- Start modal addServiceClient -->
-<div>
-    <div class="modal fade" id="modalAgregarSolicitud">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Solicitud</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="formContratarServicio" method="post" action="../functions/add_services_client.php">
-                        <div class="form-group">
-                            <label for="exampleSelectBorder">Servicio</label>
-                            <select class="custom-select rounded-0 my-1" id="exampleSelectBorder">
-                                <?php
-                                // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
-                                $db_host = 'localhost';
-                                $db_user = 'root';
-                                $db_pass = '';
-                                $db_name = 'infinet';
-
-                                // Establece una conexión a la base de datos
-                                $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
-
-                                // Verifica si la conexión se realizó correctamente
-                                if ($mysqli->connect_error) {
-                                    die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
-                                }
-                                $sql = "SELECT * FROM `services`";
-                                $result = $mysqli->query($sql);
-
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        echo "<option value=" . $row['service_id'] . '">' . $row['name'] . '</option>';
-                                    }
-                                } else {
-                                }
-
-                                // Cierra la conexión a la base de datos
-                                $mysqli->close();
-                                ?>
-                            </select>
-                            <div class="form-group">
-                                <label for="nombre">Direccion</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Direccion" required autocomplete="off">
-                            </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success" onclick="addClient()">Guardar</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End modal addServiceClient -->

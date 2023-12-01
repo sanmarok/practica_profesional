@@ -161,6 +161,36 @@ if (isset($_SESSION['id'])) {
                         }
                         ?>
 
+
+
+                        <?php
+                        if ($_SESSION['role'] == 1) {
+                            echo '
+              <li class="nav-item">
+                <a href="users.php" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Usuarios
+                  </p>
+                </a>
+              </li>';
+                        }
+                        ?>
+
+                        <?php
+                        if ($_SESSION['role'] == 1) {
+                            echo '
+              <li class="nav-item">
+                <a href="invoices.php" class="nav-link">
+                  <i class="nav-icon fas fa-file-invoice"></i>
+                  <p>
+                    Facturacion
+                  </p>
+                </a>
+              </li>';
+                        }
+                        ?>
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -321,12 +351,12 @@ if (isset($_SESSION['id'])) {
                                 // Establece una conexión a la base de datos
                                 // (Asegúrate de que esta conexión se realiza de manera segura y reutiliza el código de conexión si ya existe)
                                 $mysqli = new mysqli('localhost', 'root', '', 'infinet');
-                                
+
                                 // Verifica si la conexión se realizó correctamente
                                 if ($mysqli->connect_error) {
                                     die('Error de conexión: ' . $mysqli->connect_error);
                                 }
-                                
+
                                 // Consulta SQL para obtener los IDs de los clientes
                                 $sql = "SELECT id, first_name, last_name FROM clients";
                                 $result = $mysqli->query($sql);
