@@ -54,7 +54,10 @@ $mysqli->close();
                             <label for="inputServiceName">Nombre del Servicio</label>
                             <div class="input-group">
                                 <input type="text" class="form-control form-control-border" name="service_name"
-                                    id="inputServiceName" value="<?php echo $name; ?>" disabled>
+                                    id="inputServiceName" value="<?php echo $name; ?>" disabled required>
+                                <div class="invalid-tooltip">
+                                    Por favor, Ingrese un Nombre.
+                                </div>
                                 <span class="input-group-append">
                                     <button class="btn btn-outline-danger mx-2" type="button" id="editServiceName"><i
                                             class="fas fa-pencil-alt"></i></button>
@@ -68,7 +71,10 @@ $mysqli->close();
                             <label for="inputServiceType">Tipo de Servicio</label>
                             <div class="input-group">
                                 <input type="text" class="form-control form-control-border" name="type_service"
-                                    id="inputServiceType" value="<?php echo $type; ?>" disabled>
+                                    id="inputServiceType" value="<?php echo $type; ?>" disabled required>
+                                <div class="invalid-tooltip">
+                                    Por favor, Ingrese un Tipo de Servicio.
+                                </div>
                                 <span class="input-group-append">
                                     <button class="btn btn-outline-danger mx-2" type="button" id="editServiceType"><i
                                             class="fas fa-pencil-alt"></i></button>
@@ -85,7 +91,10 @@ $mysqli->close();
                             <label for="inputUploadSpeed">Velocidad de Subida</label>
                             <div class="input-group">
                                 <input type="text" class="form-control form-control-border" name="upload_speed"
-                                    id="inputUploadSpeed" value="<?php echo $upload_speed; ?>" disabled>
+                                    id="inputUploadSpeed" value="<?php echo $upload_speed; ?>" disabled required>
+                                <div class="invalid-tooltip">
+                                    Por favor, Ingrese una velocidad de subida.
+                                </div>
                                 <span class="input-group-append">
                                     <button class="btn btn-outline-danger mx-2" type="button" id="editUploadSpeed"><i
                                             class="fas fa-pencil-alt"></i></button>
@@ -99,7 +108,10 @@ $mysqli->close();
                             <label for="inputDownloadSpeed">Velocidad de Bajada</label>
                             <div class="input-group">
                                 <input type="text" class="form-control form-control-border" name="download_speed"
-                                    id="inputDownloadSpeed" value="<?php echo $download_speed; ?>" disabled>
+                                    id="inputDownloadSpeed" value="<?php echo $download_speed; ?>" disabled required>
+                                <div class="invalid-tooltip">
+                                    Por favor, Ingrese una velocidad de bajada.
+                                </div>
                                 <span class="input-group-append">
                                     <button class="btn btn-outline-danger mx-2" type="button" id="editDownloadSpeed"><i
                                             class="fas fa-pencil-alt"></i></button>
@@ -115,7 +127,10 @@ $mysqli->close();
                             <label for="inputMonthlyFee">Cuota Mensual</label>
                             <div class="input-group">
                                 <input type="text" class="form-control form-control-border" name="monthly_fee"
-                                    id="inputMonthlyFee" value="<?php echo $monthly_fee; ?>" disabled>
+                                    id="inputMonthlyFee" value="<?php echo $monthly_fee; ?>" disabled required>
+                                <div class="invalid-tooltip">
+                                    Por favor, Ingrese una cuota mensual.
+                                </div>
                                 <span class="input-group-append">
                                     <button class="btn btn-outline-danger mx-2" type="button" id="editMonthlyFee"><i
                                             class="fas fa-pencil-alt"></i></button>
@@ -129,7 +144,11 @@ $mysqli->close();
                             <label for="inputInstallationFee">Tarifa de Instalación</label>
                             <div class="input-group">
                                 <input type="text" class="form-control form-control-border" name="install_fee"
-                                    id="inputInstallationFee" value="<?php echo $installation_fee; ?>" disabled>
+                                    id="inputInstallationFee" value="<?php echo $installation_fee; ?>" disabled
+                                    required>
+                                <div class="invalid-tooltip">
+                                    Por favor, Ingrese una tarifa de instalacion.
+                                </div>
                                 <span class="input-group-append">
                                     <button class="btn btn-outline-danger mx-2" type="button"
                                         id="editInstallationFee"><i class="fas fa-pencil-alt"></i></button>
