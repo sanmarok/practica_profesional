@@ -17,10 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (isset($_POST["first_name"])) {
         $errores = "";
-        if (!preg_match("/^[a-zA-Z ]+$/", $_POST["first_name"])) {
+        if (!preg_match("/^[\p{L}\s]+$/u", $_POST["first_name"])) {
             $errores = "El nombre debe contener solo letras y espacios.";
         }
-        if (!preg_match("/^[a-zA-Z ]+$/", $_POST["last_name"])) {
+        if (!preg_match("/^[\p{L}\s]+$/u", $_POST["last_name"])) {
             $errores = "El apellido debe contener solo letras y espacios.";
         }
         if (!ctype_digit($_POST["document"])) {
