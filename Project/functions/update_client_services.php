@@ -14,24 +14,28 @@ $db_name = 'infinet';
 
 // Verifica si se recibieron datos por POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtén los datos del cliente desde la solicitud AJAX
-    // Conecta a la base de datos
+    $errores = "";
     $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
     // Verifica si la conexión se realizó correctamente
     if ($mysqli->connect_error) {
         die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
     }
-    // Inserta los datos del cliente en la base de datos
-    $query = "UPDATE client_services SET service_id= ? ,address= ?,state= ? WHERE id= ? ";
-    $stmt = $mysqli->prepare($query);
 
-    if ($stmt) {
-        $stmt->bind_param("isii", $_POST["service"], $_POST["address"], $_POST["state"], $_GET["id"]);
+    if (!preg_match('/^[a-zA-Z0-9, ]+$/', $_POST["address"])) {
+        $errores = "La dirección no es válida. Solo se permiten letras, números, comas y espacios.";
+    }
+    if ($errores == "") {
+        // Inserta los datos del cliente en la base de datos
+        $query = "UPDATE client_services SET service_id= ? ,address= ?,state= ? WHERE id= ? ";
+        $stmt = $mysqli->prepare($query);
 
-        if ($stmt->execute()) {
-            // La inserción se realizó con éxito
-            echo "<script>
+        if ($stmt) {
+            $stmt->bind_param("isii", $_POST["service"], $_POST["address"], $_POST["state"], $_POST["id"]);
+
+            if ($stmt->execute()) {
+                // La inserción se realizó con éxito
+                echo "<script>
             Swal.fire({
                 title: 'Actualización Exitosa',
                 text: 'El servicio ha sido actualizado correctamente. ',
@@ -45,9 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
               });
             </script>";
-        } else {
-            // Hubo un error al insertar en la base de datos
-            echo "<script>
+            } else {
+                // Hubo un error al insertar en la base de datos
+                echo "<script>
             Swal.fire({
                 title: 'Error',
                 text: 'El servicio no se ha sido actualizado1.',
@@ -57,11 +61,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
             </script>";
 
-        }
+            }
 
-        $stmt->close();
-    } else {
-        echo "<script>
+            $stmt->close();
+        } else {
+            echo "<script>
             Swal.fire({
                 title: 'Error',
                 text: 'El servicio no se ha sido actualizado2.',
@@ -71,8 +75,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
             </script>";
 
+        }
+    } else {
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '" . $errores . "',
+            showConfirmButton: true,
+        });
+        </script>";
     }
-
     $mysqli->close();
-
 }

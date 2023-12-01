@@ -12,7 +12,7 @@ $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 if ($mysqli->connect_error) {
     die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
 }
-
+$id = $_GET['id'];
 // Consulta SQL para obtener los datos de los clientes
 $sql = "SELECT 
     clients.id AS client_id,
@@ -53,7 +53,7 @@ $mysqli->close();
     <div class="card-body">
         <div class="card-body">
 
-            <form method="post">
+            <form method="post" class="needs-validation" novalidate>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -69,7 +69,8 @@ $mysqli->close();
                             <div class="input-group">
                                 <label for="inputService">Plan</label>
                             </div>
-                            <select class="custom-select form-control-border" name="service" id="inputService" disabled>
+                            <select class="custom-select form-control-border" name="service" id="inputService" disabled
+                                required>
                                 <?php
                                 // Establece una conexión a la base de datos
                                 $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
@@ -94,6 +95,9 @@ $mysqli->close();
                                 $mysqli->close();
                                 ?>
                             </select>
+                            <div class="invalid-tooltip">
+                                Por favor, Selecione un Servicio.
+                            </div>
                             <span class="input-group-append">
                                 <button class="btn btn-outline-danger mx-2" type="button" id="editService"><i
                                         class="fas fa-pencil-alt"></i></button>
@@ -107,7 +111,11 @@ $mysqli->close();
                                 <label for="inputServiceAddress">Direccion</label>
                             </div>
                             <input type="text" class="form-control form-control-border" name="address"
-                                id="inputServiceAddress" value="<?php echo $row['service_address']; ?>" disabled>
+                                id="inputServiceAddress" value="<?php echo $row['service_address']; ?>" disabled
+                                required>
+                            <div class="invalid-tooltip">
+                                Por favor, Escriba una Direccion.
+                            </div>
 
                             <span class="input-group-append">
                                 <button class="btn btn-outline-danger mx-2" type="button" id="editServiceAddress"><i
@@ -121,7 +129,7 @@ $mysqli->close();
                                 <label for="inputService">Estado</label>
                             </div>
                             <select class="custom-select form-control-border" name="state" id="inputServiceState"
-                                disabled>
+                                disabled required>
                                 <option value="0" <?= ($row['service_state'] == 0) ? 'selected' : '' ?>>Inactivo</option>
                                 <option value="1" <?= ($row['service_state'] == 1) ? 'selected' : '' ?>>Activo</option>
                                 <option value="2" <?= ($row['service_state'] == 2) ? 'selected' : '' ?>>Pendiente</option>
@@ -131,11 +139,15 @@ $mysqli->close();
                                 <button class="btn btn-outline-danger mx-2" type="button" id="editServiceState"><i
                                         class="fas fa-pencil-alt"></i></button>
                             </span>
+                            <div class="invalid-tooltip">
+                                Por favor, Selecione un Estado.
+                            </div>
                         </div>
                     </div>
+                    <input type="hidden" id="inputId" name="id" value="<?php echo $id; ?>">
                 </div>
                 <div class="card-footer">
-                    <button id="btnGuardar" class="btn btn-success float-right" name="id" disabled>Guardar</button>
+                    <button id="btnGuardar" type="submit" class="btn btn-success float-right">Guardar</button>
                 </div>
             </form>
         </div>
