@@ -75,7 +75,7 @@
                         echo "<td>" . $row['due_date'] . "</td>";
                         echo "<td>$" . $row['price_service'] + $row['price_installation'] + $row['surcharge'] . "</td>";
                         switch ($row['state']) {
-                            case 0: 
+                            case 0:
                                 echo '<td><span class="badge bg-danger">Cancelada</span></td>';
                                 break;
                             case 1:
@@ -96,8 +96,7 @@
                         <a href="#" data-toggle="modal" data-target="#editarModal' . $row['id'] . '" class="mx-2"><i class="fas fa-edit text-danger"></i></a>
                       </td>';
                         echo "</tr>";
-                        echo '
-<div class="modal fade" id="editarModal' . $row['id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        echo '<div class="modal fade" id="editarModal' . $row['id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
