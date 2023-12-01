@@ -125,6 +125,36 @@
                 ?>
 
 
+
+                <?php
+                if ($_SESSION['role'] == 1) {
+                  echo '
+              <li class="nav-item">
+                <a href="users.php" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Usuarios
+                  </p>
+                </a>
+              </li>';
+                }
+                ?>
+
+                <?php
+                if ($_SESSION['role'] == 1) {
+                  echo '
+              <li class="nav-item">
+                <a href="invoices.php" class="nav-link">
+                  <i class="nav-icon fas fa-file-invoice"></i>
+                  <p>
+                    Facturacion
+                  </p>
+                </a>
+              </li>';
+                }
+                ?>
+
+
               </ul>
             </nav>
             <!-- /.sidebar-menu -->
