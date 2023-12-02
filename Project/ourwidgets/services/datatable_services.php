@@ -51,10 +51,14 @@
                             echo "<td>" . $row['download_speed'] . "</td>";
                             echo "<td>" . $row['monthly_fee'] . "</td>";
                             echo "<td>" . $row['installation_fee'] . "</td>";
-                            echo '<td class="text-center"><div><a href="profile_service.php?id=' . $row['service_id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a></div></td>';
+
+                            echo '<td class="text-center">
+                            <div>
+                                <a href="profile_service.php?id=' . $row['service_id'] . '">
+                                    <button class="btn btn-success mx-1"><i class="fas fa-eye"></i></button>
+                                </a>
+                            </div>';
                         }
-                    } else {
-                        echo "No se encontraron servicios.";
                     }
 
                     // Cierra la conexión a la base de datos
@@ -67,8 +71,8 @@
     </div>
 </div>
 
-        <!-- /.card-body -->
-    </div>
+<!-- /.card-body -->
+</div>
 </div>
 
 <script>

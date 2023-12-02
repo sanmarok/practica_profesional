@@ -75,7 +75,7 @@
                         echo "<td>" . $row['due_date'] . "</td>";
                         echo "<td>$" . $row['price_service'] + $row['price_installation'] + $row['surcharge'] . "</td>";
                         switch ($row['state']) {
-                            case 0: 
+                            case 0:
                                 echo '<td><span class="badge bg-danger">Cancelada</span></td>';
                                 break;
                             case 1:
@@ -92,8 +92,8 @@
                                 break;
                         }
                         echo '<td class="text-center">
-                        <a href="../functions/pdf/invoice.php?id=' . $row['id'] . '" target="_blank" class="mx-2"><i class="fas fa-file-alt text-white"></i></a>
-                        <a href="#" data-toggle="modal" data-target="#editarModal' . $row['id'] . '" class="mx-2"><i class="fas fa-edit text-danger"></i></a>
+                        <a href="../functions/pdf/invoice.php?id=' . $row['id'] . '" target="_blank" class="btn btn-primary mx-1"><i class="fas fa-file-alt text-white"></i></a>
+                        <a href="#" data-toggle="modal" data-target="#editarModal' . $row['id'] . '" class="btn btn-danger mx-1"><i class="fas fa-edit text-white"></i></a>
                       </td>';
                         echo "</tr>";
                         echo '
