@@ -63,11 +63,8 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                                 </div>
                             </div>
 
-                            <div class="card-body d-flex justify-content-around">
-                                <button type="button" class="btn btn-primary">Botón 1</button>
-                                <button type="button" class="btn btn-secondary">Botón 2</button>
-                                <button type="button" class="btn btn-success">Botón 3</button>
-                                <button type="button" class="btn btn-danger">Botón 4</button>
+                            <div class="card-body d-flex  justify-content-between">
+                                <button type="button" class="btn btn-info" onclick="confirmBilling()">Facturacion total</button>
                             </div>
                         </div>
                         <?php

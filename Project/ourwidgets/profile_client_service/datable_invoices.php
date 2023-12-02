@@ -92,8 +92,8 @@
                                 break;
                         }
                         echo '<td class="text-center">
-                        <a href="../functions/pdf/invoice.php?id=' . $row['id'] . '" target="_blank" class="mx-2"><i class="fas fa-file-alt text-white"></i></a>
-                        <a href="#" data-toggle="modal" data-target="#editarModal' . $row['id'] . '" class="mx-2"><i class="fas fa-edit text-danger"></i></a>
+                        <a href="../functions/pdf/invoice.php?id=' . $row['id'] . '" target="_blank" class="btn btn-primary mx-1"><i class="fas fa-file-alt text-white"></i></a>
+                        <a href="#" data-toggle="modal" data-target="#editarModal' . $row['id'] . '" class="btn btn-danger mx-1"><i class="fas fa-edit text-white"></i></a>
                       </td>';
                         echo "</tr>";
                         echo '<div class="modal fade" id="editarModal' . $row['id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

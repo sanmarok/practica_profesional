@@ -56,7 +56,6 @@
                             echo "</tr>";
                         }
                     } else {
-                        echo "No se encontraron clientes.";
                     }
 
                     // Cierra la conexión a la base de datos
