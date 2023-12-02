@@ -165,65 +165,84 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     </script>
    <script>
     function addService() {
+    // Obtén los valores del formulario
+    var serviceName = document.getElementById("service_name").value;
+    var serviceType = document.getElementById("service_type").value;
+    var uploadSpeed = document.getElementById("upload_speed").value;
+    var downloadSpeed = document.getElementById("download_speed").value;
+    var monthlyFee = document.getElementById("monthly_fee").value;
+    var installationFee = document.getElementById("installation_fee").value;
+
+    // Verifica si algún campo está vacío
+    if (!serviceName || !serviceType || !uploadSpeed || !downloadSpeed || !monthlyFee || !installationFee) {
+        // Muestra un mensaje de error indicando que faltan datos
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Error al agregar el servicio.',
+            text: 'Por favor, complete todos los campos.',
             showConfirmButton: false,
-            timer: 1500
+            timer: 3000 // Cierra automáticamente el SweetAlert después de 3 segundos
         });
-
-
-
-        // Obtén los valores del formulario
-        /*var serviceName = document.getElementById("service_name").value;
-        var serviceType = document.getElementById("service_type").value;
-        var uploadSpeed = document.getElementById("upload_speed").value;
-        var downloadSpeed = document.getElementById("download_speed").value;
-        var monthlyFee = document.getElementById("monthly_fee").value;
-        var installationFee = document.getElementById("installation_fee").value;
-
-        // Crea un objeto con los datos que deseas enviar
-        var serviceData = {
-            name: serviceName,
-            type: serviceType,
-            upload_speed: uploadSpeed,
-            download_speed: downloadSpeed,
-            monthly_fee: monthlyFee,
-            installation_fee: installationFee
-        };
-
-        // Realiza una llamada AJAX para enviar los datos al servidor
-        fetch("../functions/add_service.php", {
-                method: "POST",
-                body: JSON.stringify(serviceData),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Aquí puedes manejar la respuesta del servidor
-                if (data.success) {
-                    // La operación se completó exitosamente, puedes cerrar el modal o hacer otras acciones
-                    $("#modalAgregarServicio").modal("hide");
-                    // Recarga la página o realiza otras acciones necesarias
-                    window.location.reload();
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error al agregar el servicio.',
-                        showConfirmButton: false,
-                        timer: 1500 // Cierra automáticamente el SweetAlert después de 1.5 segundos
-                    });
-                }
-            })
-            .catch(error => {
-                // Manejo de errores
-                console.error("Error en la llamada AJAX: " + error);
-            });*/
+        return; // Detiene la ejecución de la función si faltan datos
     }
+
+    // Crea un objeto con los datos que deseas enviar
+    var serviceData = {
+        name: serviceName,
+        type: serviceType,
+        upload_speed: uploadSpeed,
+        download_speed: downloadSpeed,
+        monthly_fee: monthlyFee,
+        installation_fee: installationFee
+    };
+
+    // Realiza una llamada AJAX para enviar los datos al servidor
+    fetch("../functions/add_service.php", {
+        method: "POST",
+        body: JSON.stringify(serviceData),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Aquí puedes manejar la respuesta del servidor
+        if (data.success) {
+            
+            
+            
+            // Cierra el modal o realiza otras acciones según tus necesidades
+            $("#modalAgregarServicio").modal("hide");
+
+            // La operación se completó exitosamente, muestra un mensaje de éxito
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: 'El servicio se agregó correctamente.',
+                showConfirmButton: false,
+                timer: 2000 // Cierra automáticamente el SweetAlert después de 1.5 segundos
+            });
+            
+            setTimeout(function () {
+            window.location.reload();
+        }, 1000);
+        } else {
+            // Muestra un mensaje de error en caso de que la operación no sea exitosa
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ya existe un servicio con ese nombre. Por favor, prueba uno diferente.',
+                showConfirmButton: false,
+                timer: 3000 // Cierra automáticamente el SweetAlert después de 1.5 segundos
+            });
+        }
+    })
+    .catch(error => {
+        // Manejo de errores
+        console.error("Error en la llamada AJAX: " + error);
+    });
+}
+
 </script>
 
 </body>
