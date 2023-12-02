@@ -24,8 +24,8 @@ if ($conn->connect_error) {
 }
 
 // Obtener el ID de la factura desde el parámetro GET
-// $invoice_id = $_GET['id'];
-$invoice_id = 3;
+$invoice_id = $_GET['id'];
+
 
 // Consulta SQL para obtener los datos de la factura, cliente y servicio asociado
 $sql = "SELECT 
@@ -66,7 +66,7 @@ if ($result->num_rows > 0) {
     // Cerrar la conexión después de obtener los datos
     $conn->close();
 
-    ?>
+?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -284,7 +284,7 @@ if ($result->num_rows > 0) {
         </script>
     </body>
 
-    <?php
+<?php
 } else {
     echo "No se encontraron datos para la factura con ID: $invoice_id";
 }

@@ -26,6 +26,7 @@ if (isset($_SESSION['id'])) {
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script src="https://kit.fontawesome.com/dcd8a6e406.js" crossorigin="anonymous"></script>
     <style>
         /* Regla de estilo personalizada para el mensaje de error */
         .swal2-popup .swal2-title {
@@ -161,6 +162,36 @@ if (isset($_SESSION['id'])) {
                         }
                         ?>
 
+
+
+                        <?php
+                        if ($_SESSION['role'] == 1) {
+                            echo '
+              <li class="nav-item">
+                <a href="users.php" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Usuarios
+                  </p>
+                </a>
+              </li>';
+                        }
+                        ?>
+
+                        <?php
+                        if ($_SESSION['role'] == 1) {
+                            echo '
+              <li class="nav-item">
+                <a href="invoices.php" class="nav-link">
+                  <i class="nav-icon fas fa-file-invoice"></i>
+                  <p>
+                    Facturacion
+                  </p>
+                </a>
+              </li>';
+                        }
+                        ?>
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -179,7 +210,6 @@ if (isset($_SESSION['id'])) {
 
                                 <div class="card-header">
                                     <h3 class="card-title">Solicitudes tecnicas</h3>
-
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -258,22 +288,23 @@ if (isset($_SESSION['id'])) {
                                                             echo '<td>Infraestructura</td>';
                                                             break;
                                                     }
-                                                    echo "<td style='text-align: center;'>" . $row['client_service_id'] . "</td>";
-                                                    echo "<td style='text-align: center;'>";
+                                                    echo "<td>" . $row['client_service_id'] . "</td>";
+                                                    echo "<td class ='text-center'>";
                                                     if ($row['technician_id'] == 0) {
                                                         // Muestra un botón más pequeño si el valor es 0
-                                                        echo '<button class="btn" style="font-size: 12px; padding: 3px 6px;"><i class="fas fa-edit text-danger"></i></button>';
+                                                        echo '<button class="btn btn-info"><i class="fa-solid fa-person-circle-plus"></i></button>';
                                                     } else {
                                                         // De lo contrario, muestra el valor de technician_id
                                                         echo $row['technician_id'];
                                                     }
                                                     echo "</td>";
 
-
-
-
-                                                    // echo "<td>" . $row['state'] . "</td>";
-                                                    echo '<td class="text-center"><div><a href="profile_technical_request.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a></div></td>';
+                                                    echo '<td class="text-center">
+                                                    <div>
+                                                        <a href="profile_technical_request.php?id=' . $row['id'] . '">
+                                                            <button class="btn btn-success mx-1"><i class="fas fa-eye"></i></button>
+                                                        </a>
+                                                    </div>';
                                                     echo "</tr>";
                                                 }
                                             } else {
@@ -321,12 +352,12 @@ if (isset($_SESSION['id'])) {
                                 // Establece una conexión a la base de datos
                                 // (Asegúrate de que esta conexión se realiza de manera segura y reutiliza el código de conexión si ya existe)
                                 $mysqli = new mysqli('localhost', 'root', '', 'infinet');
-                                
+
                                 // Verifica si la conexión se realizó correctamente
                                 if ($mysqli->connect_error) {
                                     die('Error de conexión: ' . $mysqli->connect_error);
                                 }
-                                
+
                                 // Consulta SQL para obtener los IDs de los clientes
                                 $sql = "SELECT id, first_name, last_name FROM clients";
                                 $result = $mysqli->query($sql);

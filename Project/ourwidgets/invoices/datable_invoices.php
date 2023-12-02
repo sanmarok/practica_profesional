@@ -1,6 +1,6 @@
 <div class="card card-primary m-2">
     <div class="card-header">
-        <h3 class="card-title">Registro de facturacion</h3>
+        <h3 class="card-title">Facturas</h3>
         <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
@@ -10,11 +10,11 @@
 
     <!-- /.card-header -->
     <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
+        <table id="tableinvoices" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Factura ID</th>
-                    <th>Servicio ID</th>
+                    <th>Servicio</th>
                     <th>Tipo</th>
                     <th>Fecha de emisión</th>
                     <th>Fecha de vencimiento</th>
@@ -41,7 +41,7 @@
 
 
 
-                $sql = "SELECT * FROM `invoices` WHERE `client_service_id` =" . $_GET['id'];
+                $sql = 'SELECT invoices.*, services.name as "service_name" FROM invoices INNER JOIN client_services ON invoices.client_service_id = client_services.id INNER JOIN services ON client_services.service_id = services.service_id';
 
                 $result = $mysqli->query($sql);
 
@@ -49,7 +49,7 @@
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . $row['id'] . "</td>";
-                        echo "<td>" . $row['client_service_id'] . "</td>";
+                        echo "<td>" . $row['service_name'] . "</td>";
                         switch ($row['type']) {
                             case 0:
                                 echo '<td>Factura A</td>';
@@ -95,6 +95,7 @@
                         <a href="../functions/pdf/invoice.php?id=' . $row['id'] . '" target="_blank" class="btn btn-primary mx-1"><i class="fas fa-file-alt text-white"></i></a>
                         <a href="#" data-toggle="modal" data-target="#editarModal' . $row['id'] . '" class="btn btn-danger mx-1"><i class="fas fa-edit text-white"></i></a>
                       </td>';
+
                         echo "</tr>";
                         echo '
 <div class="modal fade" id="editarModal' . $row['id'] . '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

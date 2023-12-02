@@ -18,8 +18,7 @@ if (isset($_SESSION['id'])) {
   <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
@@ -27,6 +26,7 @@ if (isset($_SESSION['id'])) {
   <!-- SweetAlert -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="layout-navbar-fixed control-sidebar-slide-open dark-mode">
@@ -68,7 +68,7 @@ if (isset($_SESSION['id'])) {
                 echo '<i class="nav-icon fas fa-user-tie m-2"></i><span class="px-1">Adminstrador<span>';
                 break;
               case 2:
-                echo '<i class="nav-icon fas fa-users-gears m-2"></i><span class= px-1>Tecnico<span>';
+                echo '<i class="nav-icon fas fa-user-doctor m-2"></i><span class= px-1>Tecnico<span>';
                 break;
               case 3:
                 echo '<i class="nav-icon fas fa-user m-2"></i><span class= px-1>Secretario<span>';
@@ -124,10 +124,10 @@ if (isset($_SESSION['id'])) {
 
 
             <li class="nav-item">
-              <a href="technical_requests.php" class="nav-link">             
+              <a href="technical_requests.php" class="nav-link">
                 <i class="nav-icon fas fa-tools"></i>
                 <p>
-                  Solicitudes Técnicas                                         
+                  Solicitudes Técnicas
                 </p>
               </a>
             </li>
@@ -163,6 +163,36 @@ if (isset($_SESSION['id'])) {
             ?>
 
 
+
+            <?php
+            if ($_SESSION['role'] == 1) {
+              echo '
+              <li class="nav-item">
+                <a href="users.php" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+                    Usuarios
+                  </p>
+                </a>
+              </li>';
+            }
+            ?>
+
+            <?php
+            if ($_SESSION['role'] == 1) {
+              echo '
+              <li class="nav-item">
+                <a href="invoices.php" class="nav-link">
+                  <i class="nav-icon fas fa-file-invoice"></i>
+                  <p>
+                    Facturacion
+                  </p>
+                </a>
+              </li>';
+            }
+            ?>
+
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -176,8 +206,7 @@ if (isset($_SESSION['id'])) {
         <div class="container">
           <div class="row">
             <div class="col-12 text-center">
-              <img src="https://media.tenor.com/RrkSMr0bIJ0AAAAC/jesus-bailando.gif" alt="Gif de Jesús bailando"
-                width="300" height="300">
+              <img src="https://media.tenor.com/RrkSMr0bIJ0AAAAC/jesus-bailando.gif" alt="Gif de Jesús bailando" width="300" height="300">
             </div>
           </div>
         </div>
