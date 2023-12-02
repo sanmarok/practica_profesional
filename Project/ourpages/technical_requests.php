@@ -226,7 +226,7 @@ if (isset($_SESSION['id'])) {
                                                 <th>Fecha Creacion</th>
                                                 <th>Tipo</th>
                                                 <th>Servicio del Cliente</th>
-                                                <th>IDTecnico</th>
+                                                <th>Tecnico</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -290,12 +290,28 @@ if (isset($_SESSION['id'])) {
                                                     }
                                                     echo "<td>" . $row['client_service_id'] . "</td>";
                                                     echo "<td class ='text-center'>";
-                                                    if ($row['technician_id'] == 0) {
-                                                        // Muestra un botón más pequeño si el valor es 0
+                                                    if ($row['technician_id'] == null) {
                                                         echo '<button class="btn btn-info"><i class="fa-solid fa-person-circle-plus"></i></button>';
                                                     } else {
-                                                        // De lo contrario, muestra el valor de technician_id
-                                                        echo $row['technician_id'];
+
+                                                        $db_host = 'localhost';
+                                                        $db_user = 'root';
+                                                        $db_pass = '';
+                                                        $db_name = 'infinet';
+
+                                                        // Establece una conexión a la base de datos
+                                                        $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+                                                        // Verifica si la conexión se realizó correctamente
+                                                        if ($mysqli->connect_error) {
+                                                            die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                                                        }
+
+                                                        // Consulta SQL para obtener los datos de los clientes
+                                                        $sql = "SELECT * FROM `users` WHERE id =" . $row['technician_id'];
+                                                        $Tecresult = $mysqli->query($sql);
+                                                        $Tecresult = $Tecresult->fetch_assoc();
+                                                        echo $Tecresult['first_name'] . " " . $Tecresult['last_name'];
                                                     }
                                                     echo "</td>";
 
