@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .buttons()
       .container()
       .appendTo("#example1_wrapper .col-md-6:eq(0)");
-      
   });
 });
 
@@ -189,7 +188,9 @@ function isValidPhone(value) {
 
 function isValidEmail(value) {
   // Validar que el correo electrónico sea válido
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    value
+  );
 }
 
 function reloadTableContent() {

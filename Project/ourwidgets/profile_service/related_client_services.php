@@ -34,6 +34,7 @@ if ($resultRelatedServices->num_rows >= 0) {
     echo '<div class="card-body">';
     echo '<ul>';
 
+
     while ($rowRelatedService = $resultRelatedServices->fetch_assoc()) {
         $relatedServiceId = $rowRelatedService['service_id'];
         $relatedServiceName = $rowRelatedService['name'];
@@ -49,4 +50,3 @@ if ($resultRelatedServices->num_rows >= 0) {
 
 // Cierra la conexión a la base de datos
 $mysqli->close();
-?>
