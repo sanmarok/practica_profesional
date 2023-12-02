@@ -222,14 +222,13 @@ if (isset($_SESSION['id'])) {
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>ID Solicitud</th>
+                                                <th>ID</th>
                                                 <th>Descripcion</th>
                                                 <th>Problema</th>
                                                 <th>Estado</th>
                                                 <th>Fecha Creacion</th>
                                                 <th>Tipo</th>
-
-                                                <th>Tecnico</th>
+                                                <th>Tecnico encargado</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -256,7 +255,7 @@ if (isset($_SESSION['id'])) {
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
                                                     echo "<tr>";
-                                                    echo "<td style='text-align: center;'>" . $row['id'] . "</td>";
+                                                    echo "<td>" . $row['id'] . "</td>";
                                                     echo "<td>" . $row['description'] . "</td>";
                                                     echo "<td>" . $row['problem'] . "</td>";
                                                     switch ($row['status']) {
@@ -292,8 +291,9 @@ if (isset($_SESSION['id'])) {
                                                             break;
                                                     }
 
-                                                    echo "<td class ='text-center'>";
+
                                                     if ($_SESSION['role'] == 2) {
+                                                        echo "<td class ='text-center'>";
                                                         if ($row['technician_id'] == null) {
                                                             echo '<button class="btn btn-info" onclick="confirmClaim()" ><i class="fa-solid fa-person-circle-plus"></i></button>';
                                                         } else {
@@ -319,6 +319,7 @@ if (isset($_SESSION['id'])) {
                                                         }
                                                         echo "</td>";
                                                     } else {
+                                                        echo "<td>";
                                                         if ($row['technician_id'] == null) {
                                                             echo "Sin asignar";
                                                         } else {
@@ -378,7 +379,7 @@ if (isset($_SESSION['id'])) {
 
     <!-- Modal EJEMPLO -->
     <div class="modal fade" id="modalAgregarCT">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Crear solicitud tecnica</h4>
@@ -389,69 +390,87 @@ if (isset($_SESSION['id'])) {
                 <div class="modal-body">
                     <form id="formAgregarCT" method="post" action="add_solicitudesT.php">
 
-                        <div class="form-group">
-                            <label for="ID Cliente">ID Cliente</label>
-                            <select class="form-control" id="client_service_id" name="client_service_id" required>
-                                <option value="">Selecciona un ID de cliente</option>
-                                <?php
-                                // Establece una conexión a la base de datos
-                                // (Asegúrate de que esta conexión se realiza de manera segura y reutiliza el código de conexión si ya existe)
-                                $mysqli = new mysqli('localhost', 'root', '', 'infinet');
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ID Cliente">Servicio</label>
+                                    <select class="form-control" id="client_service_id" name="client_service_id" required>
+                                        <option value="">Seleccione servicio</option>
+                                        <?php
+                                        // Establece una conexión a la base de datos
+                                        // (Asegúrate de que esta conexión se realiza de manera segura y reutiliza el código de conexión si ya existe)
+                                        $mysqli = new mysqli('localhost', 'root', '', 'infinet');
 
-                                // Verifica si la conexión se realizó correctamente
-                                if ($mysqli->connect_error) {
-                                    die('Error de conexión: ' . $mysqli->connect_error);
-                                }
+                                        // Verifica si la conexión se realizó correctamente
+                                        if ($mysqli->connect_error) {
+                                            die('Error de conexión: ' . $mysqli->connect_error);
+                                        }
 
-                                // Consulta SQL para obtener los IDs de los clientes
-                                $sql = "SELECT id, first_name, last_name FROM clients";
-                                $result = $mysqli->query($sql);
+                                        // Consulta SQL para obtener los IDs de los clientes
+                                        $sql = "SELECT * FROM client_services";
+                                        $result = $mysqli->query($sql);
 
-                                if ($result->num_rows > 0) {
-                                    // Genera las opciones del select con los datos obtenidos
-                                    while ($row = $result->fetch_assoc()) {
-                                        echo "<option value='" . $row['id'] . "'>" . $row['id'] . " - " . $row['first_name'] . " " . $row['last_name'] . "</option>";
-                                    }
-                                } else {
-                                    echo "<option value=''>No hay clientes disponibles</option>";
-                                }
+                                        if ($result->num_rows > 0) {
+                                            // Genera las opciones del select con los datos obtenidos
+                                            while ($row = $result->fetch_assoc()) {
+                                                echo "<option value='" . $row['id'] . "'>" . $row['id'] . "</option>";
+                                            }
+                                        } else {
+                                            echo "<option value=''>No hay clientes disponibles</option>";
+                                        }
 
-                                // Cierra la conexión a la base de datos
-                                $mysqli->close();
-                                ?>
-                            </select>
+                                        // Cierra la conexión a la base de datos
+                                        $mysqli->close();
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Tipo">Tipo</label>
+                                    <select class="form-control" id="type" name="type" required>
+                                        <!-- son 0 para Instalación, 1 para Mantenimiento y 2 para Infraestructura -->
+                                        <option value="0">Instalación</option>
+                                        <option value="1">Mantenimiento</option>
+                                        <option value="2">Infraestructura</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Descripcion">Descripcion</label>
+                                    <textarea id="descripcion" name="descripcion" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Problema">Problema</label>
+                                    <textarea id="descripcion" name="descripcion" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="Descripcion">Descripcion</label>
-                            <input type="text" class="form-control" id="description" name="description" placeholder="Descripcion" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="Problema">Problema</label>
-                            <input type="text" class="form-control" id="problem" name="problem" placeholder="Problema" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="Tipo">Tipo</label>
-                            <select class="form-control" id="type" name="type" required>
-                                <!-- son 0 para Instalación, 1 para Mantenimiento y 2 para Infraestructura -->
-                                <option value="0">Instalación</option>
-                                <option value="1">Mantenimiento</option>
-                                <option value="2">Infraestructura</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="ID Tecnico">ID Tecnico</label>
-                            <select class="form-control" id="technician_id" name="technician_id" placeholder="ID Tecnico (Opcional)" required>
-                                <option value="0">Caso sin asignar</option>
-                                <option value="2">Nombre2 Apellido2</option>
-                                <option value="5">Nombre5 Apellido5</option>
-                            </select>
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="ID Tecnico">Tecnico encargado</label>
+                                    <select class="form-control" id="technician_id" name="technician_id" placeholder="ID Tecnico (Opcional)" required>
+                                        <option value="0">Sin encargado</option>
+                                        <option value="2">Nombre2 Apellido2</option>
+                                        <option value="5">Nombre5 Apellido5</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" onclick="addCasoCliente()">Ingresar Caso</button>
+                    <button type="button" class="btn btn-success" onclick="addCasoCliente()">Crear solicitud tecnica</button>
 
                 </div>
 
