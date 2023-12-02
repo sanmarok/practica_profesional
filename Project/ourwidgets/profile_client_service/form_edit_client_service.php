@@ -53,7 +53,7 @@ $mysqli->close();
     <div class="card-body">
         <div class="card-body">
 
-            <form method="post" class="needs-validation" novalidate>
+            <form method="post" class="needs-validation" novalidate autocomplete="off">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">

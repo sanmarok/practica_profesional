@@ -46,7 +46,7 @@ $mysqli->close();
     <!-- /.card-header -->
     <div class="card-body">
         <div class="card-body">
-            <form method="post" class="needs-validation" novalidate>
+            <form method="post" class="needs-validation" novalidate autocomplete="off">
                 <div class="row">
                     <div class="col-sm-6">
                         <!-- Nombres -->
@@ -145,7 +145,7 @@ $mysqli->close();
                                 <label for="inputState">Estado</label>
                             </div>
                             <select class="custom-select form-control-border form-select" name="state" id="inputState"
-                                aria-label="select example" required disabled>
+                                disabled>
                                 <option value="1" <?php echo $state == 1 ? 'selected' : ''; ?>>Activo</option>
                                 <option value="0" <?php echo $state == 0 ? 'selected' : ''; ?>>Inactivo</option>
                             </select>
@@ -153,9 +153,6 @@ $mysqli->close();
                                 <button class="btn btn-outline-danger mx-2" type="button" id="editState"><i
                                         class="fas fa-pencil-alt"></i></button>
                             </span>
-                            <div class="invalid-tooltip">
-                                Por favor, Selecione un Estado.
-                            </div>
                         </div>
 
                     </div>

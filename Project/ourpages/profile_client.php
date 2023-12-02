@@ -39,6 +39,13 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
         .swal2-html-container {
             color: white;
         }
+
+        .custom-select.is-valid,
+        .was-validated .custom-select:valid {
+            background-color: #343a40;
+            color: #fff;
+            border-color: #6c757d;
+        }
     </style>
 </head>
 

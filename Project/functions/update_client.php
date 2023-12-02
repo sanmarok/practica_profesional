@@ -23,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!preg_match("/^[\p{L}\s]+$/u", $_POST["last_name"])) {
             $errores = "El apellido debe contener solo letras y espacios.";
         }
-        if (!ctype_digit($_POST["document"])) {
-            $errores = "El documento debe contener solo números.";
+        if (!ctype_digit($_POST["document"]) || (strlen($_POST["document"]) != 8)) {
+            $errores = "El documento debe contener solo números y de una longitud de 8 digitos.";
         }
         if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             $errores = "El correo electrónico no es válido.";
