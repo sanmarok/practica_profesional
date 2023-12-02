@@ -30,6 +30,16 @@ if ($result->num_rows > 0) {
     echo "No se encontró el servicio.";
 }
 
+// Consulta SQL para obtener información cruzada relacionada con el servicio
+// Consulta SQL para obtener información cruzada relacionada con el servicio
+$sqlClientsWithService = "SELECT COUNT(*) as count 
+                          FROM client_services
+                          WHERE service_id = $service_id";
+
+$resultClientsWithService = $mysqli->query($sqlClientsWithService);
+$rowClientsWithService = $resultClientsWithService->fetch_assoc();
+$countClientsWithService = $rowClientsWithService['count'];
+
 // Cierra la conexión a la base de datos
 $mysqli->close();
 ?>
@@ -127,9 +137,10 @@ $mysqli->close();
                     </div>
                 </div>
                      <!-- Botón para eliminar servicio -->
-            <button type="button" class="btn btn-danger" onclick="deleteService(<?php echo $service_id; ?>)" style="position: absolute; top: 400px; left: 20px;">
-            <i class="fas fa-times"></i> Eliminar Servicio
-            </button>
+                     <!-- Botón para eliminar servicio -->
+                     <button type="button" class="btn btn-danger" onclick="deleteService(<?php echo $service_id; ?>)" style="position: absolute; top: 400px; left: 20px;" <?php echo ($countClientsWithService > 0 ? 'disabled' : ''); ?>>
+                        <i class="fas fa-times"></i> Eliminar Servicio
+                    </button>
             </form>
         </div>
     </div>
