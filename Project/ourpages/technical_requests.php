@@ -33,8 +33,11 @@ if (isset($_SESSION['id'])) {
             color: white;
             /* Cambia el color del texto a blanco */
         }
-    </style>
 
+        .swal2-html-container {
+            color: white;
+        }
+    </style>
 
 </head>
 
@@ -75,7 +78,7 @@ if (isset($_SESSION['id'])) {
                                 echo '<i class="nav-icon fas fa-user-tie m-2"></i><span class="px-1">Adminstrador<span>';
                                 break;
                             case 2:
-                                echo '<i class="nav-icon fas fa-users-gears m-2"></i><span class= px-1>Tecnico<span>';
+                                echo '<i class="nav-icon fas fa-user-doctor m-2"></i><span class= px-1>Tecnico<span>';
                                 break;
                             case 3:
                                 echo '<i class="nav-icon fas fa-user m-2"></i><span class= px-1>Secretario<span>';
@@ -214,18 +217,18 @@ if (isset($_SESSION['id'])) {
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalAgregarCT">
-                                        <i class="nav-icon fas fa-plus"><span class="mx-1">Solicitud tecnica</span></i>
+                                        <i class="nav-icon fas fa-plus"></i><span class="mx-1">Solicitud tecnica</span>
                                     </button>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>IDSolicitud</th>
+                                                <th>ID Solicitud</th>
                                                 <th>Descripcion</th>
                                                 <th>Problema</th>
                                                 <th>Estado</th>
                                                 <th>Fecha Creacion</th>
                                                 <th>Tipo</th>
-                                                <th>Servicio del Cliente</th>
+
                                                 <th>Tecnico</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -288,43 +291,69 @@ if (isset($_SESSION['id'])) {
                                                             echo '<td>Infraestructura</td>';
                                                             break;
                                                     }
-                                                    echo "<td>" . $row['client_service_id'] . "</td>";
+
                                                     echo "<td class ='text-center'>";
-                                                    if ($row['technician_id'] == null) {
-                                                        echo '<button class="btn btn-info"><i class="fa-solid fa-person-circle-plus"></i></button>';
-                                                    } else {
+                                                    if ($_SESSION['role'] == 2) {
+                                                        if ($row['technician_id'] == null) {
+                                                            echo '<button class="btn btn-info" onclick="confirmClaim()" ><i class="fa-solid fa-person-circle-plus"></i></button>';
+                                                        } else {
 
-                                                        $db_host = 'localhost';
-                                                        $db_user = 'root';
-                                                        $db_pass = '';
-                                                        $db_name = 'infinet';
+                                                            $db_host = 'localhost';
+                                                            $db_user = 'root';
+                                                            $db_pass = '';
+                                                            $db_name = 'infinet';
 
-                                                        // Establece una conexión a la base de datos
-                                                        $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+                                                            // Establece una conexión a la base de datos
+                                                            $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-                                                        // Verifica si la conexión se realizó correctamente
-                                                        if ($mysqli->connect_error) {
-                                                            die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                                                            // Verifica si la conexión se realizó correctamente
+                                                            if ($mysqli->connect_error) {
+                                                                die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                                                            }
+
+                                                            // Consulta SQL para obtener los datos de los clientes
+                                                            $sql = "SELECT * FROM `users` WHERE id =" . $row['technician_id'];
+                                                            $Tecresult = $mysqli->query($sql);
+                                                            $Tecresult = $Tecresult->fetch_assoc();
+                                                            echo $Tecresult['first_name'] . " " . $Tecresult['last_name'];
                                                         }
+                                                        echo "</td>";
+                                                    } else {
+                                                        if ($row['technician_id'] == null) {
+                                                            echo "Sin asignar";
+                                                        } else {
 
-                                                        // Consulta SQL para obtener los datos de los clientes
-                                                        $sql = "SELECT * FROM `users` WHERE id =" . $row['technician_id'];
-                                                        $Tecresult = $mysqli->query($sql);
-                                                        $Tecresult = $Tecresult->fetch_assoc();
-                                                        echo $Tecresult['first_name'] . " " . $Tecresult['last_name'];
+                                                            $db_host = 'localhost';
+                                                            $db_user = 'root';
+                                                            $db_pass = '';
+                                                            $db_name = 'infinet';
+
+                                                            // Establece una conexión a la base de datos
+                                                            $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+                                                            // Verifica si la conexión se realizó correctamente
+                                                            if ($mysqli->connect_error) {
+                                                                die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                                                            }
+
+                                                            // Consulta SQL para obtener los datos de los clientes
+                                                            $sql = "SELECT * FROM `users` WHERE id =" . $row['technician_id'];
+                                                            $Tecresult = $mysqli->query($sql);
+                                                            $Tecresult = $Tecresult->fetch_assoc();
+                                                            echo $Tecresult['first_name'] . " " . $Tecresult['last_name'];
+                                                        }
+                                                        echo "</td>";
                                                     }
-                                                    echo "</td>";
 
                                                     echo '<td class="text-center">
                                                     <div>
                                                         <a href="profile_technical_request.php?id=' . $row['id'] . '">
-                                                            <button class="btn btn-success mx-1"><i class="fas fa-eye"></i></button>
+                                                            <button class="btn btn-success mx-1" "><i class="fas fa-eye"></i></button>
                                                         </a>
                                                     </div>';
                                                     echo "</tr>";
                                                 }
                                             } else {
-                                                echo "No se encontraron casos.";
                                             }
 
                                             // Cierra la conexión a la base de datos
@@ -352,7 +381,7 @@ if (isset($_SESSION['id'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Agregar Caso Tecnico</h4>
+                    <h4 class="modal-title">Crear solicitud tecnica</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -363,7 +392,7 @@ if (isset($_SESSION['id'])) {
                         <div class="form-group">
                             <label for="ID Cliente">ID Cliente</label>
                             <select class="form-control" id="client_service_id" name="client_service_id" required>
-                                <option value="">Selecciona una ID de cliente</option>
+                                <option value="">Selecciona un ID de cliente</option>
                                 <?php
                                 // Establece una conexión a la base de datos
                                 // (Asegúrate de que esta conexión se realiza de manera segura y reutiliza el código de conexión si ya existe)
@@ -456,17 +485,8 @@ if (isset($_SESSION['id'])) {
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');;
         });
     </script>
     <script>
@@ -536,6 +556,34 @@ if (isset($_SESSION['id'])) {
                     });
                 });
         }
+    </script>
+
+    <script>
+        // Definir la función confirmClaim
+        function confirmClaim() {
+            // Utilizar SweetAlert para mostrar el diálogo de confirmación
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: 'Está a punto de asignarse como encargado de esta solicitud técnica. ¿Está seguro?',
+                icon: 'warning',
+                showCancelButton: true,
+                // confirmButtonColor: '#3085d6',
+                // cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, estoy seguro',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                // Si el usuario hace clic en confirmar, puedes realizar acciones adicionales aquí
+                if (result.isConfirmed) {
+                    Swal.fire('Asignado', 'Ahora eres el encargado de esta solicitud técnica', 'success');
+                    // Aquí puedes agregar lógica adicional después de la confirmación
+                }
+            });
+        }
+
+        // Llamar a la función cuando sea necesario, por ejemplo, al hacer clic en un botón
+        // Puedes asociar esta función a un evento específico en tu aplicación
+        // Ejemplo:
+        // document.getElementById('miBoton').addEventListener('click', confirmClaim);
     </script>
 
 </body>
