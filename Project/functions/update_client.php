@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             $errores = "El correo electrónico no es válido.";
         }
-        if (!preg_match("/^[0-9-]+$/", $_POST["phone"])) {
+        if (!preg_match("/^[\d\s()+-]*$/", $_POST["phone"])) {
             $errores = "El teléfono debe contener solo números y guiones.";
         }
         if ($errores == "") {
