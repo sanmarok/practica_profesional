@@ -21,66 +21,18 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function isValidDireccion(value) {
-  // Validar que la dirección tenga al menos 5 caracteres, incluyendo al menos un espacio
-  return /^(?=.*\s)[a-zA-Z0-9\s.,#-]{5,}$/.test(value);
-}
-
-function validationAddClientServiceForm() {
-  // Obtener los valores de los campos
-  var selectedService = document
-    .getElementById("exampleSelectBorder")
-    .value.trim();
-  var direccion = document.getElementById("direccion").value.trim();
-
-  // Validar que se haya seleccionado un servicio
-  if (selectedService === "") {
-    handleValidation(
-      "exampleSelectBorder",
-      "Por favor, selecciona un servicio."
-    );
-    return;
-  } else {
-    showValidationIcon("exampleSelectBorder");
-  }
-
-  // Validar que la dirección contenga letras, números y espacios
-  if (!isValidDireccion(direccion)) {
-    handleValidation(
-      "direccion",
-      "Por favor, ingresa una dirección válida (letras, números y espacios)."
-    );
-    return;
-  } else {
-    showValidationIcon("direccion");
-  }
-
-  addClientService();
-}
-
-// Función para manejar la validación
-function handleValidation(inputId, errorMessage) {
-  // Marcar el campo como inválido y ocultar el icono de validación
-  var input = document.getElementById(inputId);
-  input.classList.add("is-invalid");
-  input.classList.remove("is-valid");
-  input.nextElementSibling.innerHTML = errorMessage;
-}
-
-// Función para mostrar el icono de validación
-function showValidationIcon(inputId) {
-  // Mostrar el icono de validación (check) y marcar el campo como válido
-  var input = document.getElementById(inputId);
-  input.classList.remove("is-invalid");
-  input.classList.add("is-valid");
-}
-
 function addClientService() {
   // Obtener los datos del formulario
   var service_id = document.getElementById("exampleSelectBorder").value;
-  var direccion = document.getElementById("direccion").value;
+  var direccion =
+    document.getElementById("city").value +
+    ", " +
+    document.getElementById("street").value +
+    " " +
+    document.getElementById("number").value;
   var client_id = document.getElementById("id_client").value;
 
+  alert(direccion);
   // Crear un objeto con los datos que deseas enviar
   var serviceData = {
     client_id: client_id,
@@ -128,4 +80,71 @@ function addClientService() {
         showConfirmButton: true,
       });
     });
+}
+
+function validationAddClientServiceForm() {
+  // Obtener los valores de los campos
+  var selectedService = document
+    .getElementById("exampleSelectBorder")
+    .value.trim();
+  var city = document.getElementById("city").value.trim();
+  var street = document.getElementById("street").value.trim();
+  var number = document.getElementById("number").value.trim();
+
+  // Validar que se haya seleccionado un servicio
+  if (selectedService === "") {
+    handleValidation(
+      "exampleSelectBorder",
+      "Por favor, selecciona un servicio."
+    );
+    return;
+  } else {
+    showValidationIcon("exampleSelectBorder");
+  }
+
+  // Validar el departamento (city)
+  if (city === "") {
+    handleValidation("city", "Por favor, selecciona un departamento.");
+    return;
+  } else {
+    showValidationIcon("city");
+  }
+
+  // Validar la calle
+  if (street.length < 2) {
+    handleValidation(
+      "street",
+      "Por favor, ingresa una calle válida (mínimo 2 caracteres)."
+    );
+    return;
+  } else {
+    showValidationIcon("street");
+  }
+
+  // Validar el número
+  if (!/^\d+$/.test(number)) {
+    handleValidation("number", "Por favor, ingresa un número válido.");
+    return;
+  } else {
+    showValidationIcon("number");
+  }
+
+  addClientService();
+}
+
+// Función para manejar la validación
+function handleValidation(inputId, errorMessage) {
+  // Marcar el campo como inválido y ocultar el icono de validación
+  var input = document.getElementById(inputId);
+  input.classList.add("is-invalid");
+  input.classList.remove("is-valid");
+  input.nextElementSibling.innerHTML = errorMessage;
+}
+
+// Función para mostrar el icono de validación
+function showValidationIcon(inputId) {
+  // Mostrar el icono de validación (check) y marcar el campo como válido
+  var input = document.getElementById(inputId);
+  input.classList.remove("is-invalid");
+  input.classList.add("is-valid");
 }
