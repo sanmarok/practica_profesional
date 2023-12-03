@@ -32,8 +32,6 @@ function addClientService() {
     document.getElementById("number").value;
   var client_id = document.getElementById("id_client").value;
 
-  alert(direccion);
-  // Crear un objeto con los datos que deseas enviar
   var serviceData = {
     client_id: client_id,
     service_id: service_id,
@@ -147,4 +145,69 @@ function showValidationIcon(inputId) {
   var input = document.getElementById(inputId);
   input.classList.remove("is-invalid");
   input.classList.add("is-valid");
+}
+
+function guardarSolicitud(clientServiceId) {
+  var formId = "formSolicitudTecnica" + clientServiceId;
+  var form = document.getElementById(formId);
+
+  // Verifica si los campos están vacíos
+  if (form.checkValidity() === false) {
+    event.preventDefault();
+    event.stopPropagation();
+  } else {
+    addRequest(clientServiceId);
+  }
+
+  form.classList.add("was-validated");
+}
+
+function addRequest(clientServiceId) {
+  // Obtén los datos del formulario específico
+  var formData = {
+    clientServiceId: clientServiceId,
+    descripcion: $("#descripcion" + clientServiceId).val(),
+    problem: $("#problem" + clientServiceId).val(),
+    status: 3,
+    type: 1,
+  };
+
+  // Realiza la llamada AJAX utilizando fetch
+  fetch("../functions/add_request.php", {
+    method: "POST",
+    body: JSON.stringify(formData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Manejar la respuesta del servidor
+      if (data.success) {
+        // Acciones cuando la solicitud es exitosa
+        Swal.fire({
+          icon: "success",
+          title: "Solicitud exitosa",
+          text: data.message,
+        }).then(() => {
+          // Recargar la página
+          location.reload();
+        });
+      } else {
+        // Acciones cuando hay un error en la solicitud
+        Swal.fire({
+          icon: "error",
+          title: "Error en la solicitud",
+          text: data.error,
+        });
+      }
+    })
+    .catch((error) => {
+      // Manejar errores de la llamada fetch
+      Swal.fire({
+        icon: "error",
+        title: "Error en la solicitud",
+        text: "Hubo un error al procesar la solicitud.",
+      });
+    });
 }
