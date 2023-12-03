@@ -88,7 +88,8 @@
                             </a>
                         ';
 
-                        $subquery = "SELECT id, status FROM technical_requests WHERE client_service_id =" . $row['id'] . "";
+                        $subquery = "SELECT id, status FROM technical_requests WHERE client_service_id = " . $row['id'] . " AND status NOT IN (0, 1)";
+
                         $subresult = $mysqli->query($subquery);
 
                         if ($subresult->num_rows > 0) {
@@ -98,54 +99,7 @@
                                 }
                             }
                         } else {
-                            echo '<button type="button" class="btn btn-warning mx-1" data-toggle="modal" data-target="#modalSolicitudTecnica' . $row['id'] . '">
-                            <i class="fas fa-plus"></i>
-                          </button>
-    <div class="modal fade text-left " id="modalSolicitudTecnica' . $row['id'] . '">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">Crear solicitud tecnica</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form id="formSolicitudTecnica' . $row['id'] . '"  method="post">
-                <!-- Puedes agregar aquí los campos y elementos del formulario necesarios -->
-                <input type="hidden" name="clientServiceId" value="' . $row['id'] . '">
-
-                <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-                            <textarea id="descripcion" name="descripcion" rows="4" class="form-control" required></textarea>
-                        </div>
-        
-
-                            </div>
-
-                            <div class="col-md-6">
-                            <div class="form-group">
-                            <label for="problem">Problema</label>
-                            <textarea id="problem" name="problem" rows="4" class="form-control" required></textarea>
-                        </div>
-                            </div>
-                </div>
-
-
-
-            </form>
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-success">Guardar</button>
-        </div>
-    </div>
-</div>
-        </div>
-    </div>';
+                            include 'modal_add_request.php';
                         }
                         echo "</td></tr>";
                     }
@@ -159,4 +113,3 @@
     </div>
     <!-- /.card-body -->
 </div>
-

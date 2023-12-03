@@ -52,10 +52,10 @@
                                 <label for="city">Departamento</label>
                                 <select name="city" id="city" class="custom-select rounded-0 my-1">
                                     <option value="" selected disabled>Seleccione departamento</option>
-                                    <option value="Concordia">Concordia</option>
-                                    <option value="Paso de los Libres">Paso de los Libres</option>
-                                    <option value="Villaguay">Villaguay</option>
-                                    <option value="Mercedes">Mercedes</option>
+                                    <option value="Entre Rios, Concordia">Concordia</option>
+                                    <option value="Entre Rios, Paso de los Libres">Paso de los Libres</option>
+                                    <option value="Entre Rios, Villaguay">Villaguay</option>
+                                    <option value="Corrientes, Mercedes">Mercedes</option>
                                 </select>
                                 <div class="invalid-feedback">Por favor, selecciona un departamento.</div>
                             </div>

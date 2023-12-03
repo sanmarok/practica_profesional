@@ -90,12 +90,12 @@ $mysqli->close();
                                         <i class="fas fa-eye text-success"></i>
                                     </a>
                                 </div>
-                                <?php 
-                                 echo '<span>&nbsp&nbsp;Servicio contratado ' . $row['client_service_id'] . '</span>';
-                                 ?>
+                                <?php
+                                echo '<span>&nbsp&nbsp;Servicio contratado ' . $row['client_service_id'] . '</span>';
+                                ?>
 
-                                
-                                <span class="input-group-append">
+
+                                <span class=" input-group-append">
 
 
                                 </span>
@@ -147,14 +147,14 @@ $mysqli->close();
                                 <div class="input-group-prepend">
                                     <!-- Ícono de vista que actúa como enlace al perfil del servicio del cliente -->
                                     <a href="profile_client_service.php?id=<?php echo $date_created; ?>">
-                                    
+
                                     </a>
                                 </div>
-                                <?php 
-                                 echo '<span>&nbsp&nbsp; ' . $row['date_created'] . '</span>';
-                                 ?>
+                                <?php
+                                echo '<span>&nbsp&nbsp; ' . $row['date_created'] . '</span>';
+                                ?>
 
-                                
+
                                 <span class="input-group-append">
 
 
