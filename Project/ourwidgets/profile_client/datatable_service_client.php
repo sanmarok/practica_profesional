@@ -11,7 +11,7 @@
     <!-- /.card-header -->
     <div class="card-body">
         <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalContratarServicio">
-            <i class="nav-icon fas fa-plus"><span class="mx-1">Contratar</span></i>
+            <i class="nav-icon fas fa-plus"></i><span class="mx-1">Contratar</span>
         </button>
         <table id="example1" class="table table-bordered table-striped">
             <thead>
@@ -105,34 +105,42 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title">Nueva Solicitud Técnica</h4>
+            <h4 class="modal-title">Crear solicitud tecnica</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            <form id="formSolicitudTecnica' . $row['id'] . '" action="procesar_solicitud_tecnica.php" method="post">
+            <form id="formSolicitudTecnica' . $row['id'] . '"  method="post">
                 <!-- Puedes agregar aquí los campos y elementos del formulario necesarios -->
                 <input type="hidden" name="clientServiceId" value="' . $row['id'] . '">
 
-                <div class="form-group">
-                    <label for="descripcion">Descripción:</label>
-                    <textarea id="descripcion" name="descripcion" rows="4" class="form-control"></textarea>
+                <div class="row">
+                            <div class="col-md-6">
+                            <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea id="descripcion" name="descripcion" rows="4" class="form-control" required></textarea>
+                        </div>
+        
+
+                            </div>
+
+                            <div class="col-md-6">
+                            <div class="form-group">
+                            <label for="problem">Problema</label>
+                            <textarea id="problem" name="problem" rows="4" class="form-control" required></textarea>
+                        </div>
+                            </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="problem">Problema:</label>
-                    <textarea id="problem" name="problem" rows="4" class="form-control"></textarea>
-                </div>
 
-                <!-- Puedes agregar más campos y elementos aquí -->
 
             </form>
         </div>
 
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-success" onclick="addRequest()">Guardar</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
         </div>
     </div>
 </div>
@@ -151,3 +159,4 @@
     </div>
     <!-- /.card-body -->
 </div>
+

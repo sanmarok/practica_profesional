@@ -27,6 +27,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
     <script src="../functions/invoices.functions.js"></script>
+    <script src="https://kit.fontawesome.com/dcd8a6e406.js" crossorigin="anonymous"></script>
     <style>
         /* Regla de estilo personalizada para el mensaje de error */
         .swal2-popup .swal2-title {
@@ -64,7 +65,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                             </div>
 
                             <div class="card-body d-flex  justify-content-between">
-                                <button type="button" class="btn btn-info" onclick="confirmBilling()">Facturacion total</button>
+                                <button type="button" class="btn btn-info" onclick="confirmBilling()"><i class="fa-solid fa-file-invoice"></i><span class="mx-1">Facturacion total</span></button>
                             </div>
                         </div>
                         <?php

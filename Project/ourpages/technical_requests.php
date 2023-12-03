@@ -395,7 +395,8 @@ if (isset($_SESSION['id'])) {
                                 <div class="form-group">
                                     <label for="ID Cliente">Servicio</label>
                                     <select class="form-control" id="client_service_id" name="client_service_id" required>
-                                        <option value="">Seleccione servicio</option>
+                                        <option value="" selected disabled>Seleccione servicio</option>
+                                        <option value="">Interno</option>
                                         <?php
                                         // Establece una conexión a la base de datos
                                         // (Asegúrate de que esta conexión se realiza de manera segura y reutiliza el código de conexión si ya existe)
@@ -407,16 +408,22 @@ if (isset($_SESSION['id'])) {
                                         }
 
                                         // Consulta SQL para obtener los IDs de los clientes
-                                        $sql = "SELECT * FROM client_services";
-                                        $result = $mysqli->query($sql);
+                                        $sql = "SELECT cs.id, s.name
+                                        FROM client_services cs
+                                        JOIN services s ON cs.service_id = s.service_id
+                                        WHERE NOT EXISTS (
+                                            SELECT 1
+                                            FROM technical_requests tr
+                                            WHERE tr.client_service_id = cs.id
+                                              AND tr.status IN (2, 3, 4)
+                                        );";
+                                        $Csresult = $mysqli->query($sql);
 
-                                        if ($result->num_rows > 0) {
+                                        if ($Csresult->num_rows > 0) {
                                             // Genera las opciones del select con los datos obtenidos
-                                            while ($row = $result->fetch_assoc()) {
-                                                echo "<option value='" . $row['id'] . "'>" . $row['id'] . "</option>";
+                                            while ($row = $Csresult->fetch_assoc()) {
+                                                echo "<option value='" . $row['id'] . "'>" . $row['id'] . "- " . $row['name'] . "</option>";
                                             }
-                                        } else {
-                                            echo "<option value=''>No hay clientes disponibles</option>";
                                         }
 
                                         // Cierra la conexión a la base de datos
