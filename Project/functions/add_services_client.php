@@ -39,15 +39,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $lastInsertId = $mysqli->insert_id;
 
                 // Realiza una consulta adicional en la tabla technical_requests
-                $queryTechnical = "INSERT INTO technical_requests (description, status, client_service_id, problem) VALUES (?, ?, ?, ?)";
+                $queryTechnical = "INSERT INTO technical_requests (description, status, client_service_id, problem, type) VALUES (?, ?, ?, ?,?)";
                 $stmtTechnical = $mysqli->prepare($queryTechnical);
 
                 if ($stmtTechnical) {
                     // Enlaza los parámetros y ejecuta la consulta
                     $description = "Instalacion de nuevo servicio";
                     $status = 3;
+                    $type = 0;
                     $problem = "Instalacion pendiente";
-                    $stmtTechnical->bind_param("siis", $description, $status, $lastInsertId, $problem);
+                    $stmtTechnical->bind_param("siisi", $description, $status, $lastInsertId, $problem, $type);
                     $stmtTechnical->execute();
 
                     // Cierra la consulta preparada
