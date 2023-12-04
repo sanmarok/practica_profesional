@@ -5,7 +5,8 @@
             <h3 class="card-title">Clientes</h3>
         </div>
         <div class="card-tools">
-            <button type="button" id="btnAgregarCliente" class="btn btn-success ml-4 mt-4 mb-0" data-toggle="modal" data-target="#modalAgregarCliente">
+            <button type="button" id="btnAgregarCliente" class="btn btn-success ml-4 mt-4 mb-0" data-toggle="modal"
+                data-target="#modalAgregarCliente">
                 <i class="nav-icon fas fa-plus"><span class="mx-1">Cliente</span></i>
             </button>
         </div>
@@ -54,6 +55,8 @@
                             echo "<td>" . $row['phone'] . "</td>";
                             echo "<td>" . $row['email'] . "</td>";
                             switch ($row['state']) {
+                                case null:
+                                case '':
                                 case 0:
                                     echo '<td class="text-left my-auto"><span class="badge bg-danger">Inactivo</span></td>';
                                     break;

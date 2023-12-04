@@ -3,6 +3,46 @@ if (isset($_SESSION['id']) && $_SESSION['role'] != 1) {
     header('Location: dashboard.php');
     exit();
 }
+function verDato($columna, $dato)
+{
+    $db_host = 'localhost';
+    $db_user = 'root';
+    $db_pass = '';
+    $db_name = 'infinet';
+    $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+    if ($mysqli->connect_error) {
+        die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+    }
+    $query = "SELECT COUNT(*) as total FROM clients WHERE $columna = ? && id != ?";
+    $stmt = $mysqli->prepare($query);
+
+    if ($stmt) {
+        // Vincular parámetros
+        $stmt->bind_param("si", $dato, $_POST["id"]);
+
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // Obtener el resultado
+        $resultado = $stmt->get_result();
+
+        // Obtener el número total de filas encontradas
+        $fila = $resultado->fetch_assoc();
+        $total = $fila['total'];
+
+        // Cerrar la conexión y liberar los recursos
+        $stmt->close();
+        $mysqli->close();
+
+        // Verificar si hay duplicados
+        return $total > 0;
+    } else {
+        // Error en la preparación de la consulta
+        die("Error en la consulta: " . $mysqli->error);
+    }
+
+}
 
 $db_host = 'localhost';
 $db_user = 'root';
@@ -25,12 +65,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         if (!ctype_digit($_POST["document"]) || (strlen($_POST["document"]) != 8)) {
             $errores = "El documento debe contener solo números y de una longitud de 8 digitos.";
+        } else if (verDato('document', $_POST["document"])) {
+            $errores = "El documento ya existe.";
         }
         if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             $errores = "El correo electrónico no es válido.";
+        } else if (verDato('email', $_POST["email"])) {
+            $errores = "El correo electrónico ya existe.";
         }
         if (!preg_match("/^[\d\s()+-]*$/", $_POST["phone"])) {
             $errores = "El teléfono debe contener solo números y guiones.";
+        } else if (verDato('phone', $_POST["phone"])) {
+            $errores = "El teléfono ya existe.";
         }
         if ($errores == "") {
             $query = "UPDATE clients SET first_name = ?, last_name = ?,phone = ?,email = ?,document = ?,state = ? WHERE id = ?";
