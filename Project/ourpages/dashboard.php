@@ -448,8 +448,7 @@ foreach ($addresses as $address) {
   <script src="../plugins/flot/plugins/jquery.flot.resize.js"></script>
   <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
   <script src="../plugins/flot/plugins/jquery.flot.pie.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="../dist/js/demo.js"></script>
+
   <!-- Page specific script -->
   <script>
     $(function() {
