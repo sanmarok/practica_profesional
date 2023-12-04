@@ -19,7 +19,8 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
@@ -65,7 +66,9 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                             </div>
 
                             <div class="card-body d-flex  justify-content-between">
-                                <button type="button" class="btn btn-info" onclick="confirmBilling()"><i class="fa-solid fa-file-invoice"></i><span class="mx-1">Facturacion total</span></button>
+                                <button type="button" class="btn btn-info" onclick="confirmBilling()"><i
+                                        class="fa-solid fa-file-invoice"></i><span class="mx-1">Facturacion
+                                        total</span></button>
                             </div>
                         </div>
                         <?php

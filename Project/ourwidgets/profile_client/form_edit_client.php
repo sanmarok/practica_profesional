@@ -158,8 +158,8 @@ $mysqli->close();
                     </div>
                     <input type="hidden" id="inputId" name="id" value="<?php echo $client_id; ?>">
                 </div>
-                <div class="card-footer">
-                    <button id="btnGuardar" type="submit" class="btn btn-success float-right">Guardar</button>
+                <div class="form-footer">
+                    <button id="btnGuardar" type="submit" class="btn btn-success float-right" disabled>Guardar</button>
                 </div>
             </form>
         </div>

@@ -78,10 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else if (verDato('phone', $_POST["phone"])) {
             $errores = "El teléfono ya existe.";
         }
+        echo "Estado: " . $_POST["state"];
         if ($errores == "") {
             $query = "UPDATE clients SET first_name = ?, last_name = ?,phone = ?,email = ?,document = ?,state = ? WHERE id = ?";
             $stmt = $mysqli->prepare($query);
-            $stmt->bind_param("sssssii", $_POST["first_name"], $_POST["last_name"], $_POST["phone"], $_POST["email"], $_POST["document"], $_POST["state"], $_POST["id"]);
+            $stmt->bind_param("ssssssi", $_POST["first_name"], $_POST["last_name"], $_POST["phone"], $_POST["email"], $_POST["document"], $_POST["state"], $_POST["id"]);
             if ($stmt) {
                 if ($stmt->execute()) {
                     $query = "SELECT COUNT(*) AS servicios_contratados FROM client_services WHERE client_id = ?";
@@ -95,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if ($servicios_contratados > 0) {
                             $query = "UPDATE client_services SET state = ? WHERE client_id = ?";
                             $stmt = $mysqli->prepare($query);
-                            $stmt->bind_param("ii", $_POST["state"], $_POST["id"]);
+                            $stmt->bind_param("si", $_POST["state"], $_POST["id"]);
                             $stmt->execute();
                         }
                     }

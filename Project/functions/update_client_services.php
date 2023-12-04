@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $mysqli->prepare($query);
 
         if ($stmt) {
-            $stmt->bind_param("isii", $_POST["service"], $_POST["address"], $_POST["state"], $_POST["id"]);
+            $stmt->bind_param("issi", $_POST["service"], $_POST["address"], $_POST["state"], $_POST["id"]);
 
             if ($stmt->execute()) {
                 // La inserción se realizó con éxito
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             })
             .then((result) => {
                 if (result.isConfirmed) {
-                    window.location = 'clients.php';;
+                    window.location = 'profile_client.php?id=" . $_POST['client_id'] . "';
                 }
               });
             </script>";

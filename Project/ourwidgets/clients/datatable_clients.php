@@ -55,19 +55,13 @@
                             echo "<td>" . $row['phone'] . "</td>";
                             echo "<td>" . $row['email'] . "</td>";
                             switch ($row['state']) {
-                                case null:
-                                case '':
                                 case 0:
                                     echo '<td class="text-left my-auto"><span class="badge bg-danger">Inactivo</span></td>';
                                     break;
                                 case 1:
                                     echo '<td class="text-left my-auto"><span class="badge bg-success">Activo</span></td>';
                                     break;
-                                default:
-                                    # code...
-                                    break;
                             }
-                            // echo "<td>" . $row['state'] . "</td>";
                             echo '<td class="text-center">
         <div>
             <a href="profile_client.php?id=' . $row['id'] . '">

@@ -145,8 +145,9 @@ $mysqli->close();
                         </div>
                     </div>
                     <input type="hidden" id="inputId" name="id" value="<?php echo $id; ?>">
+                    <input type="hidden" name="client_id" value="<?php echo $row['client_id']; ?>">
                 </div>
-                <div class="card-footer">
+                <div class="form-footer">
                     <button id="btnGuardar" type="submit" class="btn btn-success float-right">Guardar</button>
                 </div>
             </form>
