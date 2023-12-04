@@ -1,106 +1,76 @@
 <?php
-if (isset($_SESSION['id']) && $_SESSION['role'] != 1) {
-    header('Location: dashboard.php');
-    exit();
-}
 
+// Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
 $db_host = 'localhost';
 $db_user = 'root';
 $db_pass = '';
 $db_name = 'infinet';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+// Establece una conexión a la base de datos
+$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-    if ($mysqli->connect_error) {
-        die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
-    }
-    if (isset($_POST["service_name"])) {
-        $errores = "";
-        if (!preg_match("/^[\p{L}\s]+$/u", $_POST["service_name"])) {
-            $errores = "El Nombre del Servicio debe contener solo letras y espacios.";
-        }
-        if (!preg_match("/^[\p{L}\s]+$/u", $_POST["type_service"])) {
-            $errores = "El Tipo de Servicio debe contener solo letras y espacios.";
-        }
-        if (!ctype_digit($_POST["upload_speed"])) {
-            $errores = "El Velocidad de Subida debe contener solo números.";
-        }
-        if (!ctype_digit($_POST["download_speed"])) {
-            $errores = "La Velocidad de Bajada solo debe contener números.";
-        }
-        if (!preg_match('/^\d+(\.\d+)?$/', $_POST["monthly_fee"])) {
-            $errores = "La Cuota Mensual debe contener solo números.";
-        }
-        if (!preg_match('/^\d+(\.\d+)?$/', $_POST["install_fee"])) {
-            $errores = "El Tarifa de Instalación debe contener solo números.";
-        }
-        echo "tipo: " . $_POST["type_service"];
-        if ($errores == "") {
-            $query = "UPDATE services SET name = ?, type = ?,upload_speed = ?,download_speed = ?,monthly_fee = ?,installation_fee = ? WHERE service_id = ?";
-            $stmt = $mysqli->prepare($query);
-            $stmt->bind_param("ssiissi", $_POST["service_name"], $_POST["type_service"], $_POST["upload_speed"], $_POST["download_speed"], $_POST["monthly_fee"], $_POST["install_fee"], $_POST["id"]);
-            if ($stmt) {
-                if ($stmt->execute()) {
-                    // $query = "SELECT COUNT(*) AS servicios_contratados FROM client_services WHERE client_id = ?";
-                    // $stmt = $mysqli->prepare($query);
-                    // $stmt->bind_param("i", $_POST["id"]);
-                    // if ($stmt->execute()) {
-                    //     $result = $stmt->get_result();
-                    //     $row = $result->fetch_assoc();
-                    //     $servicios_contratados = $row['servicios_contratados'];
+// Verifica si la conexión se realizó correctamente
+if ($mysqli->connect_error) {
+    die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+}
 
-                    //     if ($servicios_contratados > 0) {
-                    //         $query = "UPDATE client_services SET state = ? WHERE client_id = ?";
-                    //         $stmt = $mysqli->prepare($query);
-                    //         $stmt->bind_param("ii", $_POST["state"], $_POST["id"]);
-                    //         $stmt->execute();
-                    //     }
-                    // }
-                    echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Exito',
-                        text: 'Se actualizo correctamente el cliente.',
-                        showConfirmButton: true,
-                    })
-                    .then((result) => {
-                        if (result.isConfirmed) {
-                            window.location = 'services.php';;
-                        }
-                      });
-                    </script>";
-                } else {
-                    echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error al agregar el cliente.',
-                        showConfirmButton: true,
-                    });
-                    </script>";
-                }
-                $stmt->close();
-            } else {
-                echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error al agregar el cliente.',
-                        showConfirmButton: true,
-                    });
-                    </script>";
-            }
-        } else {
-            echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: '" . $errores . "',
-                        showConfirmButton: true,
-                    });
-                    </script>";
-        }
-        $mysqli->close();
+// Obtiene los datos enviados por la solicitud POST
+$data = json_decode(file_get_contents("php://input"));
+
+// Valida que los datos no estén vacíos
+if (empty($data->service_id) || empty($data->name) || empty($data->type) || empty($data->upload_speed) || empty($data->download_speed) || empty($data->monthly_fee) || empty($data->installation_fee)) {
+    $response = array('success' => false, 'message' => 'Todos los campos son obligatorios.');
+    echo json_encode($response);
+    exit;
+}
+
+// Sanitiza y escapa los datos
+$service_id = $mysqli->real_escape_string($data->service_id);
+$name = $mysqli->real_escape_string($data->name);
+$type = $mysqli->real_escape_string($data->type);
+$upload_speed = $mysqli->real_escape_string($data->upload_speed);
+$download_speed = $mysqli->real_escape_string($data->download_speed);
+$monthly_fee = $mysqli->real_escape_string($data->monthly_fee);
+$installation_fee = $mysqli->real_escape_string($data->installation_fee);
+
+// Verifica si ya existe un servicio con el mismo nombre
+$existingServiceQuery = "SELECT * FROM services WHERE name = ? AND service_id != ?";
+$stmtExisting = $mysqli->prepare($existingServiceQuery);
+
+if ($stmtExisting) {
+    $stmtExisting->bind_param("si", $name, $service_id);
+    $stmtExisting->execute();
+    $stmtExisting->store_result();
+
+    if ($stmtExisting->num_rows > 0) {
+        // Ya existe un servicio con el mismo nombre (excluyendo el servicio actual), devuelve una respuesta de error
+        $response = array('success' => false, 'message' => 'Ya existe un servicio con ese nombre.');
+        echo json_encode($response);
+        exit(); // Sale del script si ya existe el servicio
     }
-} ?>
+
+    $stmtExisting->close();
+} else {
+    // Hubo un error en la preparación de la consulta
+    $response = array('success' => false, 'message' => 'Error en la preparación de la consulta.');
+    echo json_encode($response);
+    exit(); // Sale del script si hay un error en la preparación de la consulta
+}
+
+// Consulta SQL para actualizar el servicio
+$sql = "UPDATE services SET name = '$name', type = '$type', upload_speed = '$upload_speed', download_speed = '$download_speed', monthly_fee = '$monthly_fee', installation_fee = '$installation_fee' WHERE service_id = $service_id";
+
+if ($mysqli->query($sql)) {
+    // Actualización exitosa
+    $response = array('success' => true);
+    echo json_encode($response);
+} else {
+    // Error en la actualización
+    $response = array('success' => false, 'message' => 'Error al actualizar el servicio: ' . $mysqli->error);
+    echo json_encode($response);
+}
+
+// Cierra la conexión a la base de datos
+$mysqli->close();
+
+?>

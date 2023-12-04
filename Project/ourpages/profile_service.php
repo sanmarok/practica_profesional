@@ -28,6 +28,8 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == '1' || $_SESSION['role'] == 
     <!-- SweetAlert -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script src="../functions/profile_service.functions.js"></script>
+
     <style>
         /* Regla de estilo personalizada para el mensaje de error */
         .swal2-popup .swal2-title {
@@ -58,7 +60,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == '1' || $_SESSION['role'] == 
                         <div class="col-12">
 
                             <!-- Start form_edit_service -->
-                            <?php include '../ourwidgets/profile_service/form_edit_service.php'; ?>
+                            <?php include '../ourwidgets/profile_service/modal_perfil_service.php'; ?>
                             <!-- End form_edit_service -->
 
                             <!-- Start widget_related_services -->
@@ -112,7 +114,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == '1' || $_SESSION['role'] == 
         });
     </script>
     <!-- Bootstrap Switch -->
-    <script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+
     <!-- Control save form -->
     <script>
         $(document).ready(function () {
@@ -204,26 +206,12 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == '1' || $_SESSION['role'] == 
             disableSaveButton();
         });
     </script>
-    <script>
-        (() => {
-            'use strict'
 
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
+    <!-- Save button -->
 
-            // Loop over them and prevent submission
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
 
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
-    </script>
+
+
 </body>
 
 </html>

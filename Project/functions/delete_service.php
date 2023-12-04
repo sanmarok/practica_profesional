@@ -14,15 +14,19 @@ if (isset($_GET['id'])) {
         die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
     }
 
-    // Realiza la consulta SQL para borrar el servicio
-    $sql = "DELETE FROM services WHERE service_id = $serviceId";
-    $result = $mysqli->query($sql);
+    try {
+        // Realiza la consulta SQL para borrar el servicio
+        $sql = "DELETE FROM services WHERE service_id = $serviceId";
+        $result = $mysqli->query($sql);
 
-    // Maneja la respuesta
-    if ($result) {
-        $response = ['success' => true];
-    } else {
-        $response = ['success' => false];
+        // Maneja la respuesta
+        if ($result) {
+            $response = ['success' => true];
+        } else {
+            throw new Exception('Error al ejecutar la consulta: ' . $mysqli->error);
+        }
+    } catch (Exception $e) {
+        $response = ['success' => false, 'error' => $e->getMessage()];
     }
 
     // Cierra la conexión a la base de datos
@@ -33,3 +37,4 @@ if (isset($_GET['id'])) {
     echo json_encode($response);
 }
 ?>
+

@@ -26,6 +26,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
     }
 
+    // Verifica si ya existe un servicio con el mismo nombre
+    $existingServiceQuery = "SELECT * FROM services WHERE name = ?";
+    $stmtExisting = $mysqli->prepare($existingServiceQuery);
+
+    if ($stmtExisting) {
+        $stmtExisting->bind_param("s", $serviceData->name);
+        $stmtExisting->execute();
+        $stmtExisting->store_result();
+
+        if ($stmtExisting->num_rows > 0) {
+            // Ya existe un servicio con el mismo nombre, devuelve una respuesta de error
+            $response = array('success' => false, 'message' => 'Ya existe un servicio con ese nombre.');
+            echo json_encode($response);
+            exit(); // Sale del script si ya existe el servicio
+        }
+
+        $stmtExisting->close();
+    } else {
+        // Hubo un error en la preparación de la consulta
+        $response = array('success' => false, 'message' => 'Error en la preparación de la consulta.');
+        echo json_encode($response);
+        exit(); // Sale del script si hay un error en la preparación de la consulta
+    }
+
     // Inserta los datos del servicio en la base de datos
     $query = "INSERT INTO services (name, type, upload_speed, download_speed, monthly_fee, installation_fee) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $mysqli->prepare($query);

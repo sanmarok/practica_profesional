@@ -51,7 +51,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Main content -->
-            <section class="content">
+            <section class="content pt-1">
                 <div class="container-fluid">
                     <div class="col-12">
                         <div class="card card-primary m-2">

@@ -24,30 +24,32 @@ if ($conn->connect_error) {
 try {
     // Consulta para generar facturas
     $sql = "
-        INSERT INTO invoices (issue_date, due_date, client_service_id, type, price_service, price_installation, surcharge, state)
-        SELECT
-            CURDATE() AS issue_date,
-            DATE_ADD(CURDATE(), INTERVAL 2 WEEK) AS due_date,
-            cs.id AS client_service_id,
-            2 AS type,
-            (SELECT s.monthly_fee FROM services s WHERE s.service_id = cs.service_id) AS price_service,
-            CASE
-                WHEN cs.installation = 1 THEN 0
-                ELSE (SELECT s.installation_fee FROM services s WHERE s.service_id = cs.service_id)
-            END AS price_installation,
-            (SELECT s.monthly_fee FROM services s WHERE s.service_id = cs.service_id) * 0.05 AS surcharge,
-            2 AS state
-        FROM client_services cs
-        WHERE
-            cs.state NOT IN (0, 3)
-            AND NOT EXISTS (
-                SELECT 1
-                FROM invoices i
-                WHERE cs.id = i.client_service_id
-                    AND MONTH(i.issue_date) = MONTH(NOW())
-                    AND YEAR(i.issue_date) = YEAR(NOW())
-            )
-            AND DATEDIFF(CURDATE(), cs.hire_date) >= 30;
+    INSERT INTO invoices (issue_date, due_date, client_service_id, type, price_service, price_installation, surcharge, state)
+    SELECT
+        CURDATE() AS issue_date,
+        DATE_ADD(CURDATE(), INTERVAL 2 WEEK) AS due_date,
+        cs.id AS client_service_id,
+        2 AS type,
+        (SELECT s.monthly_fee FROM services s WHERE s.service_id = cs.service_id) AS price_service,
+        CASE
+            WHEN cs.installation = 1 THEN (SELECT s.installation_fee FROM services s WHERE s.service_id = cs.service_id)
+            ELSE 0
+        END AS price_installation,
+        (SELECT s.monthly_fee FROM services s WHERE s.service_id = cs.service_id) * 0.05 AS surcharge,
+        2 AS state
+    FROM client_services cs
+    WHERE
+        cs.state IN ('1', '2')
+        AND cs.state NOT IN ('0', '3')
+        AND NOT EXISTS (
+            SELECT 1
+            FROM invoices i
+            WHERE cs.id = i.client_service_id
+                AND MONTH(i.issue_date) = MONTH(NOW())
+                AND YEAR(i.issue_date) = YEAR(NOW())
+        )
+        AND DATEDIFF(CURDATE(), cs.hire_date) >= 30;
+    
     ";
 
     // Ejecuta la consulta

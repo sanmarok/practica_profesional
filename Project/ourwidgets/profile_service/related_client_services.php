@@ -21,7 +21,7 @@ $service_id = $_GET['id'];  // Ajusta esto según cómo estés manejando las URL
 // Consulta SQL para obtener servicios relacionados con el cliente actual
 $sqlRelatedServices = "SELECT s.service_id, s.name FROM services s
                       INNER JOIN client_services cs ON s.service_id = cs.service_id
-                      WHERE cs.client_id = (SELECT client_id FROM client_services WHERE service_id = $service_id)
+                      WHERE cs.client_id IN (SELECT client_id FROM client_services WHERE service_id = $service_id)
                       AND cs.service_id <> $service_id";
 
 $resultRelatedServices = $mysqli->query($sqlRelatedServices);
@@ -47,6 +47,3 @@ if ($resultRelatedServices->num_rows >= 0) {
     echo '</div>';
     echo '</div>';
 }
-
-// Cierra la conexión a la base de datos
-$mysqli->close();
