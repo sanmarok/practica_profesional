@@ -202,9 +202,17 @@ function deleteService(serviceId) {
             .then(data => {
                 // Maneja la respuesta del servidor
                 if (data.success) {
-                    // Borrado exitoso, redirige a la página de servicios
-                    window.location.href = "services.php";
+                    // Borrado exitoso, muestra un mensaje de éxito
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: 'El servicio se ha borrado correctamente.',
+                    }).then(() => {
+                        // Redirige a la página de servicios
+                        window.location.href = "services.php";
+                    });
                 } else {
+                    // Muestra un mensaje de error en caso de fallo
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
