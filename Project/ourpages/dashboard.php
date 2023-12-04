@@ -297,42 +297,43 @@ foreach ($addresses as $address) {
 
 
         <div class="container-fluid">
-          <!-- Small Box -->
-          <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-yellow">
-              <div class="inner" style="color: white;">
-                <h3><?php echo $pendingCases; ?></h3>
-                <p>Casos técnicos pendientes</p>
+          <div class="row">
+            <!-- Small Box -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner" style="color: white;">
+                  <h3><?php echo $pendingCases; ?></h3>
+                  <p>Casos técnicos pendientes</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="technical_requests.php" class="small-box-footer" style="color: white;">
+                  Más información <i class="fa fa-arrow-circle-right"></i>
+                </a>
               </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="technical_requests.php" class="small-box-footer" style="color: white;">
-                Más información <i class="fa fa-arrow-circle-right"></i>
-              </a>
             </div>
-          </div>
 
-          <!-- Avisos -->
-          <div class="col-md-6">
-            <!-- Primer aviso -->
-            <div class="box-body" style="margin-bottom: 15px;">
-              <div class="alert alert-warning alert-dismissible" style="color: white;">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h6><i class="icon fa fa-warning"></i> Aviso!</h6>
-                OLT_4 está teniendo fallas para establecer conexión, revisar nodo.
+            <!-- Avisos -->
+            <div class="col-lg-9 col-xs-6">
+              <!-- Primer aviso -->
+              <div class="box-body" style="margin-bottom: 15px;">
+                <div class="alert alert-warning alert-dismissible" style="color: white;">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h6><i class="icon fa fa-warning"></i> Aviso!</h6>
+                  OLT_4 está teniendo fallas para establecer conexión, revisar nodo.
+                </div>
+              </div>
+              <!-- Segundo aviso -->
+              <div class="box-body" style="margin-bottom: 15px;">
+                <div class="alert alert-info alert-dismissible" style="color: white;">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h6><i class="icon fa fa-warning"></i> Aviso!</h6>
+                  Tormentas pronosticadas para el fin de semana, que cualquier tecnico se asigne la guardia para esas fechas y avise a administracion.
+                </div>
               </div>
             </div>
-            <!-- Segundo aviso -->
-            <div class="box-body" style="margin-bottom: 15px;">
-              <div class="alert alert-info alert-dismissible" style="color: white;">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h6><i class="icon fa fa-warning"></i> Aviso!</h6>
-                Tormentas pronosticadas para el fin de semana, que cualquier tecnico se asigne la guardia para esas fechas menos Agustin! el siempre se queda dormido.
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="row">
