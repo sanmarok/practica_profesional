@@ -39,7 +39,8 @@ try {
         2 AS state
     FROM client_services cs
     WHERE
-        cs.state NOT IN (0, 3)
+        cs.state IN ('1', '2')
+        AND cs.state NOT IN ('0', '3')
         AND NOT EXISTS (
             SELECT 1
             FROM invoices i
@@ -47,7 +48,8 @@ try {
                 AND MONTH(i.issue_date) = MONTH(NOW())
                 AND YEAR(i.issue_date) = YEAR(NOW())
         )
-        AND DATEDIFF(CURDATE(), cs.hire_date) >= 30;    
+        AND DATEDIFF(CURDATE(), cs.hire_date) >= 30;
+    
     ";
 
     // Ejecuta la consulta
