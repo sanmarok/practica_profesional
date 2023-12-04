@@ -298,7 +298,7 @@ foreach ($addresses as $address) {
       <section class="content">
 
         <!-- Google Maps Card -->
-        <div class="container-fluid">
+        <div class="container-fluid pt-1">
           <div class="card card-primary m-2">
             <div class="card-header">
               <h3 class="card-title">Casos técnicos en curso</h3>
@@ -319,7 +319,7 @@ foreach ($addresses as $address) {
           <div class="row">
             <!-- Small Box (Casos Técnicos) -->
             <div class="col-lg-3 col-xs-6">
-              <div class="small-box bg-yellow"  style="margin-left: 10px;">
+              <div class="small-box bg-yellow" style="margin-left: 10px;">
                 <div class="inner" style="color: white;">
                   <h3><?php echo $pendingCases; ?></h3>
                   <p>Casos técnicos pendientes</p>
