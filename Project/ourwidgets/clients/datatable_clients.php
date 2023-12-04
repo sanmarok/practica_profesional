@@ -4,11 +4,13 @@
         <div class="card-header">
             <h3 class="card-title">Clientes</h3>
         </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-            <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalAgregarCliente">
-                <i class="nav-icon fas fa-plus"><span class="mx-1">Cliente</span></i>
+        <div class="card-tools">
+            <button type="button" id="btnAgregarCliente" class="btn btn-success ml-4 mt-4 mb-0" data-toggle="modal" data-target="#modalAgregarCliente">
+                <i class="nav-icon fas fa-plus"></i><span class="mx-1">Cliente</span>
             </button>
+        </div>
+        <div class="card-body" id="table_clients_container">
+
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -53,17 +55,22 @@
                             echo "<td>" . $row['email'] . "</td>";
                             switch ($row['state']) {
                                 case 0:
-                                    echo '<td><span class="badge bg-danger">Inactivo</span></td>';
+                                    echo '<td class="text-left my-auto"><span class="badge bg-danger">Inactivo</span></td>';
                                     break;
                                 case 1:
-                                    echo '<td><span class="badge bg-success">Activo</span></td>';
+                                    echo '<td class="text-left my-auto"><span class="badge bg-success">Activo</span></td>';
                                     break;
                                 default:
                                     # code...
                                     break;
                             }
                             // echo "<td>" . $row['state'] . "</td>";
-                            echo '<td class="text-center"><div><a href="profile_client.php?id=' . $row['id'] . '" class="mx-2"><i class="fas fa-eye text-success"></i></a>';
+                            echo '<td class="text-center">
+        <div>
+            <a href="profile_client.php?id=' . $row['id'] . '">
+                <button class="btn btn-success mx-1"><i class="fas fa-eye"></i></button>
+            </a>
+        </div>';
                         }
                     } else {
                         echo "No se encontraron clientes.";

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '3') {
+if (isset($_SESSION['id'])) {
 } else {
     header('Location: authentication.php');
     exit();
@@ -61,11 +61,11 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                             <!--End form_edit_client-->
 
                             <!--Start datatable services -->
-                            
+
                             <!-- End datatable services -->
 
                             <!-- Start datatable request -->
-                            
+
                             <!-- End datatable request -->
 
                         </div>
@@ -136,7 +136,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             $("[name='my-checkbox']").bootstrapSwitch();
 
             // Agregar eventos de clic a los botones de edición
-           
+
             $("#editProblem").click(function() {
                 enableEdit("inputProblem");
             });
@@ -153,7 +153,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
                 enableEdit("inputTechStatus");
             });
 
-            
+
 
         });
     </script>
@@ -204,7 +204,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             // Luego, muestra la alerta de SweetAlert2
             Swal.fire({
                 title: 'Error',
-                text: 'El cliente no se ha sido actualizado.',
+                text: 'No se pudo actualizar el caso tecnico.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar'
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '3') {
+if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
 } else {
     header('Location: authentication.php');
     exit();
@@ -13,7 +13,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Clientes</title>
+    <title>Facturas</title>
     <!-- DataTables -->
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -24,10 +24,10 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-    <!-- SweetAlert -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
-    <script src="../functions/clients.functions.js"></script>
+    <script src="../functions/invoices.functions.js"></script>
+    <script src="https://kit.fontawesome.com/dcd8a6e406.js" crossorigin="anonymous"></script>
     <style>
         /* Regla de estilo personalizada para el mensaje de error */
         .swal2-popup .swal2-title {
@@ -46,30 +46,42 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
 <body class="layout-navbar-fixed control-sidebar-slide-open dark-mode">
     <!-- Site wrapper -->
     <div class="wrapper">
-        <?php include '../ourwidgets/clients/dashboard_parts.php'; ?>
+        <?php include "../ourwidgets/invoices/dashboard_parts.php" ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Main content -->
-            <section class="content">
+            <section class="content pt-1">
                 <div class="container-fluid">
-                    <div class="row">
-                        <?php include '../ourwidgets/clients/datatable_clients.php' ?>
+                    <div class="col-12">
+                        <div class="card card-primary m-2">
+                            <div class="card-header">
+                                <h3 class="card-title">Acciones</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card-body d-flex  justify-content-between">
+                                <button type="button" class="btn btn-info" onclick="confirmBilling()"><i class="fa-solid fa-file-invoice"></i><span class="mx-1">Facturacion total</span></button>
+                            </div>
+                        </div>
+                        <?php
+                        include "../ourwidgets/invoices/datable_invoices.php";
+                        ?>
                     </div>
                 </div>
-            </section>
-            <!-- /.content -->
         </div>
+        </section>
+        <!-- /.content -->
+    </div>
     </div>
     <!-- /.content-wrapper -->
 
     </div>
     <!-- ./wrapper -->
-
-    <?php
-    include '../ourwidgets/clients/modal_add_client.php';
-    ?>
-
 
     <!-- jQuery -->
     <script src="../plugins/jquery/jquery.min.js"></script>
@@ -90,8 +102,6 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
-        
 </body>
 
 </html>

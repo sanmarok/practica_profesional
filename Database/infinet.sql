@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2023 a las 08:37:02
+-- Tiempo de generación: 04-12-2023 a las 08:02:29
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -29,12 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `clients` (
   `id` int(11) NOT NULL,
-  `first_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
-  `document` varchar(20) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `state` tinyint(4) DEFAULT NULL
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `document` varchar(20) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `state` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -42,60 +42,26 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `first_name`, `last_name`, `document`, `phone`, `email`, `state`) VALUES
-(1, 'Nombre1', 'Apellido1', 'Documento1', '1234567891', 'cliente1@example.com', 1),
-(2, 'Nombre2', 'Apellido2', 'Documento2', '1234567892', 'cliente2@example.com', 0),
-(3, 'Nombre3', 'Apellido3', 'Documento3', '1234567893', 'cliente3@example.com', 1),
-(4, 'Nombre4', 'Apellido4', 'Documento4', '1234567894', 'cliente4@example.com', 1),
-(5, 'Nombre5', 'Apellido5', 'Documento5', '1234567895', 'cliente5@example.com', 0),
-(6, 'Nombre6', 'Apellido6', 'Documento6', '1234567896', 'cliente6@example.com', 1),
-(7, 'Nombre7', 'Apellido7', 'Documento7', '1234567897', 'cliente7@example.com', 0),
-(8, 'Nombre8', 'Apellido8', 'Documento8', '1234567898', 'cliente8@example.com', 1),
-(9, 'Nombre9', 'Apellido9', 'Documento9', '1234567899', 'cliente9@example.com', 1),
-(10, 'Nombre10', 'Apellido10', 'Documento10', '12345678910', 'cliente10@example.com', 0),
-(11, 'Nombre11', 'Apellido11', 'Documento11', '12345678911', 'cliente11@example.com', 0),
-(12, 'Nombre12', 'Apellido12', 'Documento12', '12345678912', 'cliente12@example.com', 1),
-(13, 'Nombre13', 'Apellido13', 'Documento13', '12345678913', 'cliente13@example.com', 0),
-(14, 'Nombre14', 'Apellido14', 'Documento14', '12345678914', 'cliente14@example.com', 0),
-(15, 'Nombre15', 'Apellido15', 'Documento15', '12345678915', 'cliente15@example.com', 1),
-(16, 'Nombre16', 'Apellido16', 'Documento16', '12345678916', 'cliente16@example.com', 0),
-(17, 'Nombre17', 'Apellido17', 'Documento17', '12345678917', 'cliente17@example.com', 0),
-(18, 'Nombre18', 'Apellido18', 'Documento18', '12345678918', 'cliente18@example.com', 1),
-(19, 'Nombre19', 'Apellido19', 'Documento19', '12345678919', 'cliente19@example.com', 1),
-(20, 'Nombre20', 'Apellido20', 'Documento20', '12345678920', 'cliente20@example.com', 0),
-(21, 'Nombre21', 'Apellido21', 'Documento21', '12345678921', 'cliente21@example.com', 1),
-(22, 'Nombre22', 'Apellido22', 'Documento22', '12345678922', 'cliente22@example.com', 0),
-(23, 'Nombre23', 'Apellido23', 'Documento23', '12345678923', 'cliente23@example.com', 1),
-(24, 'Nombre24', 'Apellido24', 'Documento24', '12345678924', 'cliente24@example.com', 0),
-(25, 'Nombre25', 'Apellido25', 'Documento25', '12345678925', 'cliente25@example.com', 0),
-(26, 'Nombre26', 'Apellido26', 'Documento26', '12345678926', 'cliente26@example.com', 0),
-(27, 'Nombre27', 'Apellido27', 'Documento27', '12345678927', 'cliente27@example.com', 0),
-(28, 'Nombre28', 'Apellido28', 'Documento28', '12345678928', 'cliente28@example.com', 0),
-(29, 'Nombre29', 'Apellido29', 'Documento29', '12345678929', 'cliente29@example.com', 0),
-(30, 'Nombre30', 'Apellido30', 'Documento30', '12345678930', 'cliente30@example.com', 1),
-(31, 'Nombre31', 'Apellido31', 'Documento31', '12345678931', 'cliente31@example.com', 1),
-(32, 'Nombre32', 'Apellido32', 'Documento32', '12345678932', 'cliente32@example.com', 1),
-(33, 'Nombre33', 'Apellido33', 'Documento33', '12345678933', 'cliente33@example.com', 1),
-(34, 'Nombre34', 'Apellido34', 'Documento34', '12345678934', 'cliente34@example.com', 1),
-(35, 'Nombre35', 'Apellido35', 'Documento35', '12345678935', 'cliente35@example.com', 0),
-(36, 'Nombre36', 'Apellido36', 'Documento36', '12345678936', 'cliente36@example.com', 0),
-(37, 'Nombre37', 'Apellido37', 'Documento37', '12345678937', 'cliente37@example.com', 1),
-(38, 'Nombre38', 'Apellido38', 'Documento38', '12345678938', 'cliente38@example.com', 0),
-(39, 'Nombre39', 'Apellido39', 'Documento39', '12345678939', 'cliente39@example.com', 0),
-(40, 'Nombre40', 'Apellido40', 'Documento40', '12345678940', 'cliente40@example.com', 0),
-(41, 'Nombre41', 'Apellido41', 'Documento41', '12345678941', 'cliente41@example.com', 0),
-(42, 'Nombre42', 'Apellido42', 'Documento42', '12345678942', 'cliente42@example.com', 0),
-(43, 'Nombre43', 'Apellido43', 'Documento43', '12345678943', 'cliente43@example.com', 1),
-(44, 'Nombre44', 'Apellido44', 'Documento44', '12345678944', 'cliente44@example.com', 0),
-(45, 'Nombre45', 'Apellido45', 'Documento45', '12345678945', 'cliente45@example.com', 0),
-(46, 'Nombre46', 'Apellido46', 'Documento46', '12345678946', 'cliente46@example.com', 1),
-(47, 'Nombre47', 'Apellido47', 'Documento47', '12345678947', 'cliente47@example.com', 1),
-(48, 'Nombre48', 'Apellido48', 'Documento48', '12345678948', 'cliente48@example.com', 1),
-(49, 'Nombre49', 'Apellido49', 'Documento49', '12345678949', 'cliente49@example.com', 1),
-(50, 'Nombre50', 'Apellido50', 'Documento50', '12345678950', 'cliente50@example.com', 1),
-(56, 'Santiago', 'Martinez', '4040404040', '+54 9 3456 26-8262', 'san.martinezok@gmail.com', 1),
-(57, 'Santiago', 'Martinez', '4040404040', '+54 9 3456 26-8262', 'san.martinezok@gmail.com', 1),
-(58, 'sadas', 'dasda', 'dasdas', 'dasdas', 'dasdas', 1),
-(59, '', '', '', '', '', 1);
+(439, 'María Patricia', 'Gómez', '40608070', '551-5678', 'maria@example.com', '1'),
+(440, 'Carlos', 'López', '10205090', '555-9876', 'carlos@example.com', '0'),
+(441, 'Ana', 'Rodríguez', '4567898123', '555-4321', 'ana@example.com', '1'),
+(442, 'Pedro', 'Sánchez', '5678901234', '555-8765', 'pedro@example.com', '0'),
+(443, 'Laura', 'Torres', '80784563', '555-3210', 'laura@example.com', '0'),
+(444, 'Miguel', 'Hernández', '45622511', '555-6543', 'miguel@example.com', '0'),
+(445, 'Sofía', 'Díaz', '8101234567', '555-2109', 'sofia@example.com', '0'),
+(446, 'Alejandro', 'Martínez', '40409897', '345606262', 'alejandro@example.com', '0'),
+(447, 'Carmen', 'García', '0123426789', '555-8775', 'carmen@example.com', '1'),
+(448, 'David', 'Ruiz', '1234509876', '555-9321', 'david@example.com', '1'),
+(449, 'Elena', 'López', '2345670987', '555-7654', 'elena@example.com', '1'),
+(450, 'Francisco', 'Gómez', '3456789012', '555-2345', 'francisco@example.com', '1'),
+(451, 'Isabel', 'Martínez', '4567890123', '554-5678', 'isabel@example.com', '1'),
+(452, 'Javier', 'Hernández', '1678901234', '555-8901', 'javier@example.com', '1'),
+(453, 'Luisa', 'Sánchez', '6789012345', '555-1234', 'luisa@example.com', '1'),
+(454, 'Manuel', 'Torres', '7890123456', '555-4567', 'manuel@example.com', '0'),
+(455, 'Natalia', 'Díaz', '8901234567', '555-7890', 'natalia@example.com', '0'),
+(456, 'Oscar', 'García', '9012345678', '535-2345', 'oscar@example.com', '0'),
+(457, 'Patricia', 'Ruiz', '0123456789', '555-5678', 'patricia@example.com', '0'),
+(474, 'Marcos', 'Azambuya', '23568947', '+54 3459656789', 'marcos.azambuya@gmail.com', '1');
 
 -- --------------------------------------------------------
 
@@ -107,19 +73,27 @@ CREATE TABLE `client_services` (
   `id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   `service_id` int(11) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `state` tinyint(4) DEFAULT NULL
+  `address` varchar(255) NOT NULL,
+  `state` enum('0','1','2','3') NOT NULL,
+  `hire_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `installation` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `client_services`
 --
 
-INSERT INTO `client_services` (`id`, `client_id`, `service_id`, `address`, `state`) VALUES
-(1, 1, 1, 'Dirección del Servicio 1', 1),
-(3, 1, 2, 'Tukiland 234', 0),
-(5, 1, 9, 'Salta 277', 2),
-(6, 1, 4, 'Peronia 789', 3);
+INSERT INTO `client_services` (`id`, `client_id`, `service_id`, `address`, `state`, `hire_date`, `installation`) VALUES
+(35, 443, 2, 'Corrientes, Mercedes, Salta 300', '1', '2023-11-01 03:11:00', '0'),
+(36, 439, 2, 'Entre Rios, Concordia, Corrientes 205', '1', '2023-11-01 04:17:51', '1'),
+(37, 439, 4, 'Entre Rios, Concordia, San Lorenzo 564', '1', '2023-11-01 06:11:02', '1'),
+(38, 440, 1, 'Entre Rios, Paso de los Libres, Entre Rios 23', '0', '2023-10-01 06:19:29', '1'),
+(39, 440, 12, 'Entre Rios, Concordia, Entre Rios 78', '0', '2023-10-10 06:20:02', '1'),
+(40, 441, 1, 'Entre Rios, Concordia, Moulins 1460', '3', '2023-11-01 06:50:02', '1'),
+(41, 441, 2, 'Entre Rios, Concordia, Santa Maria de Oro 75', '2', '2023-12-04 06:52:57', '0'),
+(42, 441, 2, 'Entre Rios, Villaguay, Villaguay 200', '2', '2023-12-04 06:56:53', '0'),
+(43, 447, 2, 'Entre Rios, Concordia, Chabrillon 230', '2', '2023-12-04 06:58:49', '0'),
+(44, 474, 10, 'Entre Rios, Concordia, Feliciano 1584', '2', '2023-12-04 07:00:40', '0');
 
 -- --------------------------------------------------------
 
@@ -132,23 +106,12 @@ CREATE TABLE `invoices` (
   `issue_date` date NOT NULL,
   `due_date` date NOT NULL,
   `client_service_id` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
+  `type` int(11) NOT NULL CHECK (`type` between 0 and 4),
   `price_service` decimal(10,2) NOT NULL,
   `price_installation` decimal(10,2) DEFAULT NULL,
   `surcharge` decimal(10,2) DEFAULT NULL,
-  `state` int(11) NOT NULL
+  `state` int(11) NOT NULL CHECK (`state` between 0 and 3)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `invoices`
---
-
-INSERT INTO `invoices` (`id`, `issue_date`, `due_date`, `client_service_id`, `type`, `price_service`, `price_installation`, `surcharge`, `state`) VALUES
-(3, '2023-07-01', '2023-08-01', 1, 1, '4999.99', '2490.99', '5.00', 0),
-(8, '2023-08-01', '2023-09-01', 1, 1, '4999.99', '0.00', '5.00', 2),
-(9, '2023-09-01', '2023-10-01', 1, 0, '4999.99', '0.00', '3.00', 1),
-(10, '2023-10-01', '2023-11-01', 1, 2, '4999.99', '0.00', '8.00', 0),
-(11, '2023-11-01', '2023-12-01', 1, 1, '4999.99', '0.00', '10.00', 3);
 
 -- --------------------------------------------------------
 
@@ -201,11 +164,11 @@ CREATE TABLE `purchase_orders` (
 CREATE TABLE `services` (
   `service_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `upload_speed` int(11) DEFAULT NULL,
-  `download_speed` int(11) DEFAULT NULL,
-  `monthly_fee` decimal(10,2) DEFAULT NULL,
-  `installation_fee` decimal(10,2) DEFAULT NULL
+  `type` varchar(255) NOT NULL,
+  `upload_speed` int(11) NOT NULL,
+  `download_speed` int(11) NOT NULL,
+  `monthly_fee` decimal(10,2) NOT NULL,
+  `installation_fee` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -215,11 +178,9 @@ CREATE TABLE `services` (
 INSERT INTO `services` (`service_id`, `name`, `type`, `upload_speed`, `download_speed`, `monthly_fee`, `installation_fee`) VALUES
 (1, 'Plan Residencial', 'Fibra Óptica', 100, 500, '4999.99', '2490.99'),
 (2, 'Plan Básico', 'Cable', 50, 250, '2990.95', '1990.95'),
-(3, 'Plan Satelital', 'Satélite', 20, 100, '3990.50', '1990.50'),
 (4, 'Plan Premium', 'Fibra Óptica', 500, 1000, '6990.99', '2990.99'),
 (5, 'Plan Empresarial', 'Fibra Óptica', 1000, 2000, '8990.95', '3990.95'),
 (6, 'Plan Estándar', 'Cable', 100, 500, '3490.50', '2490.50'),
-(7, 'Plan Telefónico', 'Teléfono', 10, 20, '1990.99', '990.99'),
 (8, 'Plan Velocidad Extrema', 'Fibra Óptica', 1000, 3000, '9990.95', '4990.95'),
 (9, 'Plan Esencial', 'Cable', 25, 100, '1990.50', '1490.50'),
 (10, 'Plan de Oficina', 'Fibra Óptica', 500, 1000, '7990.99', '3490.99'),
@@ -248,7 +209,17 @@ CREATE TABLE `technical_requests` (
 --
 
 INSERT INTO `technical_requests` (`id`, `description`, `problem`, `status`, `date_created`, `type`, `client_service_id`, `technician_id`) VALUES
-(1, 'Solicitud tecnica de prueba 1', 'Consultar base de datos', 2, '2023-11-09 08:32:24', 1, 1, NULL);
+(25, 'Instalacion de nuevo servicio', 'Instalacion pendiente', 1, '2023-12-04 04:17:51', 0, 36, 5),
+(26, 'Instalacion de nuevo servicio', 'Instalacion pendiente', 1, '2023-12-04 06:11:02', 0, 37, 2),
+(27, 'Problemas de conexion', 'Microcortes del servicio', 3, '2023-12-04 06:12:58', 1, 37, NULL),
+(28, 'Instalacion de nuevo servicio', 'Instalacion pendiente', 1, '2023-12-04 06:19:29', 0, 38, 2),
+(29, 'Instalacion de nuevo servicio', 'Instalacion pendiente', 1, '2023-12-04 06:20:02', 0, 39, 2),
+(30, 'Instalacion de nuevo servicio', 'Instalacion pendiente', 1, '2023-12-04 06:50:02', 0, 40, 2),
+(31, 'Instalacion de nuevo servicio', 'Instalacion pendiente', 3, '2023-12-04 06:52:57', 0, 41, NULL),
+(32, 'Instalacion de nuevo servicio', 'Instalacion pendiente', 3, '2023-12-04 06:56:53', 0, 42, NULL),
+(33, 'Instalacion de nuevo servicio', 'Instalacion pendiente', 3, '2023-12-04 06:58:49', 0, 43, NULL),
+(34, 'Instalacion de nuevo servicio', 'Instalacion pendiente', 1, '2023-12-04 07:00:40', 0, 44, 5),
+(35, 'Desperfecto en la instalacion', 'Cableado flojo', 3, '2023-12-04 07:01:50', 1, 44, NULL);
 
 -- --------------------------------------------------------
 
@@ -285,12 +256,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `employee_number`, `employee_password`, `first_name`, `last_name`, `email`, `phone`, `role`) VALUES
-(1, '000001', '$2y$10$b/ttxESXDW6kzy3TH8ttP.zi9450Txm71GvQtsnXI.AzNw/VFcpNu', 'Nombre1', 'Apellido1', 'usuario1@example.com', '1234567890', 1),
-(2, '000002', '$2y$10$wN.YxAsGNcyi3nq9WTMGru0iAKa1sdkfRN2KC83Q6EjGtLqcY1HhC', 'Nombre2', 'Apellido2', 'usuario2@example.com', '2345678901', 2),
-(3, '000003', '$2y$10$XxxEBmiJGC7cwx1pSUEBru1geXilta14U3nNohF9wGB2NXlrmfvmi', 'Nombre3', 'Apellido3', 'usuario3@example.com', '3456789012', 3),
-(4, '000004', '$2y$10$8QiJw4mpRmLYZjHP.lh/CemdwS546zey1CRk0riCyEZ.gjj9M15.y', 'Nombre4', 'Apellido4', 'usuario4@example.com', '4567890123', 1),
-(5, '000005', '$2y$10$phFgg5pV7J1ndBk4ft7Vw.ho2RvU/G6mFuhu7UD0SomhkGE2DG2k2', 'Nombre5', 'Apellido5', 'usuario5@example.com', '5678901234', 2),
-(6, '000006', '$2y$10$6jB3JfDv0jemNFvnyQUb9.E2P1RMtf16L1rq7.PV3LI80Q.KY0N7O', 'Nombre6', 'Apellido6', 'usuario6@example.com', '6789012345', 3);
+(1, '000001', '$2y$10$b/ttxESXDW6kzy3TH8ttP.zi9450Txm71GvQtsnXI.AzNw/VFcpNu', 'Juan', 'González', 'usuario1@example.com', '1234567890', 1),
+(2, '000002', '$2y$10$wN.YxAsGNcyi3nq9WTMGru0iAKa1sdkfRN2KC83Q6EjGtLqcY1HhC', 'María', 'Martínez', 'usuario2@example.com', '2345678901', 2),
+(3, '000003', '$2y$10$XxxEBmiJGC7cwx1pSUEBru1geXilta14U3nNohF9wGB2NXlrmfvmi', 'Carlos', 'López', 'usuario3@example.com', '3456789012', 3),
+(4, '000004', '$2y$10$8QiJw4mpRmLYZjHP.lh/CemdwS546zey1CRk0riCyEZ.gjj9M15.y', 'Isabel', 'Rodríguez', 'usuario4@example.com', '4567890123', 1),
+(5, '000005', '$2y$10$phFgg5pV7J1ndBk4ft7Vw.ho2RvU/G6mFuhu7UD0SomhkGE2DG2k2', 'Antonio', 'Sánchez', 'usuario5@example.com', '5678901234', 2),
+(6, '000006', '$2y$10$6jB3JfDv0jemNFvnyQUb9.E2P1RMtf16L1rq7.PV3LI80Q.KY0N7O', 'Ana', 'Pérez', 'usuario6@example.com', '6789012345', 3);
 
 --
 -- Índices para tablas volcadas
@@ -300,7 +271,10 @@ INSERT INTO `users` (`id`, `employee_number`, `employee_password`, `first_name`,
 -- Indices de la tabla `clients`
 --
 ALTER TABLE `clients`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `document` (`document`),
+  ADD UNIQUE KEY `phone` (`phone`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indices de la tabla `client_services`
@@ -315,7 +289,7 @@ ALTER TABLE `client_services`
 --
 ALTER TABLE `invoices`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_service_price` (`client_service_id`);
+  ADD KEY `client_service_id` (`client_service_id`);
 
 --
 -- Indices de la tabla `order_details`
@@ -342,7 +316,8 @@ ALTER TABLE `purchase_orders`
 -- Indices de la tabla `services`
 --
 ALTER TABLE `services`
-  ADD PRIMARY KEY (`service_id`);
+  ADD PRIMARY KEY (`service_id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indices de la tabla `technical_requests`
@@ -374,19 +349,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=475;
 
 --
 -- AUTO_INCREMENT de la tabla `client_services`
 --
 ALTER TABLE `client_services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de la tabla `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT de la tabla `order_details`
@@ -416,7 +391,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT de la tabla `technical_requests`
 --
 ALTER TABLE `technical_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `technical_request_details`
@@ -445,7 +420,6 @@ ALTER TABLE `client_services`
 -- Filtros para la tabla `invoices`
 --
 ALTER TABLE `invoices`
-  ADD CONSTRAINT `fk_service_price` FOREIGN KEY (`client_service_id`) REFERENCES `client_services` (`id`),
   ADD CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`client_service_id`) REFERENCES `client_services` (`id`);
 
 --
