@@ -48,8 +48,7 @@ function generateInvoices() {
               text: `Se generaron ${response.num_invoices} facturas.`,
               icon: "success",
             }).then(() => {
-              //window.location.reload();
-              reloadTableContent();
+              window.location.reload();
             });
           } else {
             Swal.fire({
@@ -57,8 +56,7 @@ function generateInvoices() {
               text: "No se generaron facturas en esta ocasión.",
               icon: "warning",
             }).then(() => {
-              //window.location.reload();
-              reloadTableContent();
+              window.location.reload();
             });
           }
           break;

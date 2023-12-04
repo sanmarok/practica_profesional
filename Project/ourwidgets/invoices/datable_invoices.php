@@ -10,7 +10,7 @@
 
     <!-- /.card-header -->
     <div class="card-body">
-        <table id="tableinvoices" class="table table-bordered table-striped">
+        <table id=" " class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Factura ID</th>
