@@ -171,3 +171,18 @@ En resumen, la consulta crea facturas para servicios específicos que cumplen co
 Facturas generadas
 
 ## Servicios
+
+Los servicios ofrecidos para la contratacion de clientes se gestionan en la seccion de servicios.
+
+![Pagina de servicios](image-16.png)
+Pagina de servicios
+
+En esta seccion se pueden crear, modificar, buscar y eliminar servicios que no esten vinculados a otros registros.
+
+![Formulario de creacion de servicio](image-17.png)
+Formulario de creacion de servicio
+
+El manejo de un servicio se realiza desde su perfil
+
+![Pagina de perfil de servicio](image-18.png)
+Pagina de perfil de servicio
