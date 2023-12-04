@@ -186,3 +186,8 @@ El manejo de un servicio se realiza desde su perfil
 
 ![Pagina de perfil de servicio](image-18.png)
 Pagina de perfil de servicio
+
+
+## Otros modulos
+
+Para esta ocasion solo se han solicitado la gestion de usuarios, contratacion de servicios y atencion de los mismos. 
