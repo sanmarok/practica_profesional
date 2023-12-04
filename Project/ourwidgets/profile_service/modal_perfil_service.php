@@ -91,10 +91,11 @@ $mysqli->close();
 
                                         // Itera sobre los tipos de servicio y crea las opciones
                                          foreach ($tiposDeServicio as $tipo) {
-                                        echo "<option value=\"$tipo\">$tipo</option>";
+                                            $selected = ($tipo == $type) ? 'selected' : '';
+                                            echo "<option value=\"$tipo\" $selected>$tipo</option>";
                                         }
                                 ?>
-                             </select>
+                               </select>
                             <span class="input-group-append">
                                 <button class="btn btn-outline-danger mx-2" type="button" id="editServiceType"><i class="fas fa-pencil-alt"></i></button>
                             </span>
