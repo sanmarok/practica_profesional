@@ -6,7 +6,7 @@
         <!-- /.card-header -->
         <div class="card-body">
             <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalAgregarServicio">
-                <i class="nav-icon fas fa-plus"><span class="mx-1">Servicio</span></i>
+                <i class="nav-icon fas fa-plus"></i><span class="mx-1">Servicio</span>
             </button>
             <table id="example1" class="table table-bordered table-striped">
                 <thead>

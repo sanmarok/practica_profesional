@@ -2,17 +2,51 @@
     <div class="card-header">
         <h3 class="card-title">Registro de servicios</h3>
         <div class="card-tools">
+
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
             </button>
+
+
         </div>
     </div>
 
     <!-- /.card-header -->
     <div class="card-body">
-        <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalContratarServicio">
-            <i class="nav-icon fas fa-plus"><span class="mx-1">Contratar</span></i>
-        </button>
+        <?php
+        $db_host = 'localhost';
+        $db_user = 'root';
+        $db_pass = '';
+        $db_name = 'infinet';
+
+        // Establece una conexión a la base de datos
+        $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+        // Verifica si la conexión se realizó correctamente
+        if ($mysqli->connect_error) {
+            die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+        }
+
+        $sql = "SELECT state FROM `clients` WHERE id =" . $_GET['id'];
+
+        $result = $mysqli->query($sql);
+
+        if ($result) {
+            $row = $result->fetch_assoc();
+            $state = $row['state'];
+
+
+
+            if ($state == 1) {
+                echo '        <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalContratarServicio">
+                    <i class="nav-icon fas fa-plus"></i><span class="mx-1">Contratar</span>
+                </button>';
+            }
+        }
+
+        // Cierra la conexión a la base de datos
+        $mysqli->close();
+        ?>
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -88,7 +122,8 @@
                             </a>
                         ';
 
-                        $subquery = "SELECT id, status FROM technical_requests WHERE client_service_id =" . $row['id'] . "";
+                        $subquery = "SELECT id, status FROM technical_requests WHERE client_service_id = " . $row['id'] . " AND status NOT IN (0, 1)";
+
                         $subresult = $mysqli->query($subquery);
 
                         if ($subresult->num_rows > 0) {
@@ -98,46 +133,7 @@
                                 }
                             }
                         } else {
-                            echo '<button type="button" class="btn btn-warning mx-1" data-toggle="modal" data-target="#modalSolicitudTecnica' . $row['id'] . '">
-                            <i class="fas fa-plus"></i>
-                          </button>
-    <div class="modal fade text-left " id="modalSolicitudTecnica' . $row['id'] . '">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">Nueva Solicitud Técnica</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form id="formSolicitudTecnica' . $row['id'] . '" action="procesar_solicitud_tecnica.php" method="post">
-                <!-- Puedes agregar aquí los campos y elementos del formulario necesarios -->
-                <input type="hidden" name="clientServiceId" value="' . $row['id'] . '">
-
-                <div class="form-group">
-                    <label for="descripcion">Descripción:</label>
-                    <textarea id="descripcion" name="descripcion" rows="4" class="form-control"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="problem">Problema:</label>
-                    <textarea id="problem" name="problem" rows="4" class="form-control"></textarea>
-                </div>
-
-                <!-- Puedes agregar más campos y elementos aquí -->
-
-            </form>
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-success" onclick="addRequest()">Guardar</button>
-        </div>
-    </div>
-</div>
-        </div>
-    </div>';
+                            include 'modal_add_request.php';
                         }
                         echo "</td></tr>";
                     }

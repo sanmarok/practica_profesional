@@ -7,7 +7,7 @@
         <div class="card-tools">
             <button type="button" id="btnAgregarCliente" class="btn btn-success ml-4 mt-4 mb-0" data-toggle="modal"
                 data-target="#modalAgregarCliente">
-                <i class="nav-icon fas fa-plus"><span class="mx-1">Cliente</span></i>
+                <i class="nav-icon fas fa-plus"></i><span class="mx-1">Cliente</span>
             </button>
         </div>
         <div class="card-body" id="table_clients_container">

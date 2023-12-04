@@ -61,8 +61,7 @@ $mysqli->close();
   <!-- SweetAlert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
@@ -76,60 +75,75 @@ $mysqli->close();
   <!-- AdminLTE App -->
   <script src="../dist/js/adminlte.min.js"></script>
   <!--Our styles-->
+
+  <style>
+    body {
+      background-image: url('https://img.freepik.com/free-photo/young-man-engineer-making-program-analyses_1303-20400.jpg?w=1380&t=st=1701651598~exp=1701652198~hmac=d6329baf96d8e70e18c2bcc486cdba4ece15afa042d327920e4b8ed9309f3675');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    .fade-from-bottom {
+      animation: fadeFromBottom 1.5s ease-out;
+    }
+
+    @keyframes fadeFromBottom {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 
-<body class="hold-transition login-page" style="background-color: #343a40;">
-  <div class="login-box" style="background-color: #ffffff;">
-    <div class="login-logo">
-      <b>Infinet</b>
-    </div>
-    <!-- /.login-logo -->
-    <div class="card">
-      <div class="card-body login-card-body">
-        <p class="login-box-msg">Comienza tu sesión</p>
+<body class="hold-transition login-page">
 
-        <div id="response"></div> <!-- Aquí mostraremos la respuesta del servidor -->
 
-        <form id="loginForm" action="" method="post">
-          <div class="input-group mb-3">
-            <input class="form-control" placeholder="Numero de empleado" name="employee_number">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
-              </div>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+            <div class="mb-md-5 mt-md-4 pb-5">
+              <h2 class="fw-bold mb-2 text-uppercase">Ingresar</h2>
+              <p class="text-white-50 mb-5">Por favor ingrese numero de empleado y contraseña</p>
+              <form id="loginForm" action="" method="post">
+                <div class="form-outline form-white mb-4 text-left">
+                  <label class="form-label " for="employeeNumber">Numero de empleado</label>
+                  <input type="text" id="employeeNumber" class="form-control form-control-lg" placeholder="Numero de empleado" name="employee_number" required>
+                </div>
+                <div class="form-outline form-white mb-4 text-left">
+                  <label class="form-label" for="password">Contraseña</label>
+                  <input type="password" id="password" class="form-control form-control-lg" placeholder="Contraseña" name="password" required>
+                </div>
+                <div id="response"></div>
+                <button type="button" id="loginButton" class="btn btn-outline-light btn-lg px-5">Iniciar sesion</button>
+              </form>
             </div>
           </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Contraseña" name="password">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 text-center">
-              <button type="button" id="loginButton" class="btn btn-success">Ingresar</button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
-      <!-- /.login-card-body -->
     </div>
   </div>
-  <!-- /.login-box -->
+
 
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       // Manejo del evento de clic en el botón de inicio de sesión
-      $("#loginButton").click(function () {
+      $("#loginButton").click(function() {
         // Realizar una solicitud AJAX para procesar el inicio de sesión
         $.ajax({
           type: "POST",
           url: "authentication.php",
           data: $("#loginForm").serialize(), // Envía los datos del formulario
           dataType: "json",
-          success: function (response) {
+          success: function(response) {
             if (response.success) {
               // Redirige al usuario a la página deseada
               window.location.href = response.redirect;
@@ -146,6 +160,9 @@ $mysqli->close();
       });
     });
   </script>
+
+
+
 </body>
 
 </html>
