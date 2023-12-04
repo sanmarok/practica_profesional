@@ -294,44 +294,32 @@ foreach ($addresses as $address) {
     </aside>
 
     <div class="content-wrapper">
-      <h6>
-
-      </h6>
-      <!-- Main content -->
       <!-- Main content -->
       <section class="content">
-        <div class="row"></div>
+
+        <!-- Google Maps Card -->
         <div class="container-fluid">
-          <!-- Card contenedora -->
           <div class="card card-primary m-2">
-            <!-- Cabecera de la Card -->
             <div class="card-header">
               <h3 class="card-title">Casos técnicos en curso</h3>
-              <!-- Botón para minimizar/mostrar -->
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
                 </button>
               </div>
             </div>
-            <!-- Cuerpo de la Card -->
             <div class="card-body">
-              <!-- Google Maps -->
               <div id="map" style="height: 600px; width: 100%;"></div>
-
-              <!-- Aquí puedes agregar otros elementos de tu página -->
             </div>
           </div>
-          <!-- Otros elementos de tu página aquí -->
         </div>
 
-
+        <!-- Casos Técnicos y Avisos -->
         <div class="container-fluid">
           <div class="row">
-            <!-- Small Box -->
+            <!-- Small Box (Casos Técnicos) -->
             <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-yellow">
+              <div class="small-box bg-yellow"  style="margin-left: 10px;">
                 <div class="inner" style="color: white;">
                   <h3><?php echo $pendingCases; ?></h3>
                   <p>Casos técnicos pendientes</p>
@@ -347,61 +335,52 @@ foreach ($addresses as $address) {
 
             <!-- Avisos -->
             <div class="col-lg-9 col-xs-6">
-              <!-- Primer aviso -->
-              <div class="box-body" style="margin-bottom: 15px;">
+              <div class="box-body" style="margin-bottom: 15px; margin-right: 10px;">
                 <div class="alert alert-warning alert-dismissible" style="color: white;">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   <h6><i class="icon fa fa-warning"></i> Aviso!</h6>
                   OLT_4 está teniendo fallas para establecer conexión, revisar nodo.
                 </div>
               </div>
-              <!-- Segundo aviso -->
-              <div class="box-body" style="margin-bottom: 15px;">
+              <div class="box-body" style="margin-bottom: 15px; margin-right: 10px;">
                 <div class="alert alert-info alert-dismissible" style="color: white;">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   <h6><i class="icon fa fa-warning"></i> Aviso!</h6>
-                  Tormentas pronosticadas para el fin de semana, que cualquier tecnico se asigne la guardia para esas fechas y avise a administracion.
+                  Tormentas pronosticadas para el fin de semana, que cualquier técnico se asigne la guardia para esas fechas y avise a administración.
                 </div>
               </div>
             </div>
+          </div>
         </div>
 
-        <div class="row">
-          <div class="col-12">
-            <!-- interactive chart -->
-            <div class="card card-primary m-2">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="far fa-chart-bar"></i>
-                  Consumo MBs Promedio
-                </h3>
-
-                <div class="card-tools">
-                  Real time
-                  <div class="btn-group" id="realtime" data-toggle="btn-toggle">
-                    <button type="button" class="btn btn-default btn-sm active" data-toggle="on">On</button>
-                    <button type="button" class="btn btn-default btn-sm" data-toggle="off">Off</button>
-                  </div>
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
+        <!-- Interactive Chart Card -->
+        <div class="container-fluid">
+          <div class="card card-primary m-2">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="far fa-chart-bar"></i>
+                Consumo MBs Promedio
+              </h3>
+              <div class="card-tools">
+                Real time
+                <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+                  <button type="button" class="btn btn-default btn-sm active" data-toggle="on">On</button>
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="off">Off</button>
                 </div>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
               </div>
-              <div class="card-body">
-                <div id="interactive" style="height: 250px;"></div>
-              </div>
-              <!-- /.card-body-->
             </div>
-            <!-- /.card -->
-
+            <div class="card-body">
+              <div id="interactive" style="height: 250px;"></div>
+            </div>
           </div>
-          <!-- /.col -->
         </div>
 
       </section>
-
-      <!-- /.content -->
     </div>
+
     <!-- /.content -->
   </div>
 
