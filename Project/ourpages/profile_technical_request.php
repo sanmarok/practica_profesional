@@ -204,7 +204,7 @@ if (isset($_SESSION['id'])) {
             // Luego, muestra la alerta de SweetAlert2
             Swal.fire({
                 title: 'Error',
-                text: 'El cliente no se ha sido actualizado.',
+                text: 'No se pudo actualizar el caso tecnico.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar'
 
