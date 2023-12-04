@@ -2,17 +2,51 @@
     <div class="card-header">
         <h3 class="card-title">Registro de servicios</h3>
         <div class="card-tools">
+
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
             </button>
+
+
         </div>
     </div>
 
     <!-- /.card-header -->
     <div class="card-body">
-        <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalContratarServicio">
-            <i class="nav-icon fas fa-plus"></i><span class="mx-1">Contratar</span>
-        </button>
+        <?php
+        $db_host = 'localhost';
+        $db_user = 'root';
+        $db_pass = '';
+        $db_name = 'infinet';
+
+        // Establece una conexión a la base de datos
+        $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+        // Verifica si la conexión se realizó correctamente
+        if ($mysqli->connect_error) {
+            die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+        }
+
+        $sql = "SELECT state FROM `clients` WHERE id =" . $_GET['id'];
+
+        $result = $mysqli->query($sql);
+
+        if ($result) {
+            $row = $result->fetch_assoc();
+            $state = $row['state'];
+
+
+
+            if ($state == 1) {
+                echo '        <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalContratarServicio">
+                    <i class="nav-icon fas fa-plus"></i><span class="mx-1">Contratar</span>
+                </button>';
+            }
+        }
+
+        // Cierra la conexión a la base de datos
+        $mysqli->close();
+        ?>
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
