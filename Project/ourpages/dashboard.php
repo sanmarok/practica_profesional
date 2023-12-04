@@ -301,7 +301,7 @@ foreach ($addresses as $address) {
         <div class="container-fluid pt-1">
           <div class="card card-primary m-2">
             <div class="card-header">
-              <h3 class="card-title">Casos técnicos en curso</h3>
+              <h3 class="card-title">Solicitudes tecnicas en curso</h3>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
