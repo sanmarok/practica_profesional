@@ -466,9 +466,34 @@ if (isset($_SESSION['id'])) {
                                 <div class="form-group">
                                     <label for="ID Tecnico">Tecnico encargado</label>
                                     <select class="form-control" id="technician_id" name="technician_id" placeholder="ID Tecnico (Opcional)" required>
-                                        <option value="0">Sin encargado</option>
-                                        <option value="2">Nombre2 Apellido2</option>
-                                        <option value="5">Nombre5 Apellido5</option>
+                                        <option value="null" selected>Sin encargado</option>
+                                        <?php
+                                        $db_host = 'localhost';
+                                        $db_user = 'root';
+                                        $db_pass = '';
+                                        $db_name = 'infinet';
+
+                                        // Establece una conexión a la base de datos
+                                        $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+                                        // Verifica si la conexión se realizó correctamente
+                                        if ($mysqli->connect_error) {
+                                            die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                                        }
+
+                                        $sql = "SELECT * FROM `users` WHERE `role` = 2;";
+
+                                        $result = $mysqli->query($sql);
+
+                                        if ($result) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                echo '<option value="' . $row['id'] . '">' . $row['first_name'] . " " . $row['last_name'] . '</option>';
+                                            }
+                                        }
+
+                                        // Cierra la conexión a la base de datos
+                                        $mysqli->close();
+                                        ?>
                                     </select>
                                 </div>
                             </div>
