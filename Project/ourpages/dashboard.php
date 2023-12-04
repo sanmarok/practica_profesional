@@ -5,7 +5,82 @@ if (isset($_SESSION['id'])) {
   header('Location: authentication.php');
   exit();
 }
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = '';
+$db_name = 'infinet';
+
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+// Verificar conexión
+if ($conn->connect_error) {
+    die("La conexión ha fallado: " . $conn->connect_error);
+}
+
+$sql = "SELECT COUNT(*) AS pending_cases FROM technical_requests WHERE status != 1 && status != 0";
+$result = $conn->query($sql);
+
+
+$pendingCases = 0;
+
+// Si la consulta devuelve resultados, asignar el valor a la variable
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $pendingCases = $row['pending_cases'];
+}
+
+// CONSULTA DE DIRECCIONES-----------------------------------------------------------------------------
+$sql = "SELECT client_services.address 
+        FROM technical_requests 
+        INNER JOIN client_services ON technical_requests.client_service_id = client_services.id 
+        WHERE technical_requests.status NOT IN (0, 1)";
+$result = $conn->query($sql);
+$addresses = [];
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        array_push($addresses, $row['address']);
+    }
+}
+                      // Función para obtener coordenadas de una dirección       api key AIzaSyAps2nlKyq2lFnqMw1zawiNkKBxfHxxTaI
+ function getCoordinates($address){
+                        $address = urlencode($address);
+                        $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$address}&key=AIzaSyAps2nlKyq2lFnqMw1zawiNkKBxfHxxTaI";     #Aca se usa la api de geocode que funciona pero deniega todo si la api key no esta paga.
+
+                        $resp_json = file_get_contents($url);
+                        $resp = json_decode($resp_json, true);
+
+                        if($resp['status'] == 'OK'){
+                            $lat = $resp['results'][0]['geometry']['location']['lat'];
+                            $lng = $resp['results'][0]['geometry']['location']['lng'];
+                            return array("lat" => $lat, "lng" => $lng);
+                        } else {
+                            // Imprimir error para depuración
+                            echo "Error en la respuesta de la API para la dirección: $address. Estado: " . $resp['status'] . "\n";
+                            echo '<pre>';
+                            return false;
+                        }
+     }
+
+
+// Obtener coordenadas para cada dirección
+$locations = [];
+foreach($addresses as $address){
+    // Añadir la ciudad y el país a la dirección
+    $fullAddress = $address . ', Argentina';
+    $coords = getCoordinates($fullAddress);
+    if($coords){
+        array_push($locations, $coords);
+    }
+}
+
+// testeo de Imprimir el array para depuración borrar despues
+//echo '<pre>';
+//echo 'MATENME';
+//print_r($locations);
+//echo '</pre>';
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -39,6 +114,11 @@ if (isset($_SESSION['id'])) {
             z-index: 100;
             /* Agrega aquí más estilos si lo necesitas */
         }
+        
+        .flot-text {
+          color: white !important;
+        }
+
   </style>
 </head>
 
@@ -191,47 +271,73 @@ if (isset($_SESSION['id'])) {
       <!-- Main content -->
      <!-- Main content -->
       <section class="content ">
-          <div class="container-fluid ">
-            <!-- Aquí puedes agregar otros elementos de tu página -->
-            
-            <!-- Google Maps -->
-            <div id="map" style="height: 600px; width: 100%; margin-bottom: 20px;" ></div>
-            <div id="mapMessage" style="position: absolute; top: 50px; left: 300px; background-color: gray; padding: 10px; z-index: 100;">
-                Casos tecnicos en curso
-            </div>
-          
-          
-            <div class="row"> <!-- Asegúrate de que todo esté dentro de un 'row' -->
-              <div class="col-lg-3 col-xs-6" >
-                <!-- small box -->
-                <div class="small-box bg-yellow">
-                  <div class="inner">
-                    <h3>13</h3>
-                    <p>Casos técnicos pendientes</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-person-add"></i>
-                  </div>
-                  <a href="technical_requests.php" class="small-box-footer">
-                    Más información <i class="fa fa-arrow-circle-right"></i>
-                  </a>
+          <div class="container-fluid">
+            <!-- Card contenedora -->
+            <div class="card card-outline card-primary">
+                <!-- Cabecera de la Card -->
+                <div class="card-header">
+                    <h3 class="card-title">Casos técnicos en curso</h3>
+                    <!-- Botón para minimizar/mostrar -->
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
                 </div>
+                <!-- Cuerpo de la Card -->
+                <div class="card-body">
+                    <!-- Google Maps -->
+                    <div id="map" style="height: 600px; width: 100%;"></div>
+                    
+                    <!-- Aquí puedes agregar otros elementos de tu página -->
+                </div>
+            </div>
+            <!-- Otros elementos de tu página aquí -->
+          </div>
+                  
+          
+            <div class="row">
+              <!-- Small Box -->
+              <div class="col-lg-3 col-xs-6">
+                  <!-- small box -->
+                  <div class="small-box bg-yellow">
+                      <div class="inner" style="color: white;">
+                          <h3><?php echo $pendingCases; ?></h3>
+                          <p>Casos técnicos pendientes</p>
+                      </div>
+                      <div class="icon">
+                          <i class="ion ion-person-add"></i>
+                      </div>
+                      <a href="technical_requests.php" class="small-box-footer" style="color: white;">
+                          Más información <i class="fa fa-arrow-circle-right" ></i>
+                      </a>
+                  </div>
               </div>
 
-              <div class="col-lg-9 col-xs-6" style="margin-bottom: 15px;"> <!-- Ajusta las clases de columna según sea necesario -->
-                <div class="box-body">
-                  <div class="alert alert-warning alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h6><i class="icon fa fa-warning"></i> Aviso!</h6>
-                    OLT_4 está teniendo fallas para establecer conexión, revisar nodo.
+              <!-- Avisos -->
+              <div class="col-lg-9 col-xs-6">
+                  <!-- Primer aviso -->
+                  <div class="box-body" style="margin-bottom: 15px;">
+                      <div class="alert alert-warning alert-dismissible" style="color: white;">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          <h6><i class="icon fa fa-warning"></i> Aviso!</h6>
+                          OLT_4 está teniendo fallas para establecer conexión, revisar nodo.
+                      </div>
                   </div>
-                </div>
+                  <!-- Segundo aviso -->
+                  <div class="box-body" style="margin-bottom: 15px;">
+                      <div class="alert alert-info alert-dismissible" style="color: white;">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          <h6><i class="icon fa fa-warning"></i> Aviso!</h6>
+                          Tormentas pronosticadas para el fin de semana, que cualquier tecnico se asigne la guardia para esas fechas menos Agustin! el siempre se queda dormido.
+                      </div>
+                  </div>
               </div>
             </div>
             <div class="row">
               <div class="col-12">
                 <!-- interactive chart -->
-                <div class="card card-primary card-outline">
+                <div class="card card-primary card-outline" >
                   <div class="card-header">
                     <h3 class="card-title">
                       <i class="far fa-chart-bar"></i>
@@ -244,6 +350,9 @@ if (isset($_SESSION['id'])) {
                         <button type="button" class="btn btn-default btn-sm active" data-toggle="on">On</button>
                         <button type="button" class="btn btn-default btn-sm" data-toggle="off">Off</button>
                       </div>
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                      </button>
                     </div>
                   </div>
                   <div class="card-body">
@@ -264,12 +373,12 @@ if (isset($_SESSION['id'])) {
       <!-- /.content -->
     </div>
 
-    </section>
+    
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
-  </div>
+  
   <!-- ./wrapper -->
 
   <!-- jQuery -->
@@ -292,28 +401,14 @@ if (isset($_SESSION['id'])) {
   <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
   <script>
-     var locations = [
-        {lat: -31.864485040401153, lng: -59.03540832644696, title: 'Caso tecnico ID:1'},
-        {lat: -31.8630, lng: -59.0340, title: 'Caso tecnico 2'},
-        {lat: -31.860838182862558, lng: -59.02205113981479, title: 'Caso tecnico ID:3'},
-        {lat: -31.86445962922279, lng: -59.022029470956426, title: 'Caso tecnico ID:4'},
-        {lat: -31.85673641320513, lng: -59.04061658164112, title: 'Caso tecnico ID:5'},
-        {lat: -31.87263050687988, lng: -59.031650311190575, title: 'Caso tecnico ID:6'},
-        {lat: -31.87254520641514, lng: -59.02838454970633, title: 'Caso tecnico ID:7'},
-        {lat: -31.87354786157071, lng: -59.02521923632184, title: 'Caso tecnico ID:8'},
-        {lat: -31.85594730072456, lng: -59.01964396816157, title: 'Caso tecnico ID:9'},
-        {lat: -31.855371350474172, lng: -59.03149900268485, title: 'Caso tecnico ID:10'},
-        {lat: -31.85490230910371, lng: -59.0375, title: 'Caso tecnico ID:11'},
-        {lat: -31.861031635997502, lng: -59.02942522096242, title: 'Caso tecnico ID:12'},
-        {lat: -31.862508531731677, lng: -59.032180756946346, title: 'Caso tecnico ID:13'}
+     // Usar el array $locations en JavaScript
+     var locations = <?php echo json_encode($locations); ?>;
+      
 
-        // ... más ubicaciones
-    ];
-    
     function initMap() {
       var mapOptions = {
-        center: new google.maps.LatLng(-31.85999961300427, -59.031932381073965),
-        zoom: 14
+        center: new google.maps.LatLng(-30.68411047911765, -60.24989621990217),
+        zoom: 7
       };
       var map = new google.maps.Map(document.getElementById("map"), mapOptions);
       // Agregar marcadores al mapa
@@ -365,6 +460,7 @@ if (isset($_SESSION['id'])) {
 
           var prev = data.length > 0 ? data[data.length - 1] : 50,
               y    = prev + Math.random() * 10 - 5
+                  
 
           if (y < 0) {
             y = 0
@@ -391,9 +487,9 @@ if (isset($_SESSION['id'])) {
         ],
         {
           grid: {
-            borderColor: '#f3f3f3',
+            borderColor: '#FFFFFF',
             borderWidth: 1,
-            tickColor: '#f3f3f3'
+            tickColor: '#FFFFFF'
           },
           series: {
             color: '#3c8dbc',
@@ -405,11 +501,15 @@ if (isset($_SESSION['id'])) {
           },
           yaxis: {
             min: 0,
-            max: 5,
-            show: true
+            max: 100,
+            show: true,
+            color: 'white', 
+            tickColor: 'white' 
           },
           xaxis: {
-            show: true
+            show: true,
+            color: 'white', 
+            tickColor: 'white' 
           }
         }
       )
