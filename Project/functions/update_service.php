@@ -34,16 +34,16 @@ $monthly_fee = $mysqli->real_escape_string($data->monthly_fee);
 $installation_fee = $mysqli->real_escape_string($data->installation_fee);
 
 // Verifica si ya existe un servicio con el mismo nombre
-$existingServiceQuery = "SELECT * FROM services WHERE name = ?";
+$existingServiceQuery = "SELECT * FROM services WHERE name = ? AND service_id != ?";
 $stmtExisting = $mysqli->prepare($existingServiceQuery);
 
 if ($stmtExisting) {
-    $stmtExisting->bind_param("s", $name);
+    $stmtExisting->bind_param("si", $name, $service_id);
     $stmtExisting->execute();
     $stmtExisting->store_result();
 
     if ($stmtExisting->num_rows > 0) {
-        // Ya existe un servicio con el mismo nombre, devuelve una respuesta de error
+        // Ya existe un servicio con el mismo nombre (excluyendo el servicio actual), devuelve una respuesta de error
         $response = array('success' => false, 'message' => 'Ya existe un servicio con ese nombre.');
         echo json_encode($response);
         exit(); // Sale del script si ya existe el servicio
