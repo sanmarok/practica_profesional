@@ -28,10 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt) {
             // Estado por defecto para un nuevo servicio
-            $defaultState = 2;
+            $defaultState = "2";
 
             // Enlaza los parámetros y ejecuta la consulta
-            $stmt->bind_param("iisi", $serviceData->client_id, $serviceData->service_id, $serviceData->direccion, $defaultState);
+            $stmt->bind_param("iiss", $serviceData->client_id, $serviceData->service_id, $serviceData->direccion, $defaultState);
             if ($stmt->execute()) {
                 // La inserción se realizó con éxito
 
