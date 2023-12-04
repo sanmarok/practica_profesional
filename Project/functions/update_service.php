@@ -33,6 +33,30 @@ $download_speed = $mysqli->real_escape_string($data->download_speed);
 $monthly_fee = $mysqli->real_escape_string($data->monthly_fee);
 $installation_fee = $mysqli->real_escape_string($data->installation_fee);
 
+// Verifica si ya existe un servicio con el mismo nombre
+$existingServiceQuery = "SELECT * FROM services WHERE name = ?";
+$stmtExisting = $mysqli->prepare($existingServiceQuery);
+
+if ($stmtExisting) {
+    $stmtExisting->bind_param("s", $name);
+    $stmtExisting->execute();
+    $stmtExisting->store_result();
+
+    if ($stmtExisting->num_rows > 0) {
+        // Ya existe un servicio con el mismo nombre, devuelve una respuesta de error
+        $response = array('success' => false, 'message' => 'Ya existe un servicio con ese nombre.');
+        echo json_encode($response);
+        exit(); // Sale del script si ya existe el servicio
+    }
+
+    $stmtExisting->close();
+} else {
+    // Hubo un error en la preparación de la consulta
+    $response = array('success' => false, 'message' => 'Error en la preparación de la consulta.');
+    echo json_encode($response);
+    exit(); // Sale del script si hay un error en la preparación de la consulta
+}
+
 // Consulta SQL para actualizar el servicio
 $sql = "UPDATE services SET name = '$name', type = '$type', upload_speed = '$upload_speed', download_speed = '$download_speed', monthly_fee = '$monthly_fee', installation_fee = '$installation_fee' WHERE service_id = $service_id";
 
