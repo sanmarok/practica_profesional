@@ -530,7 +530,7 @@ if (isset($_SESSION['id'])) {
     <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    
+
     <script>
         function addCasoCliente() {
             // Obtén los valores del formulario
@@ -628,6 +628,22 @@ if (isset($_SESSION['id'])) {
         // document.getElementById('miBoton').addEventListener('click', confirmClaim);
     </script>
 
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            $(function() {
+                $("#example1")
+                    .DataTable({
+                        responsive: true,
+                        lengthChange: false,
+                        autoWidth: false,
+                    })
+                    .buttons()
+                    .container()
+                    .appendTo("#example1_wrapper .col-md-6:eq(0)");
+            });
+        });
+    </script>
 </body>
 
 </html>
