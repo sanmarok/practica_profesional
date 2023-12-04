@@ -19,7 +19,7 @@ function GuardarFactura()
         $sql = "UPDATE invoices SET state = ? WHERE id = ?";
         $stmt = $mysqli->prepare($sql);
         if ($stmt) {
-            $stmt->bind_param("si", $_POST['estado'], $_POST['factura_id']);
+            $stmt->bind_param("ii", $_POST['estado'], $_POST['factura_id']);
             if ($stmt->execute()) {
                 echo '
                 <script>Swal.fire({
