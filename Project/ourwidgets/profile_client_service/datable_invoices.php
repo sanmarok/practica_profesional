@@ -1,3 +1,4 @@
+<?php include('../functions/update_invoice.php'); ?>
 <div class="card card-primary m-2">
     <div class="card-header">
         <h3 class="card-title">Registro de facturacion</h3>
@@ -107,7 +108,7 @@
             </div>
             <div class="modal-body">
                 <!-- Agrega el formulario de edición aquí -->
-                <form id="editarForm' . $row['id'] . '">
+                <form method="post" id="editarForm' . $row['id'] . '">
                     <!-- Campo oculto para la factura_id -->
                     <input type="hidden" name="factura_id" value="' . $row['id'] . '">
 
@@ -121,39 +122,13 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-success" onclick="confirmarGuardar(' . $row['id'] . ')">Guardar</button>
+                        <button type="submit" class="btn btn-success" onclick="confirmarGuardar(' . $row['id'] . ')">Guardar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
-
-<script>
-function confirmarGuardar(id) {
-    Swal.fire({
-        title: "¿Estás seguro?",
-        text: "Esta acción actualizará la factura.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, guardar cambios",
-        cancelButtonText: "Cancelar"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Aquí puedes realizar acciones adicionales si es necesario
-            // Puedes agregar una llamada AJAX para actualizar la base de datos
-
-            // Cierra la ventana modal
-            $("#editarModal" + id).modal("hide");
-
-            // Muestra un SweetAlert de éxito (puedes ajustarlo según tus necesidades)
-            Swal.fire("¡Error!", "La factura no pudo ser actualizada.", "error");
-        }
-    });
-}
-</script>';
+</div>';
                     }
                 }
 
@@ -162,6 +137,7 @@ function confirmarGuardar(id) {
                 ?>
             </tbody>
         </table>
+        <?php GuardarFactura(); ?>
     </div>
     <!-- /.card-body -->
 </div>

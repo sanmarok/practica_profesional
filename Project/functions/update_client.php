@@ -78,7 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else if (verDato('phone', $_POST["phone"])) {
             $errores = "El teléfono ya existe.";
         }
-        echo "Estado: " . $_POST["state"];
         if ($errores == "") {
             $query = "UPDATE clients SET first_name = ?, last_name = ?,phone = ?,email = ?,document = ?,state = ? WHERE id = ?";
             $stmt = $mysqli->prepare($query);

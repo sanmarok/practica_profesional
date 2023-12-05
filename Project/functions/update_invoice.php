@@ -26,7 +26,7 @@ function GuardarFactura()
                     icon: "success",
                     title: "Factura actualizada exitosamente.",
                     showConfirmButton: false,
-                    timer: 500,
+                    timer: 10000000000,
                   }).then(() => {
                     window.location = "invoices.php";
                   });
