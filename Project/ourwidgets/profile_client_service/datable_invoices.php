@@ -1,4 +1,4 @@
-<?php include('../functions/update_invoice.php'); ?>
+<?php include('../functions/update_invoices_client_services.php'); ?>
 <div class="card card-primary m-2">
     <div class="card-header">
         <h3 class="card-title">Registro de facturacion</h3>

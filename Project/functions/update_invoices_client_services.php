@@ -28,7 +28,7 @@ function GuardarFactura()
                     showConfirmButton: false,
                     timer: 500,
                   }).then(() => {
-                    window.location = "invoices.php";
+                    window.location = "";
                   });
                   </script>';
             } else {
