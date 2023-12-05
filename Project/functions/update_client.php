@@ -84,19 +84,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("ssssssi", $_POST["first_name"], $_POST["last_name"], $_POST["phone"], $_POST["email"], $_POST["document"], $_POST["state"], $_POST["id"]);
             if ($stmt) {
                 if ($stmt->execute()) {
-                    $query = "SELECT COUNT(*) AS servicios_contratados FROM client_services WHERE client_id = ?";
-                    $stmt = $mysqli->prepare($query);
-                    $stmt->bind_param("i", $_POST["id"]);
-                    if ($stmt->execute()) {
-                        $result = $stmt->get_result();
-                        $row = $result->fetch_assoc();
-                        $servicios_contratados = $row['servicios_contratados'];
+                    if ($_POST['state'] == 0) {
+                        $query = "SELECT COUNT(*) AS servicios_contratados FROM client_services WHERE client_id = ?";
+                        $stmt = $mysqli->prepare($query);
+                        $stmt->bind_param("i", $_POST["id"]);
+                        if ($stmt->execute()) {
+                            $result = $stmt->get_result();
+                            $row = $result->fetch_assoc();
+                            $servicios_contratados = $row['servicios_contratados'];
 
-                        if ($servicios_contratados > 0) {
-                            $query = "UPDATE client_services SET state = ? WHERE client_id = ?";
-                            $stmt = $mysqli->prepare($query);
-                            $stmt->bind_param("si", $_POST["state"], $_POST["id"]);
-                            $stmt->execute();
+                            if ($servicios_contratados > 0) {
+                                $query = "UPDATE client_services SET state = ? WHERE client_id = ?";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->bind_param("si", $_POST["state"], $_POST["id"]);
+                                $stmt->execute();
+                            }
                         }
                     }
                     echo "<script>
