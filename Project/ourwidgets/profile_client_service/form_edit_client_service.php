@@ -12,7 +12,7 @@ $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 if ($mysqli->connect_error) {
     die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
 }
-
+$id = $_GET['id'];
 // Consulta SQL para obtener los datos de los clientes
 $sql = "SELECT 
     clients.id AS client_id,
@@ -50,90 +50,103 @@ $mysqli->close();
         </div>
     </div>
     <!-- /.card-header -->
+
     <div class="card-body">
-        <div class="card-body">
 
-            <form>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <label for="inputService">Titular</label>
-                            </div>
-                            <?php echo '<a href="profile_client.php?id=' . $row['client_id'] . '" class="mx-2" target="_blank"><i class="fas fa-eye text-success"></i></a>' . '<span>' . $row['first_name'] . " " . $row['last_name'] . '</span>'; ?>
+        <form method="post" class="needs-validation" novalidate autocomplete="off">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label for="inputService">Titular</label>
                         </div>
+                        <?php echo '<a href="profile_client.php?id=' . $row['client_id'] . '" class="mx-2" target="_blank"><i class="fas fa-eye text-success"></i></a>' . '<span>' . $row['first_name'] . " " . $row['last_name'] . '</span>'; ?>
                     </div>
-                    <div class="col-sm-6">
-                        <!-- Plan -->
-                        <div class="form-group input-group">
-                            <div class="input-group">
-                                <label for="inputService">Plan</label>
-                            </div>
-                            <select class="custom-select form-control-border" id="inputService" disabled>
-                                <?php
-                                // Establece una conexión a la base de datos
-                                $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+                </div>
+                <div class="col-sm-6">
+                    <!-- Plan -->
+                    <div class="form-group input-group">
+                        <div class="input-group">
+                            <label for="inputService">Plan</label>
+                        </div>
+                        <select class="custom-select form-control-border" name="service" id="inputService" disabled required>
+                            <?php
+                            // Establece una conexión a la base de datos
+                            $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-                                // Verifica si la conexión se realizó correctamente
-                                if ($mysqli->connect_error) {
-                                    die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                            // Verifica si la conexión se realizó correctamente
+                            if ($mysqli->connect_error) {
+                                die('Error de conexión a la base de datos: ' . $mysqli->connect_error);
+                            }
+
+                            $subquery = "SELECT * FROM `services`";
+                            $subresult = $mysqli->query($subquery);
+
+                            if ($subresult->num_rows > 0) {
+                                while ($subrow = $subresult->fetch_assoc()) {
+                                    // Verifica si el servicio actual coincide con el servicio obtenido en la consulta
+                                    $selected = ($subrow['service_id'] == $row['service_service_id']) ? 'selected' : '';
+                                    echo "<option value='" . $subrow['service_id'] . "' $selected>" . $subrow['name'] . '</option>';
                                 }
+                            }
 
-                                $subquery = "SELECT * FROM `services`";
-                                $subresult = $mysqli->query($subquery);
-
-                                if ($subresult->num_rows > 0) {
-                                    while ($subrow = $subresult->fetch_assoc()) {
-                                        // Verifica si el servicio actual coincide con el servicio obtenido en la consulta
-                                        $selected = ($subrow['service_id'] == $row['service_service_id']) ? 'selected' : '';
-                                        echo "<option value=" . $subrow['service_id'] . "' $selected>" . $subrow['name'] . '</option>';
-                                    }
-                                }
-
-                                // Cierra la conexión a la base de datos
-                                $mysqli->close();
-                                ?>
-                            </select>
-                            <span class="input-group-append">
-                                <button class="btn btn-outline-danger mx-2" type="button" id="editService"><i class="fas fa-pencil-alt"></i></button>
-                            </span>
+                            // Cierra la conexión a la base de datos
+                            $mysqli->close();
+                            ?>
+                        </select>
+                        <div class="invalid-tooltip">
+                            Por favor, Selecione un Servicio.
                         </div>
+                        <span class="input-group-append">
+                            <button class="btn btn-outline-danger mx-2" type="button" id="editService"><i class="fas fa-pencil-alt"></i></button>
+                        </span>
                     </div>
-                    <div class="col-sm-6">
-                        <!-- Estado -->
-                        <div class="form-group input-group">
-                            <div class="input-group">
-                                <label for="inputServiceAddress">Direccion</label>
-                            </div>
-                            <input type="text" class="form-control form-control-border" id="inputServiceAddress" value="<?php echo $row['service_address']; ?>" disabled>
-
-                            <span class="input-group-append">
-                                <button class="btn btn-outline-danger mx-2" type="button" id="editServiceAddress"><i class="fas fa-pencil-alt"></i></button>
-                            </span>
+                </div>
+                <div class="col-sm-6">
+                    <!-- Estado -->
+                    <div class="form-group input-group">
+                        <div class="input-group">
+                            <label for="inputServiceAddress">Direccion</label>
                         </div>
+                        <input type="text" class="form-control form-control-border" name="address" id="inputServiceAddress" value="<?php echo $row['service_address']; ?>" disabled required>
+                        <div class="invalid-tooltip">
+                            Por favor, Escriba una Direccion.
+                        </div>
+
+                        <span class="input-group-append">
+                            <button class="btn btn-outline-danger mx-2" type="button" id="editServiceAddress"><i class="fas fa-pencil-alt"></i></button>
+                        </span>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group input-group">
-                            <div class="input-group">
-                                <label for="inputService">Estado</label>
-                            </div>
-                            <select class="custom-select form-control-border" id="inputServiceState" disabled>
-                                <option value="0" <?= ($row['service_state'] == 0) ? 'selected' : '' ?>>Inactivo</option>
-                                <option value="1" <?= ($row['service_state'] == 1) ? 'selected' : '' ?>>Activo</option>
-                                <option value="2" <?= ($row['service_state'] == 2) ? 'selected' : '' ?>>Pendiente</option>
-                                <option value="3" <?= ($row['service_state'] == 3) ? 'selected' : '' ?>>Suspendido</option>
-                            </select>
-                            <span class="input-group-append">
-                                <button class="btn btn-outline-danger mx-2" type="button" id="editServiceState"><i class="fas fa-pencil-alt"></i></button>
-                            </span>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group input-group">
+                        <div class="input-group">
+                            <label for="inputService">Estado</label>
+                        </div>
+                        <select class="custom-select form-control-border" name="state" id="inputServiceState" disabled required>
+                            <option value="0" <?= ($row['service_state'] == 0) ? 'selected' : '' ?>>Inactivo</option>
+                            <option value="1" <?= ($row['service_state'] == 1) ? 'selected' : '' ?>>Activo</option>
+                            <option value="2" <?= ($row['service_state'] == 2) ? 'selected' : '' ?>>Pendiente</option>
+                            <option value="3" <?= ($row['service_state'] == 3) ? 'selected' : '' ?>>Suspendido</option>
+                        </select>
+                        <span class="input-group-append">
+                            <button class="btn btn-outline-danger mx-2" type="button" id="editServiceState"><i class="fas fa-pencil-alt"></i></button>
+                        </span>
+                        <div class="invalid-tooltip">
+                            Por favor, Selecione un Estado.
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+                <input type="hidden" id="inputId" name="id" value="<?php echo $id; ?>">
+                <input type="hidden" name="client_id" value="<?php echo $row['client_id']; ?>">
+            </div>
     </div>
     <div class="card-footer">
-        <button id="btnGuardar" class="btn btn-success float-right" disabled>Guardar</button>
+        <button id="btnGuardar" type="submit" class="btn btn-success float-right">Guardar</button>
     </div>
-    <!-- /.card-body -->
+    </form>
+</div>
+</div>
+<!-- /.card-body -->
+<?php include("../functions/update_client_services.php"); ?>
 </div>

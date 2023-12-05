@@ -13,13 +13,16 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Servicio contratado <?php echo $_GET['id'] ?></title>
+    <title>Servicio contratado
+        <?php echo $_GET['id'] ?>
+    </title>
     <!-- DataTables -->
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
@@ -36,6 +39,13 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
 
         .swal2-html-container {
             color: white;
+        }
+
+        .custom-select.is-valid,
+        .was-validated .custom-select:valid {
+            background-color: #343a40;
+            color: #fff;
+            border-color: #6c757d;
         }
     </style>
 </head>
@@ -92,18 +102,18 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <!-- Table script -->
     <script>
-        $(function() {
+        $(function () {
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                
+
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $("#example3").DataTable({
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                
+
             }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
         });
     </script>
@@ -111,7 +121,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
     <script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <!-- Control save form -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Función para habilitar la edición de un campo
             function enableEdit(inputId) {
                 const inputElement = document.getElementById(inputId);
@@ -129,36 +139,27 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             $("[name='my-checkbox']").bootstrapSwitch();
 
             // Agregar eventos de clic a los botones de edición
-            $("#editFirstName").click(function() {
-                enableEdit("inputFirstName");
-            });
 
-            $("#editLastName").click(function() {
-                enableEdit("inputLastName");
-            });
-
-            $("#editPhone").click(function() {
-                enableEdit("inputPhone");
-            });
-
-            $("#editEmail").click(function() {
-                enableEdit("inputEmail");
-            });
-
-            $("#editService").click(function() {
+            $("#editService").click(function () {
+                enableEdit("inputServiceState");
+                enableEdit("inputServiceAddress");
                 enableEdit("inputService");
             });
 
-            $("#editServiceAddress").click(function() {
+            $("#editServiceAddress").click(function () {
+                enableEdit("inputServiceState");
+                enableEdit("inputService");
                 enableEdit("inputServiceAddress");
             });
-            $("#editServiceState").click(function() {
+            $("#editServiceState").click(function () {
+                enableEdit("inputServiceAddress");
+                enableEdit("inputService");
                 enableEdit("inputServiceState");
             });
         });
     </script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Función para habilitar el botón de "Guardar"
             function enableSaveButton() {
                 $("#btnGuardar").prop("disabled", false);
@@ -170,7 +171,7 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             }
 
             // Agregar eventos de cambio a los campos del formulario
-            $("#inputFirstName, #inputLastName, #inputPhone, #inputEmail, #inputService, #inputServiceAddress, #inputServiceState").on("change", function() {
+            $("#inputFirstName, #inputLastName, #inputPhone, #inputEmail, #inputService, #inputServiceAddress, #inputServiceState").on("change", function () {
                 enableSaveButton(); // Habilitar el botón cuando se realizan cambios en los campos de texto
             });
 
@@ -178,39 +179,27 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1' || $_SESSION['role'] == '
             disableSaveButton();
         });
     </script>
+    <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
     <!-- Save button -->
-    <script>
-        // Evento para el botón "Guardar"
-        $("#btnGuardar").click(function() {
-            // Simula una actualización exitosa
-            // Aquí deberías agregar tu lógica de actualización del cliente
-
-            // Luego, muestra la alerta de SweetAlert2
-            Swal.fire({
-                title: 'Actualización Exitosa',
-                text: 'El servicio ha sido actualizado correctamente.',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-
-            });
-        });
-    </script>
-    <script>
-        // Evento para el botón "Guardar"
-        $("#btnGuardar").click(function() {
-            // Simula una actualización exitosa
-            // Aquí deberías agregar tu lógica de actualización del cliente
-
-            // Luego, muestra la alerta de SweetAlert2
-            Swal.fire({
-                title: 'Error',
-                text: 'El servicio no se ha sido actualizado.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-
-            });
-        });
-    </script>
     <script>
         function imprimirFactura(facturaId) {
             // Puedes personalizar la URL según la estructura de tu proyecto

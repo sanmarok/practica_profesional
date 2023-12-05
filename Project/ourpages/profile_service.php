@@ -19,7 +19,8 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == '1' || $_SESSION['role'] == 
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
@@ -97,7 +98,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == '1' || $_SESSION['role'] == 
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <!-- Table script -->
     <script>
-        $(function() {
+        $(function () {
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -113,10 +114,10 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == '1' || $_SESSION['role'] == 
         });
     </script>
     <!-- Bootstrap Switch -->
- 
+
     <!-- Control save form -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Función para habilitar la edición de un campo
             function enableEdit(inputId) {
                 const inputElement = document.getElementById(inputId);
@@ -128,34 +129,64 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == '1' || $_SESSION['role'] == 
             $("[name='my-checkbox']").bootstrapSwitch();
 
             // Agregar eventos de clic a los botones de edición
-            $("#editServiceName").click(function() {
+            $("#editServiceName").click(function () {
+                enableEdit("inputInstallationFee");
+                enableEdit("inputMonthlyFee");
+                enableEdit("inputDownloadSpeed");
+                enableEdit("inputUploadSpeed");
+                enableEdit("inputServiceType");
                 enableEdit("inputServiceName");
             });
 
-            $("#editServiceType").click(function() {
+            $("#editServiceType").click(function () {
+                enableEdit("inputInstallationFee");
+                enableEdit("inputMonthlyFee");
+                enableEdit("inputDownloadSpeed");
+                enableEdit("inputUploadSpeed");
+                enableEdit("inputServiceName");
                 enableEdit("inputServiceType");
             });
 
-            $("#editUploadSpeed").click(function() {
+            $("#editUploadSpeed").click(function () {
+                enableEdit("inputInstallationFee");
+                enableEdit("inputMonthlyFee");
+                enableEdit("inputDownloadSpeed");
+                enableEdit("inputServiceType");
+                enableEdit("inputServiceName");
                 enableEdit("inputUploadSpeed");
             });
 
-            $("#editDownloadSpeed").click(function() {
+            $("#editDownloadSpeed").click(function () {
+                enableEdit("inputInstallationFee");
+                enableEdit("inputMonthlyFee");
+                enableEdit("inputUploadSpeed");
+                enableEdit("inputServiceType");
+                enableEdit("inputServiceName");
                 enableEdit("inputDownloadSpeed");
             });
 
-            $("#editMonthlyFee").click(function() {
+            $("#editMonthlyFee").click(function () {
+                enableEdit("inputInstallationFee");
+                enableEdit("inputDownloadSpeed");
+                enableEdit("inputUploadSpeed");
+                enableEdit("inputServiceType");
+                enableEdit("inputServiceName");
                 enableEdit("inputMonthlyFee");
             });
 
-            $("#editInstallationFee").click(function() {
+            $("#editInstallationFee").click(function () {
+                enableEdit("inputMonthlyFee");
+                enableEdit("inputDownloadSpeed");
+                enableEdit("inputUploadSpeed");
+                enableEdit("inputServiceType");
+                enableEdit("inputServiceName");
                 enableEdit("inputInstallationFee");
             });
 
         });
     </script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Función para habilitar el botón de "Guardar"
             function enableSaveButton() {
                 $("#btnGuardar").prop("disabled", false);
@@ -167,16 +198,16 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == '1' || $_SESSION['role'] == 
             }
 
             // Agregar eventos de cambio a los campos del formulario
-            $("#inputServiceName, #inputServiceType, #inputUploadSpeed, #inputDownloadSpeed, #inputMonthlyFee, #inputInstallationFee").on("change", function() {
+            $("#inputServiceName, #inputServiceType, #inputUploadSpeed, #inputDownloadSpeed, #inputMonthlyFee, #inputInstallationFee").on("change", function () {
                 enableSaveButton(); // Habilitar el botón cuando se realizan cambios en los campos de texto
             });
 
             // Inicialmente, deshabilitar el botón de "Guardar"
             disableSaveButton();
         });
-        </script>
-    
-        <!-- Save button -->
+    </script>
+
+    <!-- Save button -->
 
 
 

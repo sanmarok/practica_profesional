@@ -5,7 +5,8 @@
             <h3 class="card-title">Clientes</h3>
         </div>
         <div class="card-tools">
-            <button type="button" id="btnAgregarCliente" class="btn btn-success ml-4 mt-4 mb-0" data-toggle="modal" data-target="#modalAgregarCliente">
+            <button type="button" id="btnAgregarCliente" class="btn btn-success ml-4 mt-4 mb-0" data-toggle="modal"
+                data-target="#modalAgregarCliente">
                 <i class="nav-icon fas fa-plus"></i><span class="mx-1">Cliente</span>
             </button>
         </div>
@@ -60,11 +61,7 @@
                                 case 1:
                                     echo '<td class="text-left my-auto"><span class="badge bg-success">Activo</span></td>';
                                     break;
-                                default:
-                                    # code...
-                                    break;
                             }
-                            // echo "<td>" . $row['state'] . "</td>";
                             echo '<td class="text-center">
         <div>
             <a href="profile_client.php?id=' . $row['id'] . '">
