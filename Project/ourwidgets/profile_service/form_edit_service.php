@@ -1,8 +1,13 @@
 <?php
 // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+// $db_host = 'localhost';
+// $db_user = 'root';
+// $db_pass = '';
+// $db_name = 'infinet';
+
 $db_host = 'localhost';
-$db_user = 'root';
-$db_pass = '';
+$db_user = 'dbadmin';
+$db_pass = '.admindb';
 $db_name = 'infinet';
 
 // Establece una conexión a la base de datos
@@ -53,14 +58,12 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputServiceName">Nombre del Servicio</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-border" name="service_name"
-                                    id="inputServiceName" value="<?php echo $name; ?>" disabled required>
+                                <input type="text" class="form-control form-control-border" name="service_name" id="inputServiceName" value="<?php echo $name; ?>" disabled required>
                                 <div class="invalid-tooltip">
                                     Por favor, Ingrese un Nombre.
                                 </div>
                                 <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button" id="editServiceName"><i
-                                            class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn btn-outline-danger mx-2" type="button" id="editServiceName"><i class="fas fa-pencil-alt"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -70,14 +73,12 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputServiceType">Tipo de Servicio</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-border" name="type_service"
-                                    id="inputServiceType" value="<?php echo $type; ?>" disabled required>
+                                <input type="text" class="form-control form-control-border" name="type_service" id="inputServiceType" value="<?php echo $type; ?>" disabled required>
                                 <div class="invalid-tooltip">
                                     Por favor, Ingrese un Tipo de Servicio.
                                 </div>
                                 <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button" id="editServiceType"><i
-                                            class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn btn-outline-danger mx-2" type="button" id="editServiceType"><i class="fas fa-pencil-alt"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -90,14 +91,12 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputUploadSpeed">Velocidad de Subida</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-border" name="upload_speed"
-                                    id="inputUploadSpeed" value="<?php echo $upload_speed; ?>" disabled required>
+                                <input type="text" class="form-control form-control-border" name="upload_speed" id="inputUploadSpeed" value="<?php echo $upload_speed; ?>" disabled required>
                                 <div class="invalid-tooltip">
                                     Por favor, Ingrese una velocidad de subida.
                                 </div>
                                 <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button" id="editUploadSpeed"><i
-                                            class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn btn-outline-danger mx-2" type="button" id="editUploadSpeed"><i class="fas fa-pencil-alt"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -107,14 +106,12 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputDownloadSpeed">Velocidad de Bajada</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-border" name="download_speed"
-                                    id="inputDownloadSpeed" value="<?php echo $download_speed; ?>" disabled required>
+                                <input type="text" class="form-control form-control-border" name="download_speed" id="inputDownloadSpeed" value="<?php echo $download_speed; ?>" disabled required>
                                 <div class="invalid-tooltip">
                                     Por favor, Ingrese una velocidad de bajada.
                                 </div>
                                 <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button" id="editDownloadSpeed"><i
-                                            class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn btn-outline-danger mx-2" type="button" id="editDownloadSpeed"><i class="fas fa-pencil-alt"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -126,14 +123,12 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputMonthlyFee">Cuota Mensual</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-border" name="monthly_fee"
-                                    id="inputMonthlyFee" value="<?php echo $monthly_fee; ?>" disabled required>
+                                <input type="text" class="form-control form-control-border" name="monthly_fee" id="inputMonthlyFee" value="<?php echo $monthly_fee; ?>" disabled required>
                                 <div class="invalid-tooltip">
                                     Por favor, Ingrese una cuota mensual.
                                 </div>
                                 <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button" id="editMonthlyFee"><i
-                                            class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn btn-outline-danger mx-2" type="button" id="editMonthlyFee"><i class="fas fa-pencil-alt"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -143,15 +138,12 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputInstallationFee">Tarifa de Instalación</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-border" name="install_fee"
-                                    id="inputInstallationFee" value="<?php echo $installation_fee; ?>" disabled
-                                    required>
+                                <input type="text" class="form-control form-control-border" name="install_fee" id="inputInstallationFee" value="<?php echo $installation_fee; ?>" disabled required>
                                 <div class="invalid-tooltip">
                                     Por favor, Ingrese una tarifa de instalacion.
                                 </div>
                                 <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button"
-                                        id="editInstallationFee"><i class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn btn-outline-danger mx-2" type="button" id="editInstallationFee"><i class="fas fa-pencil-alt"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -160,8 +152,7 @@ $mysqli->close();
                 <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
                 <!-- Botón para eliminar servicio -->
                 <div class="card-footer">
-                    <button type="button" class="btn btn-danger" onclick="deleteService(<?php echo $service_id; ?>)"
-                        style="position: absolute; top: 400px; left: 20px;">
+                    <button type="button" class="btn btn-danger" onclick="deleteService(<?php echo $service_id; ?>)" style="position: absolute; top: 400px; left: 20px;">
                         <i class="fas fa-times"></i> Eliminar Servicio
                     </button>
                     <button id="btnGuardar" type="submit" class="btn btn-success float-right">Guardar</button>
@@ -188,8 +179,8 @@ $mysqli->close();
             if (result.isConfirmed) {
                 // Realiza una llamada AJAX para borrar el servicio
                 fetch("../functions/delete_service.php?id=" + serviceId, {
-                    method: "GET"
-                })
+                        method: "GET"
+                    })
                     .then(response => response.json())
                     .then(data => {
                         // Maneja la respuesta del servidor

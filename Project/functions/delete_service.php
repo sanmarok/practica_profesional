@@ -3,10 +3,15 @@ if (isset($_GET['id'])) {
     $serviceId = $_GET['id'];
 
     // Realiza la conexión a la base de datos (ajusta según tu entorno)
+    // $db_host = 'localhost';
+    // $db_user = 'root';
+    // $db_pass = '';
+    // $db_name = 'infinet'; // Cambia esto con el nombre de tu base de datos
+
     $db_host = 'localhost';
-    $db_user = 'root';
-    $db_pass = '';
-    $db_name = 'infinet'; // Cambia esto con el nombre de tu base de datos
+    $db_user = 'dbadmin';
+    $db_pass = '.admindb';
+    $db_name = 'infinet';
     $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
     // Verifica si la conexión se realizó correctamente
@@ -36,5 +41,3 @@ if (isset($_GET['id'])) {
     header('Content-Type: application/json');
     echo json_encode($response);
 }
-?>
-

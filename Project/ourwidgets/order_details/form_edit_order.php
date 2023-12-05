@@ -1,8 +1,13 @@
 <?php
 // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+// $db_host = 'localhost';
+// $db_user = 'root';
+// $db_pass = '';
+// $db_name = 'infinet';
+
 $db_host = 'localhost';
-$db_user = 'root';
-$db_pass = '';
+$db_user = 'dbadmin';
+$db_pass = '.admindb';
 $db_name = 'infinet';
 
 // Establece una conexión a la base de datos
@@ -35,7 +40,6 @@ if ($result->num_rows > 0) {
     $sql = "SELECT first_name,last_name FROM users WHERE id = " . $user_id;
     $stmt = $mysqli->query($sql);
     $titular = $stmt->fetch_assoc();
-
 } else {
     echo "No se encontro el pedido.";
 }
@@ -62,9 +66,7 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="input">Titular</label>
                             <div class="input-group">
-                                <input type="text" rows="1" class="form-control form-control-border" id="input"
-                                    value="<?php echo $titular["first_name"] . " " . $titular["last_name"]; ?>"
-                                    disabled>
+                                <input type="text" rows="1" class="form-control form-control-border" id="input" value="<?php echo $titular["first_name"] . " " . $titular["last_name"]; ?>" disabled>
                             </div>
                         </div>
                     </div>
@@ -73,8 +75,7 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputCreation">Fecha de Creacion</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-border" id="inputCreation" value="<?php echo $creation_date; ?>"
-                                    disabled>
+                                <input type="text" class="form-control form-control-border" id="inputCreation" value="<?php echo $creation_date; ?>" disabled>
                             </div>
                         </div>
                     </div>
@@ -84,11 +85,9 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputDesciption">Descripcion</label>
                             <div class="input-group">
-                                <textarea type="text" rows="1" class="form-control form-control-border"
-                                    id="inputDesciption" value="" disabled><?php echo $description; ?></textarea>
+                                <textarea type="text" rows="1" class="form-control form-control-border" id="inputDesciption" value="" disabled><?php echo $description; ?></textarea>
                                 <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button" id="editDescription"><i
-                                            class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn btn-outline-danger mx-2" type="button" id="editDescription"><i class="fas fa-pencil-alt"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -98,15 +97,13 @@ $mysqli->close();
                         <div class="form-group input-group">
                             <label for="inputStatus">Estado</label>
                             <div class="input-group">
-                                <select type="text" class="form-control form-control-border" id="inputStatus" value=""
-                                    disabled>
+                                <select type="text" class="form-control form-control-border" id="inputStatus" value="" disabled>
                                     <option value="0" <?php echo $status == 0 ? 'selected' : ''; ?>>Cancelado</option>
                                     <option value="1" <?php echo $status == 1 ? 'selected' : ''; ?>>Recibido</option>
                                     <option value="2" <?php echo $status == 2 ? 'selected' : ''; ?>>Pendiente</option>
                                 </select>
                                 <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button" id="editStatus"><i
-                                            class="fas fa-pencil-alt"></i></button>
+                                    <button class="btn btn-outline-danger mx-2" type="button" id="editStatus"><i class="fas fa-pencil-alt"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -121,7 +118,7 @@ $mysqli->close();
                         while ($row = $result->fetch_assoc()) {
                             // print_r($row);
                             echo
-                                '<div class="col-sm-6">
+                            '<div class="col-sm-6">
                                     <div class="form-group input-group">
                                     <label for="inputProduct">Producto</label>
                                     <div class="input-group">

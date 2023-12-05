@@ -7,9 +7,14 @@ if (!isset($_SESSION['id']) || $_SESSION['role'] == 2) {
 }
 
 // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+// $db_host = 'localhost';
+// $db_user = 'root';
+// $db_pass = '';
+// $db_name = 'infinet';
+
 $db_host = 'localhost';
-$db_user = 'root';
-$db_pass = '';
+$db_user = 'dbadmin';
+$db_pass = '.admindb';
 $db_name = 'infinet';
 
 // Verifica si se recibieron datos por POST
@@ -32,18 +37,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt) {
         // El campo 'status' se asume que es recibido desde el formulario o se establece por defecto aquí
         // Se asume que 'type' es un entero. Asegúrate de que los tipos de datos correspondan a los de tu base de datos
-        $stmt->bind_param("ssiisi", 
-            $requestData->description, 
-            $requestData->problem, 
-            $requestData->status, 
-            $requestData->type, 
-            $requestData->client_service_id, 
-            $requestData->technician_id);
+        $stmt->bind_param(
+            "ssiisi",
+            $requestData->description,
+            $requestData->problem,
+            $requestData->status,
+            $requestData->type,
+            $requestData->client_service_id,
+            $requestData->technician_id
+        );
 
         if ($stmt->execute()) {
             // La inserción se realizó con éxito
             $response = array('success' => true);
-
         } else {
             // Hubo un error al insertar en la base de datos
             $response = array('success' => false, 'error' => $stmt->error);
@@ -67,4 +73,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header('Content-Type: application/json');
     echo json_encode($response);
 }
-?>

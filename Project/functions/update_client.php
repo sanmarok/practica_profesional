@@ -5,10 +5,16 @@ if (isset($_SESSION['id']) && $_SESSION['role'] != 1) {
 }
 function verDato($columna, $dato)
 {
+    // $db_host = 'localhost';
+    // $db_user = 'root';
+    // $db_pass = '';
+    // $db_name = 'infinet';
+
     $db_host = 'localhost';
-    $db_user = 'root';
-    $db_pass = '';
+    $db_user = 'dbadmin';
+    $db_pass = '.admindb';
     $db_name = 'infinet';
+    
     $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
     if ($mysqli->connect_error) {
@@ -41,7 +47,6 @@ function verDato($columna, $dato)
         // Error en la preparación de la consulta
         die("Error en la consulta: " . $mysqli->error);
     }
-
 }
 
 $db_host = 'localhost';
@@ -147,4 +152,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $mysqli->close();
     }
-} ?>
+}

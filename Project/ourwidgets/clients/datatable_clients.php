@@ -5,8 +5,7 @@
             <h3 class="card-title">Clientes</h3>
         </div>
         <div class="card-tools">
-            <button type="button" id="btnAgregarCliente" class="btn btn-success ml-4 mt-4 mb-0" data-toggle="modal"
-                data-target="#modalAgregarCliente">
+            <button type="button" id="btnAgregarCliente" class="btn btn-success ml-4 mt-4 mb-0" data-toggle="modal" data-target="#modalAgregarCliente">
                 <i class="nav-icon fas fa-plus"></i><span class="mx-1">Cliente</span>
             </button>
         </div>
@@ -28,9 +27,14 @@
                 <tbody>
                     <?php
                     // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+                    // $db_host = 'localhost';
+                    // $db_user = 'root';
+                    // $db_pass = '';
+                    // $db_name = 'infinet';
+
                     $db_host = 'localhost';
-                    $db_user = 'root';
-                    $db_pass = '';
+                    $db_user = 'dbadmin';
+                    $db_pass = '.admindb';
                     $db_name = 'infinet';
 
                     // Establece una conexión a la base de datos

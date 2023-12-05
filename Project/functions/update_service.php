@@ -1,9 +1,14 @@
 <?php
 
 // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+// $db_host = 'localhost';
+// $db_user = 'root';
+// $db_pass = '';
+// $db_name = 'infinet';
+
 $db_host = 'localhost';
-$db_user = 'root';
-$db_pass = '';
+$db_user = 'dbadmin';
+$db_pass = '.admindb';
 $db_name = 'infinet';
 
 // Establece una conexión a la base de datos
@@ -72,5 +77,3 @@ if ($mysqli->query($sql)) {
 
 // Cierra la conexión a la base de datos
 $mysqli->close();
-
-?>

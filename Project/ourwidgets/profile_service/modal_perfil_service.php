@@ -1,8 +1,13 @@
 <?php
 // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+// $db_host = 'localhost';
+// $db_user = 'root';
+// $db_pass = '';
+// $db_name = 'infinet';
+
 $db_host = 'localhost';
-$db_user = 'root';
-$db_pass = '';
+$db_user = 'dbadmin';
+$db_pass = '.admindb';
 $db_name = 'infinet';
 
 // Establece una conexión a la base de datos
@@ -78,24 +83,24 @@ $mysqli->close();
                     <div class="form-group input-group">
                         <label for="inputServiceType">Tipo de Servicio</label>
                         <div class="input-group">
-                             <select class="form-control form-control-border" id="inputServiceType" disabled>
+                            <select class="form-control form-control-border" id="inputServiceType" disabled>
                                 <?php
-                                     // Tipos de servicios proporcionados
-                                     $tiposDeServicio = array(
-                                        'Fibra Óptica',
-                                        'Cable',
-                                        'Satélite',
-                                        'Teléfono'
-                                        // Agrega otros tipos según sea necesario
-                                        );
+                                // Tipos de servicios proporcionados
+                                $tiposDeServicio = array(
+                                    'Fibra Óptica',
+                                    'Cable',
+                                    'Satélite',
+                                    'Teléfono'
+                                    // Agrega otros tipos según sea necesario
+                                );
 
-                                        // Itera sobre los tipos de servicio y crea las opciones
-                                         foreach ($tiposDeServicio as $tipo) {
-                                            $selected = ($tipo == $type) ? 'selected' : '';
-                                            echo "<option value=\"$tipo\" $selected>$tipo</option>";
-                                        }
+                                // Itera sobre los tipos de servicio y crea las opciones
+                                foreach ($tiposDeServicio as $tipo) {
+                                    $selected = ($tipo == $type) ? 'selected' : '';
+                                    echo "<option value=\"$tipo\" $selected>$tipo</option>";
+                                }
                                 ?>
-                               </select>
+                            </select>
                             <span class="input-group-append">
                                 <button class="btn btn-outline-danger mx-2" type="button" id="editServiceType"><i class="fas fa-pencil-alt"></i></button>
                             </span>
@@ -104,7 +109,7 @@ $mysqli->close();
                     </div>
                 </div>
             </div>
-            
+
             <!-- Velocidad de subida y Velocidad de bajada -->
             <div class="row">
                 <div class="col-sm-6">
@@ -132,7 +137,7 @@ $mysqli->close();
                     </div>
                 </div>
             </div>
-            
+
             <!-- Cuota Mensual y Tarifa de Instalación -->
             <div class="row">
                 <div class="col-sm-6">
@@ -141,7 +146,7 @@ $mysqli->close();
                         <div class="input-group">
                             <input type="text" class="form-control form-control-border" id="inputMonthlyFee" value="<?php echo $monthly_fee; ?>" disabled>
                             <span class="input-group-append">
-                                <button class="btn btn-outline-danger mx-2"  type="button" id="editMonthlyFee"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-outline-danger mx-2" type="button" id="editMonthlyFee"><i class="fas fa-pencil-alt"></i></button>
                             </span>
                             <div class="invalid-tooltip">Por favor, ingrese datos válidos (números positivos).</div>
                         </div>
@@ -153,7 +158,7 @@ $mysqli->close();
                         <div class="input-group">
                             <input type="text" class="form-control form-control-border" id="inputInstallationFee" value="<?php echo $installation_fee; ?>" disabled>
                             <span class="input-group-append">
-                                <button class="btn btn-outline-danger mx-2"  type="button" id="editInstallationFee"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-outline-danger mx-2" type="button" id="editInstallationFee"><i class="fas fa-pencil-alt"></i></button>
                             </span>
                             <div class="invalid-tooltip">Por favor, ingrese datos válidos (números positivos).</div>
                         </div>
@@ -163,7 +168,7 @@ $mysqli->close();
         </form>
     </div>
     <div id="service-container" data-service-id="<?php echo $_GET['id']; ?>">
-    <!-- Resto de tu código HTML -->
+        <!-- Resto de tu código HTML -->
     </div>
 
     <!-- Botón para eliminar servicio -->
@@ -183,48 +188,48 @@ $mysqli->close();
 
 
 <script>
-function deleteService(serviceId) {
-    // Pregunta al usuario para confirmar el borrado
-    Swal.fire({
-        title: '¿Está seguro?',
-        text: '¡No podrá revertir esto!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, borrar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Realiza una llamada AJAX para borrar el servicio
-            fetch("../functions/delete_service.php?id=" + serviceId, {
-                method: "GET"
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Maneja la respuesta del servidor
-                if (data.success) {
-                    // Borrado exitoso, muestra un mensaje de éxito
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Éxito',
-                        text: 'El servicio se ha borrado correctamente.',
-                    }).then(() => {
-                        // Redirige a la página de servicios
-                        window.location.href = "services.php";
+    function deleteService(serviceId) {
+        // Pregunta al usuario para confirmar el borrado
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: '¡No podrá revertir esto!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, borrar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Realiza una llamada AJAX para borrar el servicio
+                fetch("../functions/delete_service.php?id=" + serviceId, {
+                        method: "GET"
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Maneja la respuesta del servidor
+                        if (data.success) {
+                            // Borrado exitoso, muestra un mensaje de éxito
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Éxito',
+                                text: 'El servicio se ha borrado correctamente.',
+                            }).then(() => {
+                                // Redirige a la página de servicios
+                                window.location.href = "services.php";
+                            });
+                        } else {
+                            // Muestra un mensaje de error en caso de fallo
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Error al borrar el servicio.',
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error en la llamada AJAX: " + error);
                     });
-                } else {
-                    // Muestra un mensaje de error en caso de fallo
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error al borrar el servicio.',
-                    });
-                }
-            })
-            .catch(error => {
-                console.error("Error en la llamada AJAX: " + error);
-            });
-        }
-    });
-}
+            }
+        });
+    }
 </script>

@@ -235,9 +235,14 @@ if (isset($_SESSION['id'])) {
                                         <tbody>
                                             <?php
                                             // Archivo de conexión a la base de datos (ajusta la configuración según tu entorno)
+                                            // $db_host = 'localhost';
+                                            // $db_user = 'root';
+                                            // $db_pass = '';
+                                            // $db_name = 'infinet';
+
                                             $db_host = 'localhost';
-                                            $db_user = 'root';
-                                            $db_pass = '';
+                                            $db_user = 'dbadmin';
+                                            $db_pass = '.admindb';
                                             $db_name = 'infinet';
 
                                             // Establece una conexión a la base de datos
@@ -298,9 +303,14 @@ if (isset($_SESSION['id'])) {
                                                             echo '<button class="btn btn-info" onclick="confirmClaim()" ><i class="fa-solid fa-person-circle-plus"></i></button>';
                                                         } else {
 
+                                                            // $db_host = 'localhost';
+                                                            // $db_user = 'root';
+                                                            // $db_pass = '';
+                                                            // $db_name = 'infinet';
+
                                                             $db_host = 'localhost';
-                                                            $db_user = 'root';
-                                                            $db_pass = '';
+                                                            $db_user = 'dbadmin';
+                                                            $db_pass = '.admindb';
                                                             $db_name = 'infinet';
 
                                                             // Establece una conexión a la base de datos
@@ -324,9 +334,14 @@ if (isset($_SESSION['id'])) {
                                                             echo "Sin asignar";
                                                         } else {
 
+                                                            // $db_host = 'localhost';
+                                                            // $db_user = 'root';
+                                                            // $db_pass = '';
+                                                            // $db_name = 'infinet';
+
                                                             $db_host = 'localhost';
-                                                            $db_user = 'root';
-                                                            $db_pass = '';
+                                                            $db_user = 'dbadmin';
+                                                            $db_pass = '.admindb';
                                                             $db_name = 'infinet';
 
                                                             // Establece una conexión a la base de datos
@@ -468,9 +483,14 @@ if (isset($_SESSION['id'])) {
                                     <select class="form-control" id="technician_id" name="technician_id" placeholder="ID Tecnico (Opcional)" required>
                                         <option value="null" selected>Sin encargado</option>
                                         <?php
+                                        // $db_host = 'localhost';
+                                        // $db_user = 'root';
+                                        // $db_pass = '';
+                                        // $db_name = 'infinet';
+
                                         $db_host = 'localhost';
-                                        $db_user = 'root';
-                                        $db_pass = '';
+                                        $db_user = 'dbadmin';
+                                        $db_pass = '.admindb';
                                         $db_name = 'infinet';
 
                                         // Establece una conexión a la base de datos
