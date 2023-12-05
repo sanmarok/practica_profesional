@@ -152,7 +152,7 @@ $mysqli->close();
     </div>
     </form>
 </div>
-
+</div>
 <?php include("../functions/update_client.php"); ?>
 <!-- /.card-body -->
 </div>
