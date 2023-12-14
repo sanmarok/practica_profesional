@@ -13,6 +13,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../logoicon.png" type="image/x-icon">
     <title>Pedidos de Compra</title>
     <!-- DataTables -->
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
