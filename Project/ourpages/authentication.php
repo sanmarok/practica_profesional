@@ -82,13 +82,6 @@ $mysqli->close();
   <!--Our styles-->
 
   <style>
-    body {
-      background-image: url('https://img.freepik.com/free-photo/young-man-engineer-making-program-analyses_1303-20400.jpg?w=1380&t=st=1701651598~exp=1701652198~hmac=d6329baf96d8e70e18c2bcc486cdba4ece15afa042d327920e4b8ed9309f3675');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
-
     .fade-from-bottom {
       animation: fadeFromBottom 1.5s ease-out;
     }
@@ -107,15 +100,18 @@ $mysqli->close();
   </style>
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition login-page bg-black">
 
 
-  <div class="container py-5 h-100">
+  <div class="container h-100">
+    <div class="text-center">
+      <img src="../logo.gif" class="img-fluid" style="max-height: 400px;">
+    </div>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
-          <div class="card-body p-5 text-center">
-            <div class="mb-md-5 mt-md-4 pb-5">
+          <div class="card-body px-5 text-center">
+            <div class="mb-md-5 mt-md-4 pb-0">
               <h2 class="fw-bold mb-2 text-uppercase">Ingresar</h2>
               <p class="text-white-50 mb-5">Por favor ingrese numero de empleado y contraseña</p>
               <form id="loginForm" action="" method="post">
