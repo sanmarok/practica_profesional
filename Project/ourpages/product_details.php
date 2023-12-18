@@ -128,22 +128,42 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1') {
 
             // Agregar eventos de clic a los botones de edición
             $("#editDescription").click(function () {
+                enableEdit("inputCost");
+                enableEdit("inputStock");
+                enableEdit("inputUnit");
+                enableEdit("inputName");
                 enableEdit("inputDescription");
             });
 
             $("#editName").click(function () {
+                enableEdit("inputCost");
+                enableEdit("inputStock");
+                enableEdit("inputUnit");
+                enableEdit("inputDescription");
                 enableEdit("inputName");
             });
 
             $("#editUnit").click(function () {
+                enableEdit("inputCost");
+                enableEdit("inputStock");
+                enableEdit("inputName");
+                enableEdit("inputDescription");
                 enableEdit("inputUnit");
             });
 
             $("#editStock").click(function () {
+                enableEdit("inputCost");
+                enableEdit("inputUnit");
+                enableEdit("inputName");
+                enableEdit("inputDescription");
                 enableEdit("inputStock");
             });
 
             $("#editCost").click(function () {
+                enableEdit("inputStock");
+                enableEdit("inputUnit");
+                enableEdit("inputName");
+                enableEdit("inputDescription");
                 enableEdit("inputCost");
             });
 
@@ -170,39 +190,6 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1') {
             // Inicialmente, deshabilitar el botón de "Guardar"
             disableSaveButton();
         });
-    </script>
-    <!-- Save button -->
-    <script>
-        // Evento para el botón "Guardar"
-        $("#btnGuardar").click(function () {
-            // Simula una actualización exitosa
-            // Aquí deberías agregar tu lógica de actualización del cliente
-
-            // Luego, muestra la alerta de SweetAlert2
-            Swal.fire({
-                title: 'Actualización Exitosa',
-                text: 'El producto ha sido actualizado correctamente.',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-
-            });
-        });
-    </script>
-    <script>
-        // Evento para el botón "Guardar"
-        // $("#btnGuardar").click(function () {
-        //     // Simula una actualización exitosa
-        //     // Aquí deberías agregar tu lógica de actualización del cliente
-
-        //     // Luego, muestra la alerta de SweetAlert2
-        //     Swal.fire({
-        //         title: 'Error',
-        //         text: 'El producto no se ha sido actualizado.',
-        //         icon: 'error',
-        //         confirmButtonText: 'Aceptar'
-
-        //     });
-        // });
     </script>
 </body>
 
