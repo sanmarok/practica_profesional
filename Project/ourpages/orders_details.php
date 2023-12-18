@@ -183,22 +183,6 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == '1') {
             });
         });
     </script>
-    <script>
-        // Evento para el botón "Guardar"
-        // $("#btnGuardar").click(function () {
-        //     // Simula una actualización exitosa
-        //     // Aquí deberías agregar tu lógica de actualización del cliente
-
-        //     // Luego, muestra la alerta de SweetAlert2
-        //     Swal.fire({
-        //         title: 'Error',
-        //         text: 'El pedido no se ha sido actualizado.',
-        //         icon: 'error',
-        //         confirmButtonText: 'Aceptar'
-
-        //     });
-        // });
-    </script>
 </body>
 
 </html>

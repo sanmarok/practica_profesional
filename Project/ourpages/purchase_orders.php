@@ -19,7 +19,8 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
@@ -35,6 +36,11 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
 
         .swal2-html-container {
             color: white;
+        }
+
+        .del-btn {
+            margin-left: 10px;
+            margin-bottom: 10px;
         }
     </style>
 
@@ -89,7 +95,8 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                     <form id="formAgregarPedido" method="post" action="../functions/add_client.php">
                         <div class="form-group">
                             <label for="description">Descripcion</label>
-                            <input type="text" class="form-control" id="description" name="description" placeholder="Descripcion del pedido" required>
+                            <input type="text" class="form-control" id="description" name="description"
+                                placeholder="Descripcion del pedido" required>
                         </div>
                         <div class="form-group">
                             <label for="productSelect">Productos:</label>
@@ -108,7 +115,8 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                         </div>
                         <div class="form-group">
                             <label for="stock">Cantidad:</label>
-                            <input type="number" step="0.01" min="0" class="form-control" id="stock" name="stock" placeholder="" required>
+                            <input type="number" step="0.01" min="0" class="form-control" id="stock" name="stock"
+                                placeholder="" required>
                         </div>
                         <div class="form-group">
                             <button type="button" class="btn btn-success btn-sm" onclick="addProduct()">Agregar
@@ -136,11 +144,16 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     <!-- Bootstrap 4 -->
     <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- CSS de Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbs5VVTdS2FOj3gyzwF3FYppaRjH2tS9s5bLDJ42FjCGpDQ2U7j+xar5fDCM1m9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbs5VVTdS2FOj3gyzwF3FYppaRjH2tS9s5bLDJ42FjCGpDQ2U7j+xar5fDCM1m9" crossorigin="anonymous">
 
     <!-- JS de Bootstrap 5 (requiere Popper.js) -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-N4e7EuGe/wsh2YDwBw+JT8pP4sJlH1Y2zV/Nm3bBZuAB1Qj97VwBO1XDK/iU94=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KC1eWZI1f5YXzBYjqK/vHH6U5a+JNEa1E3Z5rUV00" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-N4e7EuGe/wsh2YDwBw+JT8pP4sJlH1Y2zV/Nm3bBZuAB1Qj97VwBO1XDK/iU94="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KC1eWZI1f5YXzBYjqK/vHH6U5a+JNEa1E3Z5rUV00"
+        crossorigin="anonymous"></script>
 
     <!-- AdminLTE App -->
     <script src="../dist/js/adminlte.min.js"></script>
@@ -159,7 +172,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
     <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
     <script>
-        $(function() {
+        $(function () {
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -182,22 +195,46 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
 
         function addProduct() {
             var selectElement = document.getElementById("productSelect");
-            var product_id = selectElement.selectedIndex;
-            var product_name = selectElement.options[product_id].text;
+            var product_id = selectElement.value;
+            var product_name = selectElement.options[selectElement.selectedIndex].text;
             var product_stock = parseFloat(document.getElementById("stock").value);
             var selectedProductsList = document.getElementById("selectedProductsList");
 
             if (product_id && !isNaN(product_stock) && product_stock > 0) {
-                // Agregar producto a la lista de productos seleccionados
-                var product_li = document.createElement("li");
-                product_li.textContent = product_name + ' - Cantidad: ' + product_stock;
-                selectedProductsList.append(product_li);
+                var existingProduct = products_list.find(function (product) {
+                    return product.product_id === product_id;
+                });
+                if (existingProduct) {
+                    // Si el producto ya está en la lista, sumar las unidades
+                    existingProduct.product_stock += product_stock;
+                } else {
+                    var product_li = document.createElement("li");
+                    product_li.textContent = product_name + ' - Cantidad: ' + product_stock + "";
 
-                var data_product = {
-                    product_id: product_id,
-                    product_stock: product_stock
-                };
-                products_list.push(data_product);
+                    // Agregar un botón "Eliminar" al elemento de la lista
+                    var deleteButton = document.createElement("button");
+                    deleteButton.textContent = "Eliminar";
+                    deleteButton.classList.add("btn");
+                    deleteButton.classList.add("btn-sm");
+                    deleteButton.classList.add("btn-danger");
+                    deleteButton.classList.add("del-btn");
+                    deleteButton.onclick = function () {
+                        removeProduct(product_id);
+                    };
+                    var data_product = {
+                        product_name: product_name,
+                        product_id: product_id,
+                        product_stock: product_stock
+                    };
+
+                    product_li.appendChild(deleteButton);
+                    selectedProductsList.appendChild(product_li);
+                    products_list.push(data_product);
+                }
+                // Agregar producto a la lista de productos seleccionados
+
+                updateInterface();
+
                 document.getElementById("stock").value = "";
                 selectElement.value = "";
 
@@ -205,6 +242,42 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
                 alert('Por favor, seleccione un producto y una cantidad válida.');
             }
             console.log(products_list);
+        }
+
+        function removeProduct(product_id) {
+            // Filtrar la lista de productos para excluir el producto con el ID dado
+            products_list = products_list.filter(function (product) {
+                return product.product_id !== product_id;
+            });
+
+            // Actualizar la interfaz después de la eliminación
+            updateInterface();
+
+        }
+
+        function updateInterface() {
+            var selectedProductsList = document.getElementById("selectedProductsList");
+            selectedProductsList.innerHTML = "";
+
+            // Recorrer la lista de productos y actualizar la interfaz
+            products_list.forEach(function (product) {
+                var product_li = document.createElement("li");
+                product_li.textContent = product.product_name + ' - Cantidad: ' + product.product_stock;
+
+                // Agregar un botón "Eliminar" al elemento de la lista
+                var deleteButton = document.createElement("button");
+                deleteButton.textContent = "Eliminar";
+                deleteButton.classList.add("btn");
+                deleteButton.classList.add("btn-sm");
+                deleteButton.classList.add("btn-danger");
+                deleteButton.classList.add("del-btn");
+                deleteButton.onclick = function () {
+                    removeProduct(product.product_id);
+                };
+
+                product_li.appendChild(deleteButton);
+                selectedProductsList.appendChild(product_li);
+            });
         }
 
         function addPurchase() {
@@ -221,12 +294,12 @@ if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
 
             // Realiza una llamada AJAX para enviar los datos al servidor
             fetch("../functions/add_purchase.php", {
-                    method: "POST",
-                    body: JSON.stringify(purchaseData),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
+                method: "POST",
+                body: JSON.stringify(purchaseData),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
                 .then(response => response.json())
                 .then(data => {
                     // Aquí puedes manejar la respuesta del servidor

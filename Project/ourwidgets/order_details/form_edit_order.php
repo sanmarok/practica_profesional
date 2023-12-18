@@ -55,88 +55,101 @@ $mysqli->close();
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <div class="card-body">
-            <form>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group input-group">
-                            <label for="input">Titular</label>
-                            <div class="input-group">
-                                <input type="text" rows="1" class="form-control form-control-border" id="input"
-                                    value="<?php echo $titular["first_name"] . " " . $titular["last_name"]; ?>"
-                                    disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <!-- Apellidos -->
-                        <div class="form-group input-group">
-                            <label for="inputCreation">Fecha de Creacion</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control form-control-border" id="inputCreation" value="<?php echo $creation_date; ?>"
-                                    disabled>
-                            </div>
+        <form method="post">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group input-group">
+                        <label for="input">Titular</label>
+                        <div class="input-group">
+                            <input type="text" rows="1" class="form-control form-control-border" id="input"
+                                value="<?php echo $titular["first_name"] . " " . $titular["last_name"]; ?>" disabled>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group input-group">
-                            <label for="inputDesciption">Descripcion</label>
-                            <div class="input-group">
-                                <textarea type="text" rows="1" class="form-control form-control-border"
-                                    id="inputDesciption" value="" disabled><?php echo $description; ?></textarea>
-                                <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button" id="editDescription"><i
-                                            class="fas fa-pencil-alt"></i></button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <!-- Apellidos -->
-                        <div class="form-group input-group">
-                            <label for="inputStatus">Estado</label>
-                            <div class="input-group">
-                                <select type="text" class="form-control form-control-border" id="inputStatus" value=""
-                                    disabled>
-                                    <option value="0" <?php echo $status == 0 ? 'selected' : ''; ?>>Cancelado</option>
-                                    <option value="1" <?php echo $status == 1 ? 'selected' : ''; ?>>Recibido</option>
-                                    <option value="2" <?php echo $status == 2 ? 'selected' : ''; ?>>Pendiente</option>
-                                </select>
-                                <span class="input-group-append">
-                                    <button class="btn btn-outline-danger mx-2" type="button" id="editStatus"><i
-                                            class="fas fa-pencil-alt"></i></button>
-                                </span>
-                            </div>
+                <div class="col-sm-6">
+                    <!-- Apellidos -->
+                    <div class="form-group input-group">
+                        <label for="inputCreation">Fecha de Creacion</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-border" id="inputCreation"
+                                value="<?php echo $creation_date; ?>" disabled>
                         </div>
                     </div>
                 </div>
-                <br>
-                <h4 class="form-froup">Productos:</h4>
-                <br>
-                <div class="row">
-                    <?php
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            // print_r($row);
-                            echo
-                                '<div class="col-sm-6">
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group input-group">
+                        <label for="inputDesciption">Descripcion</label>
+                        <div class="input-group">
+                            <textarea type="text" rows="1" class="form-control form-control-border" id="inputDesciption"
+                                value="" disabled><?php echo $description; ?></textarea>
+                            <span class="input-group-append">
+                                <button class="btn btn-outline-danger mx-2" type="button" id="editDescription"><i
+                                        class="fas fa-pencil-alt"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <!-- Apellidos -->
+                    <div class="form-group input-group">
+                        <label for="inputStatus">Estado</label>
+                        <div class="input-group">
+                            <select type="text" class="form-control form-control-border" id="inputStatus" value=""
+                                disabled>
+                                <option value="0" <?php echo $status == 0 ? 'selected' : ''; ?>>Cancelado</option>
+                                <option value="1" <?php echo $status == 1 ? 'selected' : ''; ?>>Recibido</option>
+                                <option value="2" <?php echo $status == 2 ? 'selected' : ''; ?>>Pendiente</option>
+                            </select>
+                            <span class="input-group-append">
+                                <button class="btn btn-outline-danger mx-2" type="button" id="editStatus"><i
+                                        class="fas fa-pencil-alt"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </form>
+
+</div>
+
+<div class="card card-primary m-2">
+    <div class="card-header">
+        <h3 class="card-title">Productos</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <form method="post">
+            <div class="row">
+                <?php
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        // print_r($row);
+                        echo
+                            '<div class="col-sm-6">
                                     <div class="form-group input-group">
                                     <label for="inputProduct">Producto</label>
                                     <div class="input-group">
-                                        <select class="form-control form-control-border" id="inputProduct" disabled>
-                                            <option value="' . $row['product_id'] . '">' . $row['name'] . '</option>
+                                        <select class="form-control form-control-border" id="inputProduct" name="product_id" >
                                             ';
-                            while ($product = $products->fetch_assoc()) {
-                                echo '<option value="' . $product['id'] . '">' . $product['name'] . '</option> ';
+                        while ($product = $products->fetch_assoc()) {
+                            if ($row['product_id'] == $product['id']) {
+                                $i = "selected";
+                            } else {
+                                $i = "";
                             }
-                            echo '
+                            echo '<option value="' . $product['id'] . '"' . $i . '>' . $product['name'] . '</option> ';
+                        }
+                        $products->data_seek(0);
+                        echo '
                                         </select>
-                                        <span class="input-group-append">
-                                            <button class="btn btn-outline-danger mx-2" type="button" id="editProduct"><i
-                                                    class="fas fa-pencil-alt"></i></button>
-                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -144,25 +157,21 @@ $mysqli->close();
                                 <div class="form-group input-group">
                                     <label for="inputQuantity">Cantidad</label>
                                     <div class="input-group">
-                                        <input type="number" step="0.01" class="form-control form-control-border" id="inputQuantity"
-                                            value="' . $row['quantity'] . '" disabled>
-                                        <span class="input-group-append">
-                                            <button class="btn btn-outline-danger mx-2" type="button" id="editQuantity"><i
-                                                    class="fas fa-pencil-alt"></i></button>
-                                        </span>
+                                        <input type="number" step="0.01" class="form-control form-control-border" name="quantity" id="inputQuantity"
+                                            value="' . $row['quantity'] . '">
                                     </div>
                                 </div>
                             </div>';
-                        }
                     }
-                    ?>
-                </div>
-            </form>
-        </div>
+                }
+                ?>
+            </div>
     </div>
+    </form>
 </div>
 <div class="card-footer">
-    <button id="btnGuardar" class="btn btn-success float-right" disabled>Guardar</button>
+    <button id="btnGuardar" type="submit" class="btn btn-success float-right" disabled>Guardar</button>
 </div>
+
 <!-- /.card-body -->
 </div>
